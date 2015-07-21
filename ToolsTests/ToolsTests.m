@@ -266,4 +266,17 @@
     XCTAssert([builtArray3 isEqualToArray:builtArray3Wannabe]);
 }
 
+- (void)testNSIndexSetToArray {
+    NSIndexSet* indexSet = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 5)];
+    XCTAssert(indexSet.firstIndex == 0);
+    XCTAssert(indexSet.lastIndex == 4);
+    XCTAssert(indexSet.count == 5);
+    NSArray* indexArray = [indexSet mapToArray];
+    XCTAssert([indexArray.firstObject isKindOfClass:[NSNumber class]]);
+    XCTAssert([indexArray.firstObject isEqualToNumber:@0]);
+    XCTAssert([indexArray.lastObject isKindOfClass:[NSNumber class]]);
+    XCTAssert([indexArray.lastObject isEqualToNumber:@4]);
+    XCTAssert(indexArray.count == 5);
+}
+
 @end
