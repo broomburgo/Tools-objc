@@ -8,8 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		38EA103C1B5E1DAD004EE76E /* Tools.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 38EA103B1B5E1DAD004EE76E /* Tools.h */; };
-		38EA103E1B5E1DAD004EE76E /* Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 38EA103D1B5E1DAD004EE76E /* Tools.m */; };
 		38EA10441B5E1DAD004EE76E /* libTools.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 38EA10381B5E1DAD004EE76E /* libTools.a */; };
+		38EA105E1B5E1E3F004EE76E /* NSArray+Build.m in Sources */ = {isa = PBXBuildFile; fileRef = 38EA10531B5E1E3F004EE76E /* NSArray+Build.m */; };
+		38EA105F1B5E1E3F004EE76E /* NSArray+MapReduce.m in Sources */ = {isa = PBXBuildFile; fileRef = 38EA10551B5E1E3F004EE76E /* NSArray+MapReduce.m */; };
+		38EA10601B5E1E3F004EE76E /* NSDictionary+Map.m in Sources */ = {isa = PBXBuildFile; fileRef = 38EA10571B5E1E3F004EE76E /* NSDictionary+Map.m */; };
+		38EA10611B5E1E3F004EE76E /* NSDictionary+Optionals.m in Sources */ = {isa = PBXBuildFile; fileRef = 38EA10591B5E1E3F004EE76E /* NSDictionary+Optionals.m */; };
+		38EA10621B5E1E3F004EE76E /* NSDictionary+RequestClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 38EA105B1B5E1E3F004EE76E /* NSDictionary+RequestClass.m */; };
+		38EA10631B5E1E3F004EE76E /* NSObject+Maybe.m in Sources */ = {isa = PBXBuildFile; fileRef = 38EA105D1B5E1E3F004EE76E /* NSObject+Maybe.m */; };
+		38EA10651B5E242F004EE76E /* ToolsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 38EA10641B5E242F004EE76E /* ToolsTests.m */; };
+		38EA10671B5E25FF004EE76E /* Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 38EA10661B5E25FF004EE76E /* Tools.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,9 +45,22 @@
 /* Begin PBXFileReference section */
 		38EA10381B5E1DAD004EE76E /* libTools.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libTools.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		38EA103B1B5E1DAD004EE76E /* Tools.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Tools.h; sourceTree = "<group>"; };
-		38EA103D1B5E1DAD004EE76E /* Tools.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tools.m; sourceTree = "<group>"; };
 		38EA10431B5E1DAD004EE76E /* ToolsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ToolsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		38EA10491B5E1DAD004EE76E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		38EA10521B5E1E3F004EE76E /* NSArray+Build.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Build.h"; sourceTree = "<group>"; };
+		38EA10531B5E1E3F004EE76E /* NSArray+Build.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Build.m"; sourceTree = "<group>"; };
+		38EA10541B5E1E3F004EE76E /* NSArray+MapReduce.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+MapReduce.h"; sourceTree = "<group>"; };
+		38EA10551B5E1E3F004EE76E /* NSArray+MapReduce.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+MapReduce.m"; sourceTree = "<group>"; };
+		38EA10561B5E1E3F004EE76E /* NSDictionary+Map.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Map.h"; sourceTree = "<group>"; };
+		38EA10571B5E1E3F004EE76E /* NSDictionary+Map.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Map.m"; sourceTree = "<group>"; };
+		38EA10581B5E1E3F004EE76E /* NSDictionary+Optionals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Optionals.h"; sourceTree = "<group>"; };
+		38EA10591B5E1E3F004EE76E /* NSDictionary+Optionals.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Optionals.m"; sourceTree = "<group>"; };
+		38EA105A1B5E1E3F004EE76E /* NSDictionary+RequestClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+RequestClass.h"; sourceTree = "<group>"; };
+		38EA105B1B5E1E3F004EE76E /* NSDictionary+RequestClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+RequestClass.m"; sourceTree = "<group>"; };
+		38EA105C1B5E1E3F004EE76E /* NSObject+Maybe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Maybe.h"; sourceTree = "<group>"; };
+		38EA105D1B5E1E3F004EE76E /* NSObject+Maybe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Maybe.m"; sourceTree = "<group>"; };
+		38EA10641B5E242F004EE76E /* ToolsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolsTests.m; sourceTree = "<group>"; };
+		38EA10661B5E25FF004EE76E /* Tools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tools.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,8 +103,20 @@
 		38EA103A1B5E1DAD004EE76E /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				38EA10521B5E1E3F004EE76E /* NSArray+Build.h */,
+				38EA10531B5E1E3F004EE76E /* NSArray+Build.m */,
+				38EA10541B5E1E3F004EE76E /* NSArray+MapReduce.h */,
+				38EA10551B5E1E3F004EE76E /* NSArray+MapReduce.m */,
+				38EA10561B5E1E3F004EE76E /* NSDictionary+Map.h */,
+				38EA10571B5E1E3F004EE76E /* NSDictionary+Map.m */,
+				38EA10581B5E1E3F004EE76E /* NSDictionary+Optionals.h */,
+				38EA10591B5E1E3F004EE76E /* NSDictionary+Optionals.m */,
+				38EA105A1B5E1E3F004EE76E /* NSDictionary+RequestClass.h */,
+				38EA105B1B5E1E3F004EE76E /* NSDictionary+RequestClass.m */,
+				38EA105C1B5E1E3F004EE76E /* NSObject+Maybe.h */,
+				38EA105D1B5E1E3F004EE76E /* NSObject+Maybe.m */,
 				38EA103B1B5E1DAD004EE76E /* Tools.h */,
-				38EA103D1B5E1DAD004EE76E /* Tools.m */,
+				38EA10661B5E25FF004EE76E /* Tools.m */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -93,6 +125,7 @@
 			isa = PBXGroup;
 			children = (
 				38EA10481B5E1DAD004EE76E /* Supporting Files */,
+				38EA10641B5E242F004EE76E /* ToolsTests.m */,
 			);
 			path = ToolsTests;
 			sourceTree = "<group>";
@@ -193,7 +226,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				38EA103E1B5E1DAD004EE76E /* Tools.m in Sources */,
+				38EA10671B5E25FF004EE76E /* Tools.m in Sources */,
+				38EA105E1B5E1E3F004EE76E /* NSArray+Build.m in Sources */,
+				38EA10621B5E1E3F004EE76E /* NSDictionary+RequestClass.m in Sources */,
+				38EA10601B5E1E3F004EE76E /* NSDictionary+Map.m in Sources */,
+				38EA10611B5E1E3F004EE76E /* NSDictionary+Optionals.m in Sources */,
+				38EA10631B5E1E3F004EE76E /* NSObject+Maybe.m in Sources */,
+				38EA105F1B5E1E3F004EE76E /* NSArray+MapReduce.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -201,6 +240,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				38EA10651B5E242F004EE76E /* ToolsTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -250,7 +290,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -286,7 +326,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -325,6 +365,12 @@
 				);
 				INFOPLIST_FILE = ToolsTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					XCTest,
+					"-ObjC",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -339,6 +385,12 @@
 				);
 				INFOPLIST_FILE = ToolsTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					XCTest,
+					"-ObjC",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

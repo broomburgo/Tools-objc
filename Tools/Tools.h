@@ -1,12 +1,9 @@
-//
-//  Tools.h
-//  Tools
-//
-//  Created by Elviro Rocca on 21/07/15.
-//  Copyright (c) 2015 Elvi. All rights reserved.
-//
-
-#import <Foundation/Foundation.h>
+#import "NSArray+Build.h"
+#import "NSArray+MapReduce.h"
+#import "NSDictionary+Map.h"
+#import "NSDictionary+Optionals.h"
+#import "NSDictionary+RequestClass.h"
+#import "NSObject+Maybe.h"
 
 @interface Tools : NSObject
 
