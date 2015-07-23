@@ -17,28 +17,41 @@
 }
 
 - (NSArray*)map:(id(^)(id object))mapBlock {
-    return [[self reduceWithStartingElement:[@[] mutableCopy] reduceBlock:^id(id accumulator, id object) {
+    NSMutableArray* m_reduced = [self reduceWithStartingElement:[@[] mutableCopy] reduceBlock:^id(id accumulator, id object) {
         NSMutableArray* currentAccumulator = (NSMutableArray*)accumulator;
         id currentObject = mapBlock(object);
         if (currentObject) {
             [currentAccumulator addObject:currentObject];
         }
         return currentAccumulator;
-    }] copy];
+    }];
+    return [NSArray arrayWithArray:m_reduced];
+}
+
+- (NSArray*)filter:(BOOL(^)(id object))filterBlock {
+    NSMutableArray* m_reduced = [self reduceWithStartingElement:[@[] mutableCopy] reduceBlock:^id(id accumulator, id object) {
+        NSMutableArray* currentAccumulator = (NSMutableArray*)accumulator;
+        if (filterBlock(object)) {
+            [currentAccumulator addObject:object];
+        }
+        return currentAccumulator;
+    }];
+    return [NSArray arrayWithArray:m_reduced];
 }
 
 - (NSDictionary*)mapToDictionary:(NSDictionary*(^)(id object))mapBlock {
     if (mapBlock == nil) {
         return nil;
     }
-    return [[self reduceWithStartingElement:[@{} mutableCopy] reduceBlock:^id(id accumulator, id object) {
+    NSMutableDictionary* m_reduced = [self reduceWithStartingElement:[@{} mutableCopy] reduceBlock:^id(id accumulator, id object) {
         NSMutableDictionary* currentAccumulator = (NSMutableDictionary*)accumulator;
         NSDictionary* currentDictionary = mapBlock(object);
         if (currentDictionary.count > 0) {
             [currentAccumulator addEntriesFromDictionary:currentDictionary];
         }
         return currentAccumulator;
-    }] copy];
+    }];
+    return [NSDictionary dictionaryWithDictionary:m_reduced];
 }
 
 @end
@@ -51,6 +64,20 @@
         [m_array addObject:@(idx)];
     }];
     return [NSArray arrayWithArray:m_array];
+}
+
+@end
+
+@implementation NSSet (Filter)
+
+- (NSSet*)filter:(BOOL(^)(id object))filterBlock {
+    NSMutableSet* m_set = [NSMutableSet set];
+    [self enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
+        if (filterBlock(obj)) {
+            [m_set addObject:obj];
+        }
+    }];
+    return [NSSet setWithSet:m_set];
 }
 
 @end
