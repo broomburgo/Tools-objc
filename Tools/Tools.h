@@ -8,4 +8,9 @@
 
 @interface Tools : NSObject
 
+///MARK: JSON validation
+
++ (NSArray*)JSONValidatedArray:(NSArray*)array;
++ (NSDictionary*)JSONValidatedDictionary:(NSDictionary*)dictionary;
+
 @end

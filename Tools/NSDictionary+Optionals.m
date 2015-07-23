@@ -15,7 +15,23 @@
     else {
         NSMutableDictionary* m_self = [self mutableCopy];
         [m_self addEntriesFromDictionary:toAdd];
-        return [m_self copy];
+        return [NSDictionary dictionaryWithDictionary:m_self];
+    }
+}
+
+- (instancetype)optionalDict:(NSDictionary*)optionalDict {
+    if (optionalDict.count == 0) {
+        return self;
+    }
+    if ([self isKindOfClass:[NSMutableDictionary class]]) {
+        NSMutableDictionary* m_self = (NSMutableDictionary*)self;
+        [m_self addEntriesFromDictionary:optionalDict];
+        return self;
+    }
+    else {
+        NSMutableDictionary* m_self = [self mutableCopy];
+        [m_self addEntriesFromDictionary:optionalDict];
+        return [NSDictionary dictionaryWithDictionary:m_self];
     }
 }
 

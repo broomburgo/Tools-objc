@@ -11,6 +11,10 @@
 
 @implementation CategoriesSomething
 
+- (NSString*)description {
+    return self.name;
+}
+
 @end
 
 @interface ToolsTests : XCTestCase
@@ -18,6 +22,35 @@
 @end
 
 @implementation ToolsTests
+
+- (void)testTools {
+    CategoriesSomething* something = [CategoriesSomething new];
+    something.name = @"something";
+    
+    NSArray* array1_valid = @[@1,@2,@3];
+    NSArray* validatedArray1 = [Tools JSONValidatedArray:array1_valid];
+    XCTAssertNotNil(validatedArray1);
+    XCTAssertEqualObjects(array1_valid, validatedArray1);
+    
+    NSArray* array2_notValid = @[@1,something,@3];
+    NSArray* validatedArray2 = [Tools JSONValidatedArray:array2_notValid];
+    NSArray* validatedArray2Wannabe = @[@1,@"something",@3];
+    XCTAssertNotNil(validatedArray2);
+    XCTAssertNotEqualObjects(array2_notValid, validatedArray2);
+    XCTAssertEqualObjects(validatedArray2, validatedArray2Wannabe);
+    
+    NSDictionary* dict1_valid = @{@"1": @1, @"2": @2, @"3": @3};
+    NSDictionary* validatedDict1 = [Tools JSONValidatedDictionary:dict1_valid];
+    XCTAssertNotNil(validatedDict1);
+    XCTAssertEqualObjects(dict1_valid, validatedDict1);
+    
+    NSDictionary* dict2_notValid = @{@"1": @1, @"2": something, @"3": @3};
+    NSDictionary* validatedDict2 = [Tools JSONValidatedDictionary:dict2_notValid];
+    NSDictionary* validatedDict2Wannabe = @{@"1": @1, @"2": @"something", @"3": @3};
+    XCTAssertNotNil(validatedDict2);
+    XCTAssertNotEqualObjects(dict2_notValid, validatedDict2);
+    XCTAssertEqualObjects(validatedDict2, validatedDict2Wannabe);
+}
 
 - (void)testMaybe {
     NSString* someString = @"12345";
@@ -199,33 +232,55 @@
 }
 
 - (void)testNSDictionaryOptionals {
-    NSDictionary* dict = [[[[[@{}
+    NSDictionary* dict = [[[[[[@{}
                               key:@"a" optional:@1]
                              key:@"b" optional:nil]
                             key:nil optional:@3]
                            key:@"d" optional:@4]
-                          key:nil optional:nil];
+                          key:nil optional:nil]
+                          optionalDict:[[[[[[@{} mutableCopy]
+                                            key:@"f" optional:nil]
+                                           key:nil optional:@7]
+                                          key:@"h" optional:@8]
+                                         key:@"i" optional:nil]
+                                        key:nil optional:@10]];
     XCTAssert([dict isKindOfClass:[NSDictionary class]]);
-    XCTAssert(dict.count == 2);
+    XCTAssert(dict.count == 3);
     XCTAssert([dict[@"a"] isEqual:@1]);
     XCTAssert(dict[@"b"] == nil);
     XCTAssert(dict[@"c"] == nil);
     XCTAssert([dict[@"d"] isEqual:@4]);
     XCTAssert(dict[@"e"] == nil);
+    XCTAssert(dict[@"f"] == nil);
+    XCTAssert(dict[@"g"] == nil);
+    XCTAssert([dict[@"h"] isEqual:@8]);
+    XCTAssert(dict[@"i"] == nil);
+    XCTAssert(dict[@"j"] == nil);
     
-    NSMutableDictionary* m_dict = [[[[[[@{} mutableCopy]
+    NSMutableDictionary* m_dict = [[[[[[[@{} mutableCopy]
                                        key:@"a" optional:nil]
                                       key:@"b" optional:@2]
                                      key:@"c" optional:@3]
                                     key:nil optional:@4]
-                                   key:nil optional: nil];
+                                   key:nil optional: nil]
+                                   optionalDict:[[[[[@{}
+                                                     key:@"f" optional:@6]
+                                                    key:@"g" optional:nil]
+                                                   key:nil optional:@8]
+                                                  key:@"i" optional:@9]
+                                                 key:nil optional:nil]];
     XCTAssert([m_dict isKindOfClass:[NSMutableDictionary class]]);
-    XCTAssert(m_dict.count == 2);
+    XCTAssert(m_dict.count == 4);
     XCTAssert(m_dict[@"a"] == nil);
     XCTAssert([m_dict[@"b"] isEqual:@2]);
     XCTAssert([m_dict[@"c"] isEqual:@3]);
     XCTAssert(m_dict[@"d"] == nil);
     XCTAssert(m_dict[@"e"] == nil);
+    XCTAssert([m_dict[@"f"] isEqual:@6]);
+    XCTAssert(m_dict[@"g"] == nil);
+    XCTAssert(m_dict[@"h"] == nil);
+    XCTAssert([m_dict[@"i"] isEqual:@9]);
+    XCTAssert(m_dict[@"j"] == nil);
 }
 
 - (void)testNSArrayOptionals {
