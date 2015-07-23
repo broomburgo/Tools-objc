@@ -199,33 +199,58 @@
 }
 
 - (void)testNSDictionaryOptionals {
-    NSDictionary* dict = [[[[[[NSDictionary dictionary]
-                              key:@"a" optional:@(1)]
+    NSDictionary* dict = [[[[[@{}
+                              key:@"a" optional:@1]
                              key:@"b" optional:nil]
-                            key:nil optional:@(3)]
-                           key:@"d" optional:@(4)]
+                            key:nil optional:@3]
+                           key:@"d" optional:@4]
                           key:nil optional:nil];
     XCTAssert([dict isKindOfClass:[NSDictionary class]]);
     XCTAssert(dict.count == 2);
-    XCTAssert([dict[@"a"] isEqual:@(1)]);
+    XCTAssert([dict[@"a"] isEqual:@1]);
     XCTAssert(dict[@"b"] == nil);
     XCTAssert(dict[@"c"] == nil);
-    XCTAssert([dict[@"d"] isEqual:@(4)]);
+    XCTAssert([dict[@"d"] isEqual:@4]);
     XCTAssert(dict[@"e"] == nil);
     
-    NSMutableDictionary* m_dict = [[[[[[NSMutableDictionary dictionary]
+    NSMutableDictionary* m_dict = [[[[[[@{} mutableCopy]
                                        key:@"a" optional:nil]
-                                      key:@"b" optional:@(2)]
-                                     key:@"c" optional:@(3)]
-                                    key:nil optional:@(4)]
+                                      key:@"b" optional:@2]
+                                     key:@"c" optional:@3]
+                                    key:nil optional:@4]
                                    key:nil optional: nil];
     XCTAssert([m_dict isKindOfClass:[NSMutableDictionary class]]);
     XCTAssert(m_dict.count == 2);
     XCTAssert(m_dict[@"a"] == nil);
-    XCTAssert([m_dict[@"b"] isEqual:@(2)]);
-    XCTAssert([m_dict[@"c"] isEqual:@(3)]);
+    XCTAssert([m_dict[@"b"] isEqual:@2]);
+    XCTAssert([m_dict[@"c"] isEqual:@3]);
     XCTAssert(m_dict[@"d"] == nil);
     XCTAssert(m_dict[@"e"] == nil);
+}
+
+- (void)testNSArrayOptionals {
+    NSArray* array = [[[[[@[]
+                          optional:@1]
+                         optional:nil]
+                        optional:@3]
+                       optional:@4]
+                      optional:nil];
+    XCTAssert([array isKindOfClass:[NSArray class]]);
+    XCTAssert(array.count == 3);
+    XCTAssert([array[0] isEqual:@1]);
+    XCTAssert([array[1] isEqual:@3]);
+    XCTAssert(array[2] == @4);
+    
+    NSMutableArray* m_array = [[[[[[@[] mutableCopy]
+                                   optional:nil]
+                                  optional:@2]
+                                 optional:nil]
+                                optional:@4]
+                               optional: nil];
+    XCTAssert([m_array isKindOfClass:[NSMutableArray class]]);
+    XCTAssert(m_array.count == 2);
+    XCTAssert([m_array[0] isEqual:@2]);
+    XCTAssert([m_array[1] isEqual:@4]);
 }
 
 - (void)testNSArrayBuild {
@@ -236,7 +261,7 @@
     }];
     XCTAssert(builtArray1.count == numberOfElements);
     
-    NSArray* builtArray1Wannabe = @[@(0),@(1),@(2),@(3),@(4)];
+    NSArray* builtArray1Wannabe = @[@(0),@1,@2,@3,@4];
     XCTAssert([builtArray1 isEqualToArray:builtArray1Wannabe]);
     
     NSUInteger maxCapacity = 3;
@@ -248,7 +273,7 @@
     }];
     XCTAssert(builtArray2.count == maxCapacity);
     
-    NSArray* builtArray2Wannabe = @[@(0),@(1),@(2)];
+    NSArray* builtArray2Wannabe = @[@(0),@1,@2];
     XCTAssert([builtArray2 isEqualToArray:builtArray2Wannabe]);
     
     NSUInteger bannedIndex = 2;
@@ -262,7 +287,7 @@
     }];
     XCTAssert(builtArray3.count == numberOfElements -1);
     
-    NSArray* builtArray3Wannabe = @[@(0),@(1),@(3),@(4)];
+    NSArray* builtArray3Wannabe = @[@(0),@1,@3,@4];
     XCTAssert([builtArray3 isEqualToArray:builtArray3Wannabe]);
 }
 

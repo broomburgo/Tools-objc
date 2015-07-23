@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		380503321B60D1710062DE76 /* NSArray+Optionals.m in Sources */ = {isa = PBXBuildFile; fileRef = 380503311B60D1710062DE76 /* NSArray+Optionals.m */; };
 		38EA103C1B5E1DAD004EE76E /* Tools.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 38EA103B1B5E1DAD004EE76E /* Tools.h */; };
 		38EA10441B5E1DAD004EE76E /* libTools.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 38EA10381B5E1DAD004EE76E /* libTools.a */; };
 		38EA105E1B5E1E3F004EE76E /* NSArray+Build.m in Sources */ = {isa = PBXBuildFile; fileRef = 38EA10531B5E1E3F004EE76E /* NSArray+Build.m */; };
@@ -43,6 +44,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		380503301B60D1710062DE76 /* NSArray+Optionals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Optionals.h"; sourceTree = "<group>"; };
+		380503311B60D1710062DE76 /* NSArray+Optionals.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Optionals.m"; sourceTree = "<group>"; };
 		38EA10381B5E1DAD004EE76E /* libTools.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libTools.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		38EA103B1B5E1DAD004EE76E /* Tools.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Tools.h; sourceTree = "<group>"; };
 		38EA10431B5E1DAD004EE76E /* ToolsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ToolsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -107,6 +110,8 @@
 				38EA10531B5E1E3F004EE76E /* NSArray+Build.m */,
 				38EA10541B5E1E3F004EE76E /* NSArray+MapReduce.h */,
 				38EA10551B5E1E3F004EE76E /* NSArray+MapReduce.m */,
+				380503301B60D1710062DE76 /* NSArray+Optionals.h */,
+				380503311B60D1710062DE76 /* NSArray+Optionals.m */,
 				38EA10561B5E1E3F004EE76E /* NSDictionary+Map.h */,
 				38EA10571B5E1E3F004EE76E /* NSDictionary+Map.m */,
 				38EA10581B5E1E3F004EE76E /* NSDictionary+Optionals.h */,
@@ -228,6 +233,7 @@
 			files = (
 				38EA10671B5E25FF004EE76E /* Tools.m in Sources */,
 				38EA105E1B5E1E3F004EE76E /* NSArray+Build.m in Sources */,
+				380503321B60D1710062DE76 /* NSArray+Optionals.m in Sources */,
 				38EA10621B5E1E3F004EE76E /* NSDictionary+RequestClass.m in Sources */,
 				38EA10601B5E1E3F004EE76E /* NSDictionary+Map.m in Sources */,
 				38EA10611B5E1E3F004EE76E /* NSDictionary+Optionals.m in Sources */,
@@ -414,6 +420,7 @@
 				38EA104E1B5E1DAD004EE76E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		38EA104F1B5E1DAD004EE76E /* Build configuration list for PBXNativeTarget "ToolsTests" */ = {
 			isa = XCConfigurationList;
@@ -422,6 +429,7 @@
 				38EA10511B5E1DAD004EE76E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
