@@ -229,28 +229,39 @@
 }
 
 - (void)testNSArrayOptionals {
-    NSArray* array = [[[[[@[]
-                          optional:@1]
-                         optional:nil]
-                        optional:@3]
-                       optional:@4]
-                      optional:nil];
+    NSArray* array = [[[[[[@[]
+                           optional:@1]
+                          optional:nil]
+                         optional:@3]
+                        optional:@4]
+                       optional:nil]
+                      optionalArray:[[[[@[] mutableCopy]
+                                       optional:@6]
+                                      optional:nil]
+                                     optional:@8]];
     XCTAssert([array isKindOfClass:[NSArray class]]);
-    XCTAssert(array.count == 3);
+    XCTAssert(array.count == 5);
     XCTAssert([array[0] isEqual:@1]);
     XCTAssert([array[1] isEqual:@3]);
-    XCTAssert(array[2] == @4);
+    XCTAssert([array[2] isEqual:@4]);
+    XCTAssert([array[3] isEqual:@6]);
+    XCTAssert([array[4] isEqual:@8]);
     
-    NSMutableArray* m_array = [[[[[[@[] mutableCopy]
-                                   optional:nil]
-                                  optional:@2]
-                                 optional:nil]
-                                optional:@4]
-                               optional: nil];
+    NSMutableArray* m_array = [[[[[[[@[] mutableCopy]
+                                    optional:nil]
+                                   optional:@2]
+                                  optional:nil]
+                                 optional:@4]
+                                optional: nil]
+                               optionalArray:[[[@[]
+                                                optional:nil]
+                                               optional:nil]
+                                              optional:@8]];
     XCTAssert([m_array isKindOfClass:[NSMutableArray class]]);
-    XCTAssert(m_array.count == 2);
+    XCTAssert(m_array.count == 3);
     XCTAssert([m_array[0] isEqual:@2]);
     XCTAssert([m_array[1] isEqual:@4]);
+    XCTAssert([m_array[2] isEqual:@8]);
 }
 
 - (void)testNSArrayBuild {
