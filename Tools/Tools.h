@@ -6,6 +6,8 @@
 #import "NSDictionary+RequestClass.h"
 #import "NSObject+Maybe.h"
 
+#import "Queue.h"
+
 @interface Tools : NSObject
 
 ///MARK: JSON validation

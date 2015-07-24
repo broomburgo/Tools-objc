@@ -18,6 +18,7 @@
 		38EA10631B5E1E3F004EE76E /* NSObject+Maybe.m in Sources */ = {isa = PBXBuildFile; fileRef = 38EA105D1B5E1E3F004EE76E /* NSObject+Maybe.m */; };
 		38EA10651B5E242F004EE76E /* ToolsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 38EA10641B5E242F004EE76E /* ToolsTests.m */; };
 		38EA10671B5E25FF004EE76E /* Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 38EA10661B5E25FF004EE76E /* Tools.m */; };
+		38EF90281B6220A70081B564 /* Queue.m in Sources */ = {isa = PBXBuildFile; fileRef = 38EF90271B6220A70081B564 /* Queue.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +65,8 @@
 		38EA105D1B5E1E3F004EE76E /* NSObject+Maybe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Maybe.m"; sourceTree = "<group>"; };
 		38EA10641B5E242F004EE76E /* ToolsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolsTests.m; sourceTree = "<group>"; };
 		38EA10661B5E25FF004EE76E /* Tools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tools.m; sourceTree = "<group>"; };
+		38EF90261B6220A70081B564 /* Queue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Queue.h; sourceTree = "<group>"; };
+		38EF90271B6220A70081B564 /* Queue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Queue.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +125,8 @@
 				38EA105D1B5E1E3F004EE76E /* NSObject+Maybe.m */,
 				38EA103B1B5E1DAD004EE76E /* Tools.h */,
 				38EA10661B5E25FF004EE76E /* Tools.m */,
+				38EF90261B6220A70081B564 /* Queue.h */,
+				38EF90271B6220A70081B564 /* Queue.m */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -234,6 +239,7 @@
 				38EA10671B5E25FF004EE76E /* Tools.m in Sources */,
 				38EA105E1B5E1E3F004EE76E /* NSArray+Build.m in Sources */,
 				380503321B60D1710062DE76 /* NSArray+Optionals.m in Sources */,
+				38EF90281B6220A70081B564 /* Queue.m in Sources */,
 				38EA10621B5E1E3F004EE76E /* NSDictionary+RequestClass.m in Sources */,
 				38EA10601B5E1E3F004EE76E /* NSDictionary+Map.m in Sources */,
 				38EA10611B5E1E3F004EE76E /* NSDictionary+Optionals.m in Sources */,
