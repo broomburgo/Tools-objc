@@ -217,18 +217,18 @@
                                  @3:@[@1,@2,@3],
                                  @4:@{@"1":@1,@"2":@2},
                                  @5:[NSNull null]};
-    NSString* a = [dictionary objectForKey:@1 requestedClass:[NSString class]];
+    NSString* a = [dictionary objectForKey:@1 as:[NSString class]];
     XCTAssert([a isKindOfClass:[NSString class]]);
     XCTAssert([a isEqualToString:@"a"]);
     
-    XCTAssertNil([dictionary objectForKey:@1 requestedClass:[NSNumber class]]);
-    XCTAssertNil([dictionary objectForKey:@2 requestedClass:[NSString class]]);
+    XCTAssertNil([dictionary objectForKey:@1 as:[NSNumber class]]);
+    XCTAssertNil([dictionary objectForKey:@2 as:[NSString class]]);
     
-    NSArray* array = [dictionary objectForKey:@3 requestedClass:[NSArray class]];
+    NSArray* array = [dictionary objectForKey:@3 as:[NSArray class]];
     XCTAssert(array.count == 3);
     
-    XCTAssertNil([dictionary objectForKey:@4 requestedClass:[NSArray class]]);
-    XCTAssertNil([dictionary objectForKey:@5 requestedClass:[NSDictionary class]]);
+    XCTAssertNil([dictionary objectForKey:@4 as:[NSArray class]]);
+    XCTAssertNil([dictionary objectForKey:@5 as:[NSDictionary class]]);
 }
 
 - (void)testNSDictionaryOptionals {

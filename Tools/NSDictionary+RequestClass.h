@@ -2,6 +2,6 @@
 
 @interface NSDictionary (RequestClass)
 
-- (id)objectForKey:(id)key requestedClass:(Class)requestedClass;
+- (id)objectForKey:(id)key as:(Class)requestedClass;
 
 @end
