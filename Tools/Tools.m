@@ -4,40 +4,42 @@
 
 /// JSON validation
 
-+ (NSArray*)JSONValidatedArray:(NSArray*)array {
++ (NSArray* __nonnull)JSONValidatedArray:(NSArray* __nonnull)array {
     if (array.count == 0) {
-        return array;
+        return @[];
     }
     if ([NSJSONSerialization isValidJSONObject:array]) {
         return array;
     }
     else {
         return [array map:^id(id object) {
-            if ([NSJSONSerialization isValidJSONObject:@[object]]) {
-                return object;
+            id validObject = object;
+            if ([NSJSONSerialization isValidJSONObject:@[validObject]] == NO) {
+                validObject = [validObject description];
             }
-            else {
-                return [object description];
-            }
+            return validObject;
         }];
     }
 }
 
-+ (NSDictionary*)JSONValidatedDictionary:(NSDictionary*)dictionary {
++ (NSDictionary* __nonnull)JSONValidatedDictionary:(NSDictionary* __nonnull)dictionary {
     if (dictionary.count == 0) {
-        return dictionary;
+        return @{};
     }
     if ([NSJSONSerialization isValidJSONObject:dictionary]) {
         return dictionary;
     }
     else {
         return [dictionary map:^NSDictionary *(id key, id object) {
-            if ([NSJSONSerialization isValidJSONObject:@[object]]) {
-                return @{key: object};
+            id validKey = key;
+            id validObject = object;
+            if ([NSJSONSerialization isValidJSONObject:@[validKey]] == NO) {
+                validKey = [validKey description];
             }
-            else {
-                return @{key: [object description]};
+            if ([NSJSONSerialization isValidJSONObject:@[validObject]] == NO) {
+                validObject = [validObject description];
             }
+            return @{validKey: validObject};
         }];
     }
 }

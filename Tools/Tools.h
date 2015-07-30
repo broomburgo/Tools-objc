@@ -1,3 +1,5 @@
+#import <Foundation/Foundation.h>
+
 #import "NSArray+Build.h"
 #import "NSArray+MapReduce.h"
 #import "NSArray+Optionals.h"
@@ -12,7 +14,7 @@
 
 ///MARK: JSON validation
 
-+ (NSArray*)JSONValidatedArray:(NSArray*)array;
-+ (NSDictionary*)JSONValidatedDictionary:(NSDictionary*)dictionary;
++ (NSArray* __nonnull)JSONValidatedArray:(NSArray* __nonnull)array;
++ (NSDictionary* __nonnull)JSONValidatedDictionary:(NSDictionary* __nonnull)dictionary;
 
 @end
