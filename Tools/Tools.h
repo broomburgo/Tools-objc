@@ -10,7 +10,21 @@
 
 #import "Queue.h"
 
+typedef NS_ENUM(NSInteger, RandomStringType) {
+    RandomStringTypeRegular = 0,
+    RandomStringTypeDigitsOnly
+};
+
 @interface Tools : NSObject
+
+///MARK: randomization utilities
+
++ (NSString* __nonnull)randomStringWithType:(RandomStringType)randomStringType length:(NSUInteger)length;
++ (NSString* __nonnull)randomStringWithLength:(NSUInteger)length;
++ (NSString* __nonnull)randomString;
++ (NSString* __nonnull)randomStringDigitsOnlyWithLength:(NSUInteger)length;
++ (NSString* __nonnull)randomStringDigitsOnly;
++ (float)randomFloatBetweenZeroAndOne;
 
 ///MARK: JSON validation
 

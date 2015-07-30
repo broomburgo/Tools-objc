@@ -370,4 +370,49 @@
     XCTAssert(indexArray.count == 5);
 }
 
+- (void)testRandomization {
+    NSString* randomString1 = [Tools randomString];
+    XCTAssertNotNil(randomString1);
+    XCTAssertNotEqual(randomString1.length, 0);
+    
+    NSUInteger randomStringLength = 10;
+    
+    NSString* randomString2 = [Tools randomStringWithLength:randomStringLength];
+    XCTAssertNotNil(randomString2);
+    XCTAssertEqual(randomString2.length, randomStringLength);
+    
+    NSString* randomString3 = [Tools randomStringWithLength:randomStringLength];
+    XCTAssertNotNil(randomString3);
+    XCTAssertEqual(randomString3.length, randomStringLength);
+
+    XCTAssertNotEqualObjects(randomString2, randomString3);
+    
+    NSString* noDigitsString = @"abcdefghijklmnopqrstuvwxyz";
+    NSMutableArray* m_noDigitsArray = [@[] mutableCopy];
+    [noDigitsString enumerateSubstringsInRange:NSMakeRange(0, noDigitsString.length)
+                                      options:NSStringEnumerationByComposedCharacterSequences
+                                   usingBlock:^(NSString *substring, NSRange substringRange, NSRange enclosingRange, BOOL *stop) {
+                                       [m_noDigitsArray addObject:substring];
+                                   }];
+    NSSet* noDigitsSet = [NSSet setWithArray:m_noDigitsArray];
+    XCTAssertNotNil(noDigitsSet);
+    XCTAssertEqual(noDigitsSet.count, noDigitsString.length);
+    
+    NSString* randomDigitsOnlyString = [Tools randomStringDigitsOnlyWithLength:randomStringLength];
+    XCTAssertNotNil(randomDigitsOnlyString);
+    XCTAssertEqual(randomDigitsOnlyString.length, randomStringLength);
+    
+    NSMutableArray* m_randomDigitsOnlyArray = [@[] mutableCopy];
+    [randomDigitsOnlyString enumerateSubstringsInRange:NSMakeRange(0, randomDigitsOnlyString.length)
+                                                options:NSStringEnumerationByComposedCharacterSequences
+                                             usingBlock:^(NSString *substring, NSRange substringRange, NSRange enclosingRange, BOOL *stop) {
+                                                 [m_randomDigitsOnlyArray addObject:substring];
+                                             }];
+    NSSet* randomDigitsOnlySet = [NSSet setWithArray:m_randomDigitsOnlyArray];
+    XCTAssertNotNil(randomDigitsOnlySet);
+    XCTAssert(randomDigitsOnlySet.count > 0);
+    
+    XCTAssert([noDigitsSet intersectsSet:randomDigitsOnlySet] == NO);
+}
+
 @end

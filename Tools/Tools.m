@@ -1,6 +1,54 @@
 #import "Tools.h"
 
+static NSString*const kRandomStringFullString = @"abcdefghijklmnopqrstuvwxyz0123456789";
+static NSString*const kRandomStringDigitsOnlyString = @"0123456789";
+static const NSInteger kRandomStringStandardStringLength = 8;
+
 @implementation Tools
+
+///MARK: randomization utilities
+
++ (NSString* __nonnull)randomStringWithType:(RandomStringType)randomStringType length:(NSUInteger)length {
+    NSString* randomString = @"";
+    if (length > 0) {
+        NSString* fullString = kRandomStringFullString;
+        if (randomStringType == RandomStringTypeDigitsOnly) {
+            fullString = kRandomStringDigitsOnlyString;
+        }
+        NSMutableString* m_randomString = [@"" mutableCopy];
+        NSUInteger fullStringLength = fullString.length;
+        NSUInteger index = 0;
+        while (index < length) {
+            [m_randomString appendString:[fullString substringWithRange:NSMakeRange(arc4random()%fullStringLength, 1)]];
+            index++;
+        }
+        randomString = [m_randomString copy];
+    }
+    return randomString;
+}
+
++ (NSString* __nonnull)randomStringWithLength:(NSUInteger)length {
+    return [self randomStringWithType:RandomStringTypeRegular length:length];
+}
+
++ (NSString* __nonnull)randomString {
+    return [self randomStringWithType:RandomStringTypeRegular length:kRandomStringStandardStringLength];
+}
+
++ (NSString* __nonnull)randomStringDigitsOnlyWithLength:(NSUInteger)length {
+    return [self randomStringWithType:RandomStringTypeDigitsOnly length:length];
+}
+
++ (NSString* __nonnull)randomStringDigitsOnly {
+    return [self randomStringWithType:RandomStringTypeDigitsOnly length:kRandomStringStandardStringLength];
+}
+
++ (float)randomFloatBetweenZeroAndOne {
+    u_int32_t maxInt = 1000000;
+    u_int32_t randomInt = arc4random() % (maxInt +1);
+    float randomFloat = (float)randomInt/(float)maxInt;
+    return randomFloat;
+}
 
 /// JSON validation
 
