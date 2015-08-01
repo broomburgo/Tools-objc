@@ -6,15 +6,14 @@
     if (optional == nil || key == nil) {
         return self;
     }
-    NSDictionary* toAdd = @{key : optional};
     if ([self isKindOfClass:[NSMutableDictionary class]]) {
         NSMutableDictionary* m_self = (NSMutableDictionary*)self;
-        [m_self addEntriesFromDictionary:toAdd];
+        [m_self setObject:optional forKey:key];
         return self;
     }
     else {
         NSMutableDictionary* m_self = [self mutableCopy];
-        [m_self addEntriesFromDictionary:toAdd];
+        [m_self setObject:optional forKey:key];
         return [NSDictionary dictionaryWithDictionary:m_self];
     }
 }

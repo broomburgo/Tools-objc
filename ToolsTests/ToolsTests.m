@@ -166,7 +166,7 @@
     XCTAssert([number2 isEqualToNumber:@1]);
 }
 
-- (void)testNSDictionaryMap {
+- (void)testNSDictionaryMapReduce {
     NSDictionary* dictionary1 = @{@"1":@11,
                                   @"2":@12};
     NSDictionary* dictionary2 = [dictionary1 map:^NSDictionary *(id key, id object) {
@@ -209,6 +209,79 @@
     }];
     NSArray* array1Wannabe = @[@1,@2,@3,@4];
     XCTAssert([array1 isEqualToArray:array1Wannabe]);
+    
+    NSDictionary* dict8 = @{
+                                  @"1":@1,
+                                  @"2":@{
+                                          @"1":@1,
+                                          @"2":@2
+                                          },
+                                  @"3":@3,
+                                  @"4":@{
+                                          @"1":@1,
+                                          @"2":@{
+                                                  @"1":@1,
+                                                  @"2":@2,
+                                                  @"3":@3
+                                                  }
+                                          },
+                                  @"6":@[@1,@2]
+                                  };
+    NSDictionary* otherDict8 = @{
+                                       @"1":@10,
+                                       @"2":@{
+                                               @"2":@20,
+                                               @"3":@30
+                                               },
+                                       @"4":@{
+                                               @"2":@{
+                                                       @"1":@10,
+                                                       @"3":@3,
+                                                       @"4":@{
+                                                               @"1":@10
+                                                               }
+                                                       }
+                                               },
+                                       @"5":@5,
+                                       @"6":@[@3,@"4"]
+                                       };
+    NSDictionary* expectedDict8 = @{
+                                          @"1":@10,
+                                          @"2":@{
+                                                  @"1":@1,
+                                                  @"2":@20,
+                                                  @"3":@30
+                                                  },
+                                          @"3":@3,
+                                          @"4":@{
+                                                  @"1":@1,
+                                                  @"2":@{
+                                                          @"1":@10,
+                                                          @"2":@2,
+                                                          @"3":@3,
+                                                          @"4":@{
+                                                                  @"1":@10
+                                                                  }
+                                                          }
+                                                  },
+                                          @"5":@5,
+                                          @"6":@[@1,@2,@3,@"4"]
+                                          };
+    NSDictionary* mergedDict8 = [dict8 mergeWith:otherDict8];
+    XCTAssertNotNil(mergedDict8);
+    XCTAssertNotEqual(mergedDict8.count, 0);
+    XCTAssertEqualObjects(mergedDict8, expectedDict8);
+    
+    NSDictionary* dict9 = @{@"1":@"a",@"2":@"b",@"3":@3};
+    NSString* reducedString9 = [[dict9 reduceWithStartingElement:[@"" mutableCopy] reduceBlock:^NSMutableString*(NSMutableString* m_accumulator, id key, id object) {
+        [m_accumulator appendFormat:@"|key: %@, object: %@|", key, object];
+        return m_accumulator;
+    }] copy];
+    XCTAssertNotNil(reducedString9);
+    XCTAssertNotEqual(reducedString9.length, 0);
+    NSString* expectedString9 = @"|key: 1, object: a||key: 2, object: b||key: 3, object: 3|";
+    XCTAssertEqualObjects(reducedString9, expectedString9);
+    
 }
 
 - (void)testNSDictionaryRequestClass {
@@ -236,7 +309,7 @@
                               key:@"a" optional:@1]
                              key:@"b" optional:nil]
                             key:nil optional:@3]
-                           key:@"d" optional:@4]
+                           key:@"d" optional:@"4"]
                           key:nil optional:nil]
                           optionalDict:[[[[[[@{} mutableCopy]
                                             key:@"f" optional:nil]
@@ -249,7 +322,7 @@
     XCTAssert([dict[@"a"] isEqual:@1]);
     XCTAssert(dict[@"b"] == nil);
     XCTAssert(dict[@"c"] == nil);
-    XCTAssert([dict[@"d"] isEqual:@4]);
+    XCTAssert([dict[@"d"] isEqual:@"4"]);
     XCTAssert(dict[@"e"] == nil);
     XCTAssert(dict[@"f"] == nil);
     XCTAssert(dict[@"g"] == nil);
@@ -267,7 +340,7 @@
                                                      key:@"f" optional:@6]
                                                     key:@"g" optional:nil]
                                                    key:nil optional:@8]
-                                                  key:@"i" optional:@9]
+                                                  key:@"i" optional:@"9"]
                                                  key:nil optional:nil]];
     XCTAssert([m_dict isKindOfClass:[NSMutableDictionary class]]);
     XCTAssert(m_dict.count == 4);
@@ -279,7 +352,7 @@
     XCTAssert([m_dict[@"f"] isEqual:@6]);
     XCTAssert(m_dict[@"g"] == nil);
     XCTAssert(m_dict[@"h"] == nil);
-    XCTAssert([m_dict[@"i"] isEqual:@9]);
+    XCTAssert([m_dict[@"i"] isEqual:@"9"]);
     XCTAssert(m_dict[@"j"] == nil);
 }
 
