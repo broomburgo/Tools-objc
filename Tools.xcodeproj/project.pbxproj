@@ -18,6 +18,7 @@
 		38EA10631B5E1E3F004EE76E /* NSObject+Maybe.m in Sources */ = {isa = PBXBuildFile; fileRef = 38EA105D1B5E1E3F004EE76E /* NSObject+Maybe.m */; };
 		38EA10651B5E242F004EE76E /* ToolsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 38EA10641B5E242F004EE76E /* ToolsTests.m */; };
 		38EA10671B5E25FF004EE76E /* Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 38EA10661B5E25FF004EE76E /* Tools.m */; };
+		38EBACC91B6F697700F95442 /* Future.m in Sources */ = {isa = PBXBuildFile; fileRef = 38EBACC81B6F697700F95442 /* Future.m */; };
 		38EF90281B6220A70081B564 /* Queue.m in Sources */ = {isa = PBXBuildFile; fileRef = 38EF90271B6220A70081B564 /* Queue.m */; };
 /* End PBXBuildFile section */
 
@@ -65,6 +66,9 @@
 		38EA105D1B5E1E3F004EE76E /* NSObject+Maybe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Maybe.m"; sourceTree = "<group>"; };
 		38EA10641B5E242F004EE76E /* ToolsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolsTests.m; sourceTree = "<group>"; };
 		38EA10661B5E25FF004EE76E /* Tools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tools.m; sourceTree = "<group>"; };
+		38EBACC71B6F697700F95442 /* Future.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Future.h; sourceTree = "<group>"; };
+		38EBACC81B6F697700F95442 /* Future.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Future.m; sourceTree = "<group>"; };
+		38EBACCA1B6F69A000F95442 /* Future_Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Future_Internal.h; sourceTree = "<group>"; };
 		38EF90261B6220A70081B564 /* Queue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Queue.h; sourceTree = "<group>"; };
 		38EF90271B6220A70081B564 /* Queue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Queue.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -127,6 +131,9 @@
 				38EA10661B5E25FF004EE76E /* Tools.m */,
 				38EF90261B6220A70081B564 /* Queue.h */,
 				38EF90271B6220A70081B564 /* Queue.m */,
+				38EBACC71B6F697700F95442 /* Future.h */,
+				38EBACC81B6F697700F95442 /* Future.m */,
+				38EBACCA1B6F69A000F95442 /* Future_Internal.h */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -244,6 +251,7 @@
 				38EA10601B5E1E3F004EE76E /* NSDictionary+Map.m in Sources */,
 				38EA10611B5E1E3F004EE76E /* NSDictionary+Optionals.m in Sources */,
 				38EA10631B5E1E3F004EE76E /* NSObject+Maybe.m in Sources */,
+				38EBACC91B6F697700F95442 /* Future.m in Sources */,
 				38EA105F1B5E1E3F004EE76E /* NSArray+MapReduce.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

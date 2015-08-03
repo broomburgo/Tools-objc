@@ -2,6 +2,7 @@
 #import <XCTest/XCTest.h>
 
 #import "Tools.h"
+#import "Future_Internal.h"
 
 @interface CategoriesSomething : NSObject
 
@@ -486,6 +487,129 @@
     XCTAssert(randomDigitsOnlySet.count > 0);
     
     XCTAssert([noDigitsSet intersectsSet:randomDigitsOnlySet] == NO);
+}
+
+- (void)testFuture {
+    Future* future1 = [Future new];
+    XCTAssertNil(future1.value);
+    XCTAssertNil(future1.error);
+    XCTAssertEqual(future1.state, FutureStateIncomplete);
+    XCTestExpectation* success1 = [self expectationWithDescription:@"success1"];
+    NSString* expectedValue1 = @"expectedValue1";
+    [future1 onSuccess:^(NSString* __nonnull value) {
+        [success1 fulfill];
+        XCTAssertEqualObjects(value, expectedValue1);
+    }];
+    [future1 onFailure:^(NSError * __nonnull error) {
+        XCTAssert(NO);
+    }];
+    [future1 succeedWith:expectedValue1];
+    XCTAssertEqual(future1.state, FutureStateSucceeded);
+    XCTAssertNotNil(future1.value);
+    XCTAssertNil(future1.error);
+    XCTAssertEqualObjects(future1.value, expectedValue1);
+    
+    Future* future2 = [Future new];
+    XCTAssertEqual(future2.state, FutureStateIncomplete);
+    XCTAssertNil(future2.value);
+    XCTAssertNil(future2.error);
+    XCTestExpectation* failure1 = [self expectationWithDescription:@"failure1"];
+    NSString* expectedValue2 = @"expectedValue2";
+    NSError* expectedError2 = [NSError errorWithDomain:expectedValue2 code:0 userInfo:nil];
+    [future2 onSuccess:^(NSString* __nonnull value) {
+        XCTAssert(NO);
+    }];
+    [future2 onFailure:^(NSError * __nonnull error) {
+        [failure1 fulfill];
+        XCTAssertEqualObjects(error.domain, expectedValue2);
+    }];
+    [future2 failWith:expectedError2];
+    XCTAssertEqual(future2.state, FutureStateFailed);
+    XCTAssertNil(future2.value);
+    XCTAssertNotNil(future2.error);
+    XCTAssertEqualObjects(((NSError*)future2.error).domain, expectedError2.domain);
+
+    Future* future3 = [Future new];
+    XCTAssertNil(future3.value);
+    XCTAssertNil(future3.error);
+    XCTAssertEqual(future3.state, FutureStateIncomplete);
+    XCTestExpectation* success3_1 = [self expectationWithDescription:@"success3_1"];
+    XCTestExpectation* success3_2 = [self expectationWithDescription:@"success3_2"];
+    XCTestExpectation* success3_3 = [self expectationWithDescription:@"success3_3"];
+    NSString* expectedValue3 = @"expectedValue3";
+    [future3 onSuccess:^(NSString* __nonnull value) {
+        [success3_1 fulfill];
+        XCTAssertEqualObjects(value, expectedValue3);
+    }];
+    [future3 onSuccess:^(NSString* __nonnull value) {
+        [success3_2 fulfill];
+        XCTAssertEqualObjects(value, expectedValue3);
+    }];
+    [future3 onFailure:^(NSError * __nonnull error) {
+        XCTAssert(NO);
+    }];
+    [future3 succeedWith:expectedValue3];
+    XCTAssertEqual(future3.state, FutureStateSucceeded);
+    XCTAssertNotNil(future3.value);
+    XCTAssertNil(future3.error);
+    XCTAssertEqualObjects(future3.value, expectedValue3);
+    [future3 onSuccess:^(NSString* __nonnull value) {
+        [success3_3 fulfill];
+        XCTAssertEqualObjects(value, expectedValue3);
+    }];
+
+    Future* future4 = [Future new];
+    XCTAssertNil(future4.value);
+    XCTAssertNil(future4.error);
+    XCTAssertEqual(future4.state, FutureStateIncomplete);
+    XCTestExpectation* success4_1 = [self expectationWithDescription:@"success4_1"];
+    XCTestExpectation* success4_2 = [self expectationWithDescription:@"success4_2"];
+    XCTestExpectation* failure4_3 = [self expectationWithDescription:@"success4_2"];
+    NSString* expectedValue4 = @"expectedValue4";
+    NSError* expectedError4 = [NSError errorWithDomain:expectedValue4 code:0 userInfo:nil];
+    [future4 onSuccess:^(NSString* __nonnull value) {
+        [success4_1 fulfill];
+        XCTAssertEqualObjects(value, expectedValue4);
+    }];
+    [future4 onFailure:^(NSError * __nonnull error) {
+        XCTAssert(NO);
+    }];
+    
+    Future* future5 = [[[future4
+                         flatMap:^Future * __nonnull(id __nonnull value) {
+                             [success4_2 fulfill];
+                             XCTAssertEqualObjects(value, expectedValue4);
+                             Future* newFuture = [Future new];
+                             [newFuture succeedWith:value];
+                             return newFuture;
+                         }]
+                        flatMap:^Future * __nonnull(id __nonnull value) {
+                            [failure4_3 fulfill];
+                            XCTAssertEqualObjects(value, expectedValue4);
+                            Future* newFuture = [Future new];
+                            [newFuture failWith:expectedError4];
+                            return newFuture;
+                        }]
+                       flatMap:^Future * __nonnull(id __nonnull value) {
+                           XCTAssert(NO);
+                           return [Future new];
+                       }];
+    [future4 succeedWith:expectedValue4];
+    XCTAssertEqual(future4.state, FutureStateSucceeded);
+    XCTAssertNotNil(future4.value);
+    XCTAssertNil(future4.error);
+    XCTAssertEqualObjects(future4.value, expectedValue4);
+    
+    XCTestExpectation* wait = [self expectationWithDescription:@"wait"];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [wait fulfill];
+        XCTAssertEqual(future5.state, FutureStateFailed);
+        XCTAssertNil(future5.value);
+        XCTAssertNotNil(future5.error);
+        XCTAssertEqualObjects(((NSError*)future5.error).domain, expectedError4.domain);
+    });
+    
+    [self waitForExpectationsWithTimeout:5 handler:nil];
 }
 
 @end

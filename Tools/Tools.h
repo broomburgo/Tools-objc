@@ -10,6 +10,8 @@
 
 #import "Queue.h"
 
+#import "Future.h"
+
 typedef NS_ENUM(NSInteger, RandomStringType) {
     RandomStringTypeRegular = 0,
     RandomStringTypeDigitsOnly
