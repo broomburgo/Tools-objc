@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		380503321B60D1710062DE76 /* NSArray+Optionals.m in Sources */ = {isa = PBXBuildFile; fileRef = 380503311B60D1710062DE76 /* NSArray+Optionals.m */; };
+		38A2B6F61B78E7FF0004AF4A /* Result.m in Sources */ = {isa = PBXBuildFile; fileRef = 38A2B6F51B78E7FF0004AF4A /* Result.m */; };
+		38A2B6F91B78EAF60004AF4A /* Optional.m in Sources */ = {isa = PBXBuildFile; fileRef = 38A2B6F81B78EAF60004AF4A /* Optional.m */; };
 		38EA103C1B5E1DAD004EE76E /* Tools.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 38EA103B1B5E1DAD004EE76E /* Tools.h */; };
 		38EA10441B5E1DAD004EE76E /* libTools.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 38EA10381B5E1DAD004EE76E /* libTools.a */; };
 		38EA105E1B5E1E3F004EE76E /* NSArray+Build.m in Sources */ = {isa = PBXBuildFile; fileRef = 38EA10531B5E1E3F004EE76E /* NSArray+Build.m */; };
@@ -48,6 +50,10 @@
 /* Begin PBXFileReference section */
 		380503301B60D1710062DE76 /* NSArray+Optionals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Optionals.h"; sourceTree = "<group>"; };
 		380503311B60D1710062DE76 /* NSArray+Optionals.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Optionals.m"; sourceTree = "<group>"; };
+		38A2B6F41B78E7FF0004AF4A /* Result.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Result.h; sourceTree = "<group>"; };
+		38A2B6F51B78E7FF0004AF4A /* Result.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Result.m; sourceTree = "<group>"; };
+		38A2B6F71B78EAF60004AF4A /* Optional.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Optional.h; sourceTree = "<group>"; };
+		38A2B6F81B78EAF60004AF4A /* Optional.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Optional.m; sourceTree = "<group>"; };
 		38EA10381B5E1DAD004EE76E /* libTools.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libTools.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		38EA103B1B5E1DAD004EE76E /* Tools.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Tools.h; sourceTree = "<group>"; };
 		38EA10431B5E1DAD004EE76E /* ToolsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ToolsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -134,6 +140,10 @@
 				38EBACC71B6F697700F95442 /* Future.h */,
 				38EBACC81B6F697700F95442 /* Future.m */,
 				38EBACCA1B6F69A000F95442 /* Future_Internal.h */,
+				38A2B6F41B78E7FF0004AF4A /* Result.h */,
+				38A2B6F51B78E7FF0004AF4A /* Result.m */,
+				38A2B6F71B78EAF60004AF4A /* Optional.h */,
+				38A2B6F81B78EAF60004AF4A /* Optional.m */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -246,9 +256,11 @@
 				38EA10671B5E25FF004EE76E /* Tools.m in Sources */,
 				38EA105E1B5E1E3F004EE76E /* NSArray+Build.m in Sources */,
 				380503321B60D1710062DE76 /* NSArray+Optionals.m in Sources */,
+				38A2B6F91B78EAF60004AF4A /* Optional.m in Sources */,
 				38EF90281B6220A70081B564 /* Queue.m in Sources */,
 				38EA10621B5E1E3F004EE76E /* NSDictionary+RequestClass.m in Sources */,
 				38EA10601B5E1E3F004EE76E /* NSDictionary+Map.m in Sources */,
+				38A2B6F61B78E7FF0004AF4A /* Result.m in Sources */,
 				38EA10611B5E1E3F004EE76E /* NSDictionary+Optionals.m in Sources */,
 				38EA10631B5E1E3F004EE76E /* NSObject+Maybe.m in Sources */,
 				38EBACC91B6F697700F95442 /* Future.m in Sources */,

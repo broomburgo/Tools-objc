@@ -9,8 +9,9 @@
 #import "NSObject+Maybe.h"
 
 #import "Queue.h"
-
 #import "Future.h"
+#import "Optional.h"
+#import "Result.h"
 
 typedef NS_ENUM(NSInteger, RandomStringType) {
     RandomStringTypeRegular = 0,
