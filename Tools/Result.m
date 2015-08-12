@@ -3,7 +3,7 @@
 @interface Result ()
 
 @property (nonatomic) id __nullable value;
-@property (nonatomic) NSError* __nullable error;
+@property (nonatomic) id __nullable error;
 
 @end
 

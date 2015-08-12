@@ -699,7 +699,7 @@
     XCTAssertNotNil(failure.error);
     XCTAssertNil(failure.value);
     XCTAssert([failure.error isKindOfClass:[NSError class]]);
-    XCTAssert(failure.error.code == errorCode);
+    XCTAssert(((NSError*)failure.error).code == errorCode);
 }
 
 - (void)testResultMap {
@@ -732,7 +732,7 @@
     XCTAssertNil(failureHalfNumber.value);
     XCTAssertNotNil(failureHalfNumber.error);
     XCTAssert([failureHalfNumber.error isKindOfClass:[NSError class]]);
-    XCTAssert(failureHalfNumber.error.code == errorCode);
+    XCTAssert(((NSError*)failureHalfNumber.error).code == errorCode);
 }
 
 - (void)testResultFlatMap {
@@ -751,7 +751,7 @@
     XCTAssertNil(failureArray.value);
     XCTAssertNotNil(failureArray.error);
     XCTAssertNil(failureArray.value);
-    XCTAssert(failureArray.error.code == errorCode);
+    XCTAssert(((NSError*)failureArray.error).code == errorCode);
     
     Result*(^flatMapBlockToSuccess)(NSArray*) = ^Result*(NSArray* array) {
         return [Result successWith:doubledArray];
@@ -776,13 +776,13 @@
     XCTAssert([successToSuccessDoubledArray.value isKindOfClass:[NSArray class]]);
     XCTAssertNil(successToFailureDoubledArray.value);
     XCTAssertNotNil(successToFailureDoubledArray.error);
-    XCTAssert(successToFailureDoubledArray.error.code == errorCode);
+    XCTAssert(((NSError*)successToFailureDoubledArray.error).code == errorCode);
     XCTAssertNil(failureToSuccessDoubledArray.value);
     XCTAssertNotNil(failureToSuccessDoubledArray.error);
-    XCTAssert(failureToSuccessDoubledArray.error.code == errorCode);
+    XCTAssert(((NSError*)failureToSuccessDoubledArray.error).code == errorCode);
     XCTAssertNil(failureToFailureDoubledArray.value);
     XCTAssertNotNil(failureToFailureDoubledArray.error);
-    XCTAssert(failureToFailureDoubledArray.error.code == errorCode);
+    XCTAssert(((NSError*)failureToFailureDoubledArray.error).code == errorCode);
     
     XCTAssertEqualObjects(successToSuccessDoubledArray.value, doubledArray);
 }

@@ -1,17 +1,10 @@
 #import <Foundation/Foundation.h>
 
-#import "NSArray+Build.h"
-#import "NSArray+MapReduce.h"
-#import "NSArray+Optionals.h"
-#import "NSDictionary+Map.h"
-#import "NSDictionary+Optionals.h"
-#import "NSDictionary+RequestClass.h"
-#import "NSObject+Maybe.h"
-
+#import "Categories.h"
 #import "Queue.h"
-#import "Future.h"
 #import "Optional.h"
 #import "Result.h"
+#import "Future.h"
 
 typedef NS_ENUM(NSInteger, RandomStringType) {
     RandomStringTypeRegular = 0,
