@@ -63,8 +63,6 @@
             completeBlock(NO,nil,self.error);
             break;
         }
-        default:
-            break;
     }
     return self;
 }
@@ -122,6 +120,9 @@
 }
 
 - (void)completeWithSuccess:(BOOL)success value:(id __nullable)value error:(id __nullable)error {
+    if (self.isComplete) {
+        return;
+    }
     NSArray* completeBlocks = [NSArray arrayWithArray:self.m_completeBlocks];
     [self.m_completeBlocks removeAllObjects];
     self.value = value;
@@ -137,9 +138,9 @@
 
 - (instancetype)copyWithZone:(NSZone *)zone {
     Future* copiedFuture = [Future new];
-    copiedFuture.m_completeBlocks = self.m_completeBlocks;
     copiedFuture.value = self.value;
     copiedFuture.error = self.error;
+    copiedFuture.m_completeBlocks = self.m_completeBlocks;
     return copiedFuture;
 }
 
