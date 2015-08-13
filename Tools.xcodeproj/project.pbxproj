@@ -59,6 +59,7 @@
 		38EF90271B6220A70081B564 /* Queue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Queue.m; sourceTree = "<group>"; };
 		38F4CEA91B79FD2A00A8F464 /* Categories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Categories.h; sourceTree = "<group>"; };
 		38F4CEAA1B79FD2A00A8F464 /* Categories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Categories.m; sourceTree = "<group>"; };
+		38FB87721B7CD3F900F4C5B3 /* Result_Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Result_Internal.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +115,7 @@
 				38A2B6F81B78EAF60004AF4A /* Optional.m */,
 				38F4CEA91B79FD2A00A8F464 /* Categories.h */,
 				38F4CEAA1B79FD2A00A8F464 /* Categories.m */,
+				38FB87721B7CD3F900F4C5B3 /* Result_Internal.h */,
 			);
 			path = Tools;
 			sourceTree = "<group>";

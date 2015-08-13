@@ -1,4 +1,5 @@
 #import "Optional.h"
+#import "Result.h"
 
 @interface Optional ()
 
@@ -53,6 +54,29 @@
             return flatMapBlock(self.value);
             break;
         }
+    }
+}
+
+- (Result* __nonnull)resultWithError:(id __nonnull)error {
+    switch (self.type) {
+        case OptionalTypeNone:
+            return [Result failureWith:error];
+            break;
+            
+        case OptionalTypeSome:
+            return [Result successWith:self.value];
+            break;
+    }
+}
+
+- (void)applyIfPossible:(void(^ __nonnull)(id __nonnull))applyBlock {
+    switch (self.type) {
+        case OptionalTypeNone:
+            break;
+            
+        case OptionalTypeSome:
+            applyBlock(self.value);
+            break;
     }
 }
 

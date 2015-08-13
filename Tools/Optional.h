@@ -7,6 +7,8 @@ typedef NS_ENUM(NSInteger, OptionalType) {
     OptionalTypeSome
 };
 
+@class Result;
+
 @interface Optional : NSObject
 
 @property (nonatomic, readonly) OptionalType type;
@@ -17,6 +19,9 @@ typedef NS_ENUM(NSInteger, OptionalType) {
 + (Optional* __nonnull)with:(id __nullable)value;
 - (Optional* __nonnull)mapOptional:(id __nonnull(^ __nonnull)(id __nonnull))mapBlock;
 - (Optional* __nonnull)flatMapOptional:(Optional* __nonnull (^ __nonnull)(id __nonnull))flatMapBlock;
+
+- (Result* __nonnull)resultWithError:(id __nonnull)error;
+- (void)applyIfPossible:(void(^ __nonnull)(id __nonnull))applyBlock;
 
 @end
 

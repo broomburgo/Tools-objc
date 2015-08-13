@@ -1,31 +1,13 @@
 #import "Result.h"
-
-@interface Result ()
-
-@property (nonatomic) id __nullable value;
-@property (nonatomic) id __nullable error;
-
-@end
+#import "Result_Internal.h"
 
 @implementation Result
 
 - (ResultType)type {
-    if (self.error != nil) {
-        return ResultTypeFailure;
-    }
-    return ResultTypeSuccess;
+    return self.error != nil ? ResultTypeFailure : ResultTypeSuccess;
 }
 
-- (id __nonnull)valueDefaultedTo:(id __nonnull)defaultValue {
-    if (self.type != ResultTypeFailure) {
-        return self.value;
-    }
-    else {
-        return defaultValue;
-    }
-}
-
-+ (Result* __nonnull)failureWith:(NSError * __nonnull)error {
++ (Result* __nonnull)failureWith:(id __nonnull)error {
     Result* result = [Result new];
     result.error = error;
     result.value = nil;
@@ -64,6 +46,29 @@
             break;
         }
     }
+}
+
+- (id __nonnull)selectForSuccess:(id __nonnull(^ __nonnull)(id __nonnull))successBlock selectForFailure:(id __nonnull(^ __nonnull)(id __nonnull))failureBlock {
+    switch (self.type) {
+        case ResultTypeSuccess: {
+            return successBlock(self.value);
+            break;
+        }
+        case ResultTypeFailure: {
+            return failureBlock(self.error);
+            break;
+        }
+    }
+}
+
+- (id __nonnull)valueDefaultedTo:(id)defaultValue {
+    return [self
+            selectForSuccess:^id (id value) {
+                return value;
+            }
+            selectForFailure:^id (id _) {
+                return defaultValue;
+            }];
 }
 
 @end
