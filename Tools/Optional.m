@@ -31,6 +31,31 @@
     return optional;
 }
 
++ (Optional* __nonnull)with:(id __nullable)value as:(Class __nonnull)requiredClass {
+    return [[Optional with:value]
+            flatMapOptional:^Optional * __nonnull(id __nonnull actualValue) {
+                if ([actualValue isKindOfClass:[requiredClass class]]) {
+                    return [Optional with:actualValue];
+                }
+                else {
+                    return [Optional with:nil];
+                }
+            }];
+}
+
++ (Optional* __nonnull)with:(id __nullable)value when:(BOOL(^ __nonnull)(id __nonnull value))ifBlock {
+    return [[Optional with:value]
+            flatMapOptional:^Optional * __nonnull(id __nonnull actualValue) {
+                if (ifBlock(actualValue)) {
+                    return [Optional with:actualValue];
+                }
+                else {
+                    return [Optional with:nil];
+                }
+            }];
+}
+
+
 - (Optional* __nonnull)mapOptional:(id  __nonnull (^ __nonnull)(id __nonnull))mapBlock {
     switch (self.type) {
         case OptionalTypeNone: {

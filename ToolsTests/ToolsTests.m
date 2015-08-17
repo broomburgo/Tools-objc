@@ -621,6 +621,28 @@
     XCTAssert([some.value isKindOfClass:[NSArray class]]);
     XCTAssertEqual(none.type, OptionalTypeNone);
     XCTAssertNil(none.value);
+    
+    Optional* someAs = [Optional with:@2 as:[NSNumber class]];
+    Optional* noneAs = [Optional with:@"2" as:[NSArray class]];
+    XCTAssertEqual(someAs.type, OptionalTypeSome);
+    XCTAssertNotNil(someAs.value);
+    XCTAssert([someAs.value isKindOfClass:[NSNumber class]]);
+    XCTAssertEqual([someAs.value integerValue], 2);
+    XCTAssertEqual(noneAs.type, OptionalTypeNone);
+    XCTAssertNil(noneAs.value);
+    
+    Optional* someWhen = [Optional with:@3 when:^BOOL(NSNumber* __nonnull number) {
+        return number.integerValue == 3;
+    }];
+    Optional* noneWhen = [Optional with:@"4" when:^BOOL(NSString* __nonnull string) {
+        return [string isEqualToString:@"3"];
+    }];
+    XCTAssertEqual(someWhen.type, OptionalTypeSome);
+    XCTAssertNotNil(someWhen.value);
+    XCTAssert([someWhen.value isKindOfClass:[NSNumber class]]);
+    XCTAssertEqual([someWhen.value integerValue], 3);
+    XCTAssertEqual(noneWhen.type, OptionalTypeNone);
+    XCTAssertNil(noneWhen.value);
 }
 
 - (void)testOptionalMap {
