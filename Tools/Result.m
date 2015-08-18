@@ -61,13 +61,13 @@
     }
 }
 
-- (id __nonnull)valueDefaultedTo:(id)defaultValue {
+- (id __nonnull)valueDefaultedTo:(id __nonnull(^ __nonnull)(void))lazyDefaultValue {
     return [self
             selectForSuccess:^id (id value) {
                 return value;
             }
             selectForFailure:^id (id _) {
-                return defaultValue;
+                return lazyDefaultValue();
             }];
 }
 

@@ -45,9 +45,11 @@
 
 @end
 
-@interface NSObject (Maybe)
+@interface NSObject (Tools)
 
 @property (readonly) id maybe;
 - (instancetype)maybe;
+
+- (instancetype)setup:(void(^)(id value))setupBlock;
 
 @end

@@ -16,12 +16,12 @@
     return OptionalTypeSome;
 }
 
-- (id __nonnull)valueDefaultedTo:(id __nonnull)defaultValue {
+- (id __nonnull)valueDefaultedTo:(id __nonnull(^ __nonnull)(void))lazyDefaultValue {
     if (self.value != nil) {
         return self.value;
     }
     else {
-        return defaultValue;
+        return lazyDefaultValue();
     }
 }
 

@@ -302,4 +302,11 @@
     }
 }
 
+- (instancetype)setup:(void(^)(id value))setupBlock {
+    if (setupBlock != nil) {
+        setupBlock(self);
+    }
+    return self;
+}
+
 @end

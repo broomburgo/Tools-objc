@@ -14,7 +14,7 @@ typedef NS_ENUM(NSInteger, OptionalType) {
 @property (nonatomic, readonly) OptionalType type;
 @property (nonatomic, readonly) id __nullable value;
 
-- (id __nonnull)valueDefaultedTo:(id __nonnull)defaultValue;
+- (id __nonnull)valueDefaultedTo:(id __nonnull(^ __nonnull)(void))lazyDefaultValue;
 
 + (Optional* __nonnull)with:(id __nullable)value;
 + (Optional* __nonnull)with:(id __nullable)value as:(Class __nonnull)requiredClass;
