@@ -55,11 +55,23 @@
             }];
 }
 
+- (Optional* __nonnull)filterOptional:(BOOL(^ __nonnull)(id __nonnull))filterBlock {
+    switch (self.type) {
+        case OptionalTypeNone: {
+            return self;
+            break;
+        }
+        case OptionalTypeSome: {
+            return [Optional with:self.value when:filterBlock];
+            break;
+        }
+    }
+}
 
 - (Optional* __nonnull)mapOptional:(id  __nonnull (^ __nonnull)(id __nonnull))mapBlock {
     switch (self.type) {
         case OptionalTypeNone: {
-            return [Optional with:nil];
+            return self;
             break;
         }
         case OptionalTypeSome: {
@@ -72,7 +84,7 @@
 - (Optional* __nonnull)flatMapOptional:(Optional * __nonnull (^ __nonnull)(id __nonnull))flatMapBlock {
     switch (self.type) {
         case OptionalTypeNone: {
-            return [Optional with:nil];
+            return self;
             break;
         }
         case OptionalTypeSome: {
