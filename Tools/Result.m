@@ -48,7 +48,7 @@
     }
 }
 
-- (id __nonnull)selectForSuccess:(id __nonnull(^ __nonnull)(id __nonnull))successBlock selectForFailure:(id __nonnull(^ __nonnull)(id __nonnull))failureBlock {
+- (id __nonnull)ifForSuccess:(id __nonnull(^ __nonnull)(id __nonnull))successBlock ifFailure:(id __nonnull(^ __nonnull)(id __nonnull))failureBlock {
     switch (self.type) {
         case ResultTypeSuccess: {
             return successBlock(self.value);
@@ -63,10 +63,10 @@
 
 - (id __nonnull)valueDefaultedTo:(id __nonnull(^ __nonnull)(void))lazyDefaultValue {
     return [self
-            selectForSuccess:^id (id value) {
+            ifSuccess:^id (id value) {
                 return value;
             }
-            selectForFailure:^id (id _) {
+            ifFailure:^id (id _) {
                 return lazyDefaultValue();
             }];
 }
