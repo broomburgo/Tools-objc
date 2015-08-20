@@ -24,6 +24,7 @@
      setup:^(Switch* object){
          object.value = value;
          object.isMatched = isMatched;
+         return object;
      }];
 }
 

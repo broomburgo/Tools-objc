@@ -659,13 +659,13 @@
         return @([number integerValue]*0.5);
     };
     
-    Optional* someHalfNumber = [someNumber mapOptional:mapBlock];
+    Optional* someHalfNumber = [someNumber map:mapBlock];
     XCTAssertEqual(someHalfNumber.type, OptionalTypeSome);
     XCTAssertNotNil(someHalfNumber.value);
     XCTAssert([someHalfNumber.value isKindOfClass:[NSNumber class]]);
     XCTAssertEqual([someHalfNumber.value integerValue], 5);
     
-    Optional* noneHalfNumber = [noneNumber mapOptional:mapBlock];
+    Optional* noneHalfNumber = [noneNumber map:mapBlock];
     XCTAssertEqual(noneHalfNumber.type, OptionalTypeNone);
     XCTAssertNil(noneHalfNumber.value);
 }
@@ -691,10 +691,10 @@
         return [Optional with:nil];
     };
     
-    Optional* someToSomeDoubledArray = [someArray flatMapOptional:flatMapBlockToSome];
-    Optional* someToNoneDoubledArray = [someArray flatMapOptional:flatMapBlockToNone];
-    Optional* noneToSomeDoubledArray = [noneArray flatMapOptional:flatMapBlockToSome];
-    Optional* noneToNoneDoubledArray = [noneArray flatMapOptional:flatMapBlockToNone];
+    Optional* someToSomeDoubledArray = [someArray flatMap:flatMapBlockToSome];
+    Optional* someToNoneDoubledArray = [someArray flatMap:flatMapBlockToNone];
+    Optional* noneToSomeDoubledArray = [noneArray flatMap:flatMapBlockToSome];
+    Optional* noneToNoneDoubledArray = [noneArray flatMap:flatMapBlockToNone];
     
     XCTAssertEqual(someToSomeDoubledArray.type, OptionalTypeSome);
     XCTAssertEqual(someToNoneDoubledArray.type, OptionalTypeNone);
@@ -743,14 +743,14 @@
         return @([number integerValue]*0.5);
     };
     
-    Result* resultHalfNumber = [successNumber mapResult:mapBlock];
+    Result* resultHalfNumber = [successNumber map:mapBlock];
     XCTAssertEqual(resultHalfNumber.type, ResultTypeSuccess);
     XCTAssertNil(resultHalfNumber.error);
     XCTAssertNotNil(resultHalfNumber.value);
     XCTAssert([resultHalfNumber.value isKindOfClass:[NSNumber class]]);
     XCTAssertEqual([resultHalfNumber.value integerValue], 5);
     
-    Result* failureHalfNumber = [failureNumber mapResult:mapBlock];
+    Result* failureHalfNumber = [failureNumber map:mapBlock];
     XCTAssertEqual(failureHalfNumber.type, ResultTypeFailure);
     XCTAssertNil(failureHalfNumber.value);
     XCTAssertNotNil(failureHalfNumber.error);
@@ -784,10 +784,10 @@
         return [Result failureWith:[NSError errorWithDomain:@"" code:errorCode userInfo:nil]];
     };
     
-    Result* successToSuccessDoubledArray = [successArray flatMapResult:flatMapBlockToSuccess];
-    Result* successToFailureDoubledArray = [successArray flatMapResult:flatMapBlockToFailure];
-    Result* failureToSuccessDoubledArray = [failureArray flatMapResult:flatMapBlockToSuccess];
-    Result* failureToFailureDoubledArray = [failureArray flatMapResult:flatMapBlockToFailure];
+    Result* successToSuccessDoubledArray = [successArray flatMap:flatMapBlockToSuccess];
+    Result* successToFailureDoubledArray = [successArray flatMap:flatMapBlockToFailure];
+    Result* failureToSuccessDoubledArray = [failureArray flatMap:flatMapBlockToSuccess];
+    Result* failureToFailureDoubledArray = [failureArray flatMap:flatMapBlockToFailure];
     
     XCTAssertEqual(successToSuccessDoubledArray.type, ResultTypeSuccess);
     XCTAssertEqual(successToFailureDoubledArray.type, ResultTypeFailure);

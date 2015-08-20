@@ -20,9 +20,9 @@ typedef NS_ENUM(NSInteger, OptionalType) {
 + (Optional* __nonnull)with:(id __nullable)value as:(Class __nonnull)requiredClass;
 + (Optional* __nonnull)with:(id __nullable)value when:(BOOL(^ __nonnull)(id __nonnull value))ifBlock;
 
-- (Optional* __nonnull)filterOptional:(BOOL(^ __nonnull)(id __nonnull))filterBlock;
-- (Optional* __nonnull)mapOptional:(id __nonnull(^ __nonnull)(id __nonnull))mapBlock;
-- (Optional* __nonnull)flatMapOptional:(Optional* __nonnull (^ __nonnull)(id __nonnull))flatMapBlock;
+- (Optional* __nonnull)filter:(BOOL(^ __nonnull)(id __nonnull))filterBlock;
+- (Optional* __nonnull)map:(id __nonnull(^ __nonnull)(id __nonnull))mapBlock;
+- (Optional* __nonnull)flatMap:(Optional* __nonnull (^ __nonnull)(id __nonnull))flatMapBlock;
 
 - (Result* __nonnull)resultWithError:(id __nonnull)error;
 - (void)applyIfPossible:(void(^ __nonnull)(id __nonnull))applyBlock;

@@ -22,7 +22,7 @@
     return result;
 }
 
-- (Result* __nonnull)mapResult:(id  __nonnull (^ __nonnull)(id __nonnull))mapBlock {
+- (Result* __nonnull)map:(id  __nonnull (^ __nonnull)(id __nonnull))mapBlock {
     switch (self.type) {
         case ResultTypeFailure: {
             return [Result failureWith:self.error];
@@ -35,7 +35,7 @@
     }
 }
 
-- (Result* __nonnull)flatMapResult:(Result * __nonnull (^ __nonnull)(id __nonnull))flatMapBlock {
+- (Result* __nonnull)flatMap:(Result * __nonnull (^ __nonnull)(id __nonnull))flatMapBlock {
     switch (self.type) {
         case ResultTypeFailure: {
             return [Result failureWith:self.error];

@@ -302,9 +302,9 @@
     }
 }
 
-- (instancetype)setup:(void(^)(id value))setupBlock {
+- (instancetype)setup:(id(^)(id value))setupBlock {
     if (setupBlock != nil) {
-        setupBlock(self);
+        return setupBlock(self);
     }
     return self;
 }
