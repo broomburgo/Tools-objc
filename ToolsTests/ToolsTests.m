@@ -213,62 +213,62 @@
     XCTAssert([array1 isEqualToArray:array1Wannabe]);
     
     NSDictionary* dict8 = @{
-                                  @"1":@1,
-                                  @"2":@{
-                                          @"1":@1,
-                                          @"2":@2
-                                          },
-                                  @"3":@3,
-                                  @"4":@{
-                                          @"1":@1,
-                                          @"2":@{
-                                                  @"1":@1,
-                                                  @"2":@2,
-                                                  @"3":@3
-                                                  }
-                                          },
-                                  @"6":@[@1,@2]
-                                  };
+                            @"1":@1,
+                            @"2":@{
+                                    @"1":@1,
+                                    @"2":@2
+                                    },
+                            @"3":@3,
+                            @"4":@{
+                                    @"1":@1,
+                                    @"2":@{
+                                            @"1":@1,
+                                            @"2":@2,
+                                            @"3":@3
+                                            }
+                                    },
+                            @"6":@[@1,@2]
+                            };
     NSDictionary* otherDict8 = @{
-                                       @"1":@10,
-                                       @"2":@{
-                                               @"2":@20,
-                                               @"3":@30
-                                               },
-                                       @"4":@{
-                                               @"2":@{
-                                                       @"1":@10,
-                                                       @"3":@3,
-                                                       @"4":@{
-                                                               @"1":@10
-                                                               }
-                                                       }
-                                               },
-                                       @"5":@5,
-                                       @"6":@[@3,@"4"]
-                                       };
+                                 @"1":@10,
+                                 @"2":@{
+                                         @"2":@20,
+                                         @"3":@30
+                                         },
+                                 @"4":@{
+                                         @"2":@{
+                                                 @"1":@10,
+                                                 @"3":@3,
+                                                 @"4":@{
+                                                         @"1":@10
+                                                         }
+                                                 }
+                                         },
+                                 @"5":@5,
+                                 @"6":@[@3,@"4"]
+                                 };
     NSDictionary* expectedDict8 = @{
-                                          @"1":@10,
-                                          @"2":@{
-                                                  @"1":@1,
-                                                  @"2":@20,
-                                                  @"3":@30
-                                                  },
-                                          @"3":@3,
-                                          @"4":@{
-                                                  @"1":@1,
-                                                  @"2":@{
-                                                          @"1":@10,
-                                                          @"2":@2,
-                                                          @"3":@3,
-                                                          @"4":@{
-                                                                  @"1":@10
-                                                                  }
-                                                          }
-                                                  },
-                                          @"5":@5,
-                                          @"6":@[@1,@2,@3,@"4"]
-                                          };
+                                    @"1":@10,
+                                    @"2":@{
+                                            @"1":@1,
+                                            @"2":@20,
+                                            @"3":@30
+                                            },
+                                    @"3":@3,
+                                    @"4":@{
+                                            @"1":@1,
+                                            @"2":@{
+                                                    @"1":@10,
+                                                    @"2":@2,
+                                                    @"3":@3,
+                                                    @"4":@{
+                                                            @"1":@10
+                                                            }
+                                                    }
+                                            },
+                                    @"5":@5,
+                                    @"6":@[@1,@2,@3,@"4"]
+                                    };
     NSDictionary* mergedDict8 = [dict8 mergeWith:otherDict8];
     XCTAssertNotNil(mergedDict8);
     XCTAssertNotEqual(mergedDict8.count, 0);
@@ -308,11 +308,11 @@
 
 - (void)testNSDictionaryOptionals {
     NSDictionary* dict = [[[[[[@{}
-                              key:@"a" optional:@1]
-                             key:@"b" optional:nil]
-                            key:nil optional:@3]
-                           key:@"d" optional:@"4"]
-                          key:nil optional:nil]
+                               key:@"a" optional:@1]
+                              key:@"b" optional:nil]
+                             key:nil optional:@3]
+                            key:@"d" optional:@"4"]
+                           key:nil optional:nil]
                           optionalDict:[[[[[[@{} mutableCopy]
                                             key:@"f" optional:nil]
                                            key:nil optional:@7]
@@ -333,11 +333,11 @@
     XCTAssert(dict[@"j"] == nil);
     
     NSMutableDictionary* m_dict = [[[[[[[@{} mutableCopy]
-                                       key:@"a" optional:nil]
-                                      key:@"b" optional:@2]
-                                     key:@"c" optional:@3]
-                                    key:nil optional:@4]
-                                   key:nil optional: nil]
+                                        key:@"a" optional:nil]
+                                       key:@"b" optional:@2]
+                                      key:@"c" optional:@3]
+                                     key:nil optional:@4]
+                                    key:nil optional: nil]
                                    optionalDict:[[[[[@{}
                                                      key:@"f" optional:@6]
                                                     key:@"g" optional:nil]
@@ -459,16 +459,16 @@
     NSString* randomString3 = [Tools randomStringWithLength:randomStringLength];
     XCTAssertNotNil(randomString3);
     XCTAssertEqual(randomString3.length, randomStringLength);
-
+    
     XCTAssertNotEqualObjects(randomString2, randomString3);
     
     NSString* noDigitsString = @"abcdefghijklmnopqrstuvwxyz";
     NSMutableArray* m_noDigitsArray = [@[] mutableCopy];
     [noDigitsString enumerateSubstringsInRange:NSMakeRange(0, noDigitsString.length)
-                                      options:NSStringEnumerationByComposedCharacterSequences
-                                   usingBlock:^(NSString *substring, NSRange substringRange, NSRange enclosingRange, BOOL *stop) {
-                                       [m_noDigitsArray addObject:substring];
-                                   }];
+                                       options:NSStringEnumerationByComposedCharacterSequences
+                                    usingBlock:^(NSString *substring, NSRange substringRange, NSRange enclosingRange, BOOL *stop) {
+                                        [m_noDigitsArray addObject:substring];
+                                    }];
     NSSet* noDigitsSet = [NSSet setWithArray:m_noDigitsArray];
     XCTAssertNotNil(noDigitsSet);
     XCTAssertEqual(noDigitsSet.count, noDigitsString.length);
@@ -479,10 +479,10 @@
     
     NSMutableArray* m_randomDigitsOnlyArray = [@[] mutableCopy];
     [randomDigitsOnlyString enumerateSubstringsInRange:NSMakeRange(0, randomDigitsOnlyString.length)
-                                                options:NSStringEnumerationByComposedCharacterSequences
-                                             usingBlock:^(NSString *substring, NSRange substringRange, NSRange enclosingRange, BOOL *stop) {
-                                                 [m_randomDigitsOnlyArray addObject:substring];
-                                             }];
+                                               options:NSStringEnumerationByComposedCharacterSequences
+                                            usingBlock:^(NSString *substring, NSRange substringRange, NSRange enclosingRange, BOOL *stop) {
+                                                [m_randomDigitsOnlyArray addObject:substring];
+                                            }];
     NSSet* randomDigitsOnlySet = [NSSet setWithArray:m_randomDigitsOnlyArray];
     XCTAssertNotNil(randomDigitsOnlySet);
     XCTAssert(randomDigitsOnlySet.count > 0);
@@ -529,7 +529,7 @@
     XCTAssertNil(future2.value);
     XCTAssertNotNil(future2.error);
     XCTAssertEqualObjects(((NSError*)future2.error).domain, expectedError2.domain);
-
+    
     Future* future3 = [Future new];
     XCTAssertNil(future3.value);
     XCTAssertNil(future3.error);
@@ -558,7 +558,7 @@
         [success3_3 fulfill];
         XCTAssertEqualObjects(value, expectedValue3);
     }];
-
+    
     Future* future4 = [Future new];
     XCTAssertNil(future4.value);
     XCTAssertNil(future4.error);
@@ -816,15 +816,15 @@
     NSString* matchedString1  =
     [[[[[Switch value:numberToMatch]
         
-        inCase:[numberToMatch isEqualToNumber:@1] :^id{
+        Case(NSNumber* value, [value isEqualToNumber:@1]) {
             return @"number is 1";
         }]
        
-       inCase:[numberToMatch isEqualToNumber:@2] :^id{
+       Case(NSNumber* value, [value isEqualToNumber:@2]) {
            return @"number is 2";
        }]
       
-      inCase:[numberToMatch isEqualToNumber:@3] :^id{
+      Case(NSNumber* value, [value isEqualToNumber:@3]) {
           return @"number is 3";
       }]
      
@@ -836,15 +836,15 @@
     NSString* matchedString2  =
     [[[[[Switch value:numberToMatch]
         
-        inCase:[numberToMatch isEqualToNumber:@1] :^id{
+        Case(NSNumber* value, [value isEqualToNumber:@1]) {
             return @"number is 1";
         }]
        
-       inCase:[numberToMatch isEqualToNumber:@3] :^id{
+       Case(NSNumber* value, [value isEqualToNumber:@3]) {
            return @"number is 2";
        }]
       
-      inCase:[numberToMatch isEqualToNumber:@2] :^id{
+      Case(NSNumber* value, [value isEqualToNumber:@2]) {
           return @"number is 3";
       }]
      
@@ -856,15 +856,15 @@
     NSString* matchedString3  =
     [[[[[Switch value:numberToMatch]
         
-        inCase:[numberToMatch isEqualToNumber:@1] :^id{
+        Case(NSNumber* value, [value isEqualToNumber:@1]) {
             return @"number is 1";
         }]
        
-       inCase:[numberToMatch isEqualToNumber:@3] :^id{
+       Case(NSNumber* value, [value isEqualToNumber:@3]) {
            return @"number is 2";
        }]
       
-      inCase:[numberToMatch isEqualToNumber:@4] :^id{
+      Case(NSNumber* value, [value isEqualToNumber:@4]) {
           return @"number is 3";
       }]
      
@@ -875,19 +875,19 @@
     NSString* matchedString4  =
     [[[[[[Switch value:numberToMatch]
          
-         inCase:[numberToMatch isEqualToNumber:@1] :^id{
+         Case(NSNumber* value, [value isEqualToNumber:@1]) {
              return @"number is 1";
          }]
         
-        inCase:[numberToMatch isEqualToNumber:@3] :^id{
+        Case(NSNumber* value, [value isEqualToNumber:@3]) {
             return @"number is 2";
         }]
        
-       inCase:[numberToMatch isEqualToNumber:@4] :^id{
+       Case(NSNumber* value, [value isEqualToNumber:@4]) {
            return @"number is 3";
        }]
       
-      otherwise:^id {
+      Otherwise(id _) {
           return @"number not found";
       }]
      

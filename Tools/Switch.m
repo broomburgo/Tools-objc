@@ -3,22 +3,22 @@
 
 @interface Switch ()
 
-@property (nonatomic) id __nonnull value;
+@property (nonatomic) id value;
 @property (nonatomic) BOOL isMatched;
 
 @end
 
 @implementation Switch
 
-+ (Switch*)value:(id __nonnull)value {
++ (Switch* __nonnull)value:(id __nonnull)value {
     return [Switch with:value isMatched:NO];
 }
 
-- (id __nullable)returnedValue {
+- (id)returnedValue {
     return self.isMatched ? self.value : nil;
 }
 
-+ (Switch*)with:(id __nonnull)value isMatched:(BOOL)isMatched {
++ (Switch*)with:(id)value isMatched:(BOOL)isMatched {
     return
     [[Switch new]
      setup:^(Switch* object){
@@ -28,21 +28,21 @@
      }];
 }
 
-- (Switch* __nonnull)inCase:(BOOL)inCase :(id  __nullable (^ __nonnull)(void))returnBlock {
+- (Switch* __nonnull)inCase:(BOOL(^ __nonnull)(id __nonnull))inCase :(id __nullable(^ __nonnull)(id __nonnull))returnBlock {
     if (self.isMatched) {
         return self;
     }
-    if (inCase) {
-        return [Switch with:returnBlock() isMatched:YES];
+    if (inCase(self.value)) {
+        return [Switch with:returnBlock(self.value) isMatched:YES];
     }
     return self;
 }
 
-- (Switch* __nonnull)otherwise:(id __nullable(^ __nonnull)(void))returnBlock {
+- (Switch* __nonnull)otherwise:(id __nullable(^ __nonnull)(id __nonnull))returnBlock {
     if (self.isMatched) {
         return self;
     }
-    return [Switch with:returnBlock() isMatched:YES];
+    return [Switch with:returnBlock(self.value) isMatched:YES];
 }
 
 @end
