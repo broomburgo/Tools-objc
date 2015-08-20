@@ -48,7 +48,7 @@
     }
 }
 
-- (id __nonnull)ifForSuccess:(id __nonnull(^ __nonnull)(id __nonnull))successBlock ifFailure:(id __nonnull(^ __nonnull)(id __nonnull))failureBlock {
+- (id __nonnull)ifSuccess:(id __nonnull(^ __nonnull)(id __nonnull))successBlock ifFailure:(id __nonnull(^ __nonnull)(id __nonnull))failureBlock {
     switch (self.type) {
         case ResultTypeSuccess: {
             return successBlock(self.value);
