@@ -810,4 +810,91 @@
     XCTAssertEqualObjects(successToSuccessDoubledArray.value, doubledArray);
 }
 
+- (void)testSwitch {
+    NSNumber* numberToMatch = @2;
+    
+    NSString* matchedString1  =
+    [[[[[Switch value:numberToMatch]
+        
+        inCase:[numberToMatch isEqualToNumber:@1] :^id{
+            return @"number is 1";
+        }]
+       
+       inCase:[numberToMatch isEqualToNumber:@2] :^id{
+           return @"number is 2";
+       }]
+      
+      inCase:[numberToMatch isEqualToNumber:@3] :^id{
+          return @"number is 3";
+      }]
+     
+     returnedValue];
+    
+    XCTAssertNotNil(matchedString1);
+    XCTAssertEqualObjects(matchedString1, @"number is 2");
+    
+    NSString* matchedString2  =
+    [[[[[Switch value:numberToMatch]
+        
+        inCase:[numberToMatch isEqualToNumber:@1] :^id{
+            return @"number is 1";
+        }]
+       
+       inCase:[numberToMatch isEqualToNumber:@3] :^id{
+           return @"number is 2";
+       }]
+      
+      inCase:[numberToMatch isEqualToNumber:@2] :^id{
+          return @"number is 3";
+      }]
+     
+     returnedValue];
+    
+    XCTAssertNotNil(matchedString2);
+    XCTAssertEqualObjects(matchedString2, @"number is 3");
+    
+    NSString* matchedString3  =
+    [[[[[Switch value:numberToMatch]
+        
+        inCase:[numberToMatch isEqualToNumber:@1] :^id{
+            return @"number is 1";
+        }]
+       
+       inCase:[numberToMatch isEqualToNumber:@3] :^id{
+           return @"number is 2";
+       }]
+      
+      inCase:[numberToMatch isEqualToNumber:@4] :^id{
+          return @"number is 3";
+      }]
+     
+     returnedValue];
+    
+    XCTAssertNil(matchedString3);
+    
+    NSString* matchedString4  =
+    [[[[[[Switch value:numberToMatch]
+         
+         inCase:[numberToMatch isEqualToNumber:@1] :^id{
+             return @"number is 1";
+         }]
+        
+        inCase:[numberToMatch isEqualToNumber:@3] :^id{
+            return @"number is 2";
+        }]
+       
+       inCase:[numberToMatch isEqualToNumber:@4] :^id{
+           return @"number is 3";
+       }]
+      
+      otherwise:^id {
+          return @"number not found";
+      }]
+     
+     returnedValue];
+    
+    XCTAssertNotNil(matchedString4);
+    XCTAssertEqualObjects(matchedString4, @"number not found");
+}
+
 @end
