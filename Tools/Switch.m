@@ -10,7 +10,7 @@
 
 @implementation Switch
 
-+ (Switch* __nonnull)value:(id __nonnull)value {
++ (Switch* __nonnull):(id __nonnull)value {
     return [Switch with:value isMatched:NO];
 }
 
