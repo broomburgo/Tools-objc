@@ -134,14 +134,4 @@
     }
 }
 
-#pragma mark - NSCopying
-
-- (instancetype)copyWithZone:(NSZone *)zone {
-    Future* copiedFuture = [Future new];
-    copiedFuture.value = self.value;
-    copiedFuture.error = self.error;
-    copiedFuture.m_completeBlocks = self.m_completeBlocks;
-    return copiedFuture;
-}
-
 @end

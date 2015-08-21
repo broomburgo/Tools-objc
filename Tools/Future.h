@@ -14,7 +14,7 @@ typedef void(^FailureBlock)(id __nonnull error);
 typedef id __nonnull (^MapBlock)(id __nonnull value);
 typedef Future* __nonnull (^FlatMapBlock)(id __nonnull value);
 
-@interface Future : NSObject <NSCopying>
+@interface Future : NSObject
 
 @property (copy, nonatomic, readonly) id __nullable value;
 @property (copy, nonatomic, readonly) id __nullable error;
