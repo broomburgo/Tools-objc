@@ -114,7 +114,7 @@
             return nil;
         }
     }];
-    XCTAssert([array3_2 isEqualToArray:@[]]);
+    XCTAssert([array3_2 isEqualToArray:[NSArray array]]);
     
     NSArray* array5 = @[@"1",@1];
     NSArray* array6 = [array5 map:^id(id object) {
@@ -157,7 +157,7 @@
     }];
     XCTAssert([array9Sum integerValue] == 15);
     
-    NSNumber* number1 = [@[] reduceWithStartingElement:@3 reduceBlock:^id(id accumulator, id object) {
+    NSNumber* number1 = [[NSArray array] reduceWithStartingElement:@3 reduceBlock:^id(id accumulator, id object) {
         return @([accumulator integerValue] + [object integerValue]);
     }];
     XCTAssert([number1 isKindOfClass:[NSNumber class]]);
@@ -193,7 +193,7 @@
             return nil;
         }
     }];
-    XCTAssert([dictionary6 isEqualToDictionary:@{}]);
+    XCTAssert([dictionary6 isEqualToDictionary:[NSDictionary dictionary]]);
     
     NSDictionary* dictionary7 = @{@1:@"1",@"2":@2,@"3":@3,@4:@"4"};
     NSArray* array1 = [dictionary7 mapToArray:^id(id key, id object) {
@@ -307,13 +307,13 @@
 }
 
 - (void)testNSDictionaryOptionals {
-    NSDictionary* dict = [[[[[[@{}
+    NSDictionary* dict = [[[[[[[NSDictionary dictionary]
                                key:@"a" optional:@1]
                               key:@"b" optional:nil]
                              key:nil optional:@3]
                             key:@"d" optional:@"4"]
                            key:nil optional:nil]
-                          optionalDict:[[[[[[@{} mutableCopy]
+                          optionalDict:[[[[[[NSMutableDictionary dictionary]
                                             key:@"f" optional:nil]
                                            key:nil optional:@7]
                                           key:@"h" optional:@8]
@@ -332,13 +332,13 @@
     XCTAssert(dict[@"i"] == nil);
     XCTAssert(dict[@"j"] == nil);
     
-    NSMutableDictionary* m_dict = [[[[[[[@{} mutableCopy]
+    NSMutableDictionary* m_dict = [[[[[[[NSMutableDictionary dictionary]
                                         key:@"a" optional:nil]
                                        key:@"b" optional:@2]
                                       key:@"c" optional:@3]
                                      key:nil optional:@4]
                                     key:nil optional: nil]
-                                   optionalDict:[[[[[@{}
+                                   optionalDict:[[[[[[NSDictionary dictionary]
                                                      key:@"f" optional:@6]
                                                     key:@"g" optional:nil]
                                                    key:nil optional:@8]
@@ -359,13 +359,13 @@
 }
 
 - (void)testNSArrayOptionals {
-    NSArray* array = [[[[[[@[]
+    NSArray* array = [[[[[[[NSArray array]
                            optional:@1]
                           optional:nil]
                          optional:@3]
                         optional:@4]
                        optional:nil]
-                      optionalArray:[[[[@[] mutableCopy]
+                      optionalArray:[[[[NSMutableArray array]
                                        optional:@6]
                                       optional:nil]
                                      optional:@8]];
@@ -377,13 +377,13 @@
     XCTAssert([array[3] isEqual:@6]);
     XCTAssert([array[4] isEqual:@8]);
     
-    NSMutableArray* m_array = [[[[[[[@[] mutableCopy]
+    NSMutableArray* m_array = [[[[[[[NSMutableArray array]
                                     optional:nil]
                                    optional:@2]
                                   optional:nil]
                                  optional:@4]
                                 optional: nil]
-                               optionalArray:[[[@[]
+                               optionalArray:[[[[NSArray array]
                                                 optional:nil]
                                                optional:nil]
                                               optional:@8]];
@@ -463,7 +463,7 @@
     XCTAssertNotEqualObjects(randomString2, randomString3);
     
     NSString* noDigitsString = @"abcdefghijklmnopqrstuvwxyz";
-    NSMutableArray* m_noDigitsArray = [@[] mutableCopy];
+    NSMutableArray* m_noDigitsArray = [NSMutableArray array];
     [noDigitsString enumerateSubstringsInRange:NSMakeRange(0, noDigitsString.length)
                                        options:NSStringEnumerationByComposedCharacterSequences
                                     usingBlock:^(NSString *substring, NSRange substringRange, NSRange enclosingRange, BOOL *stop) {
@@ -477,7 +477,7 @@
     XCTAssertNotNil(randomDigitsOnlyString);
     XCTAssertEqual(randomDigitsOnlyString.length, randomStringLength);
     
-    NSMutableArray* m_randomDigitsOnlyArray = [@[] mutableCopy];
+    NSMutableArray* m_randomDigitsOnlyArray = [NSMutableArray array];
     [randomDigitsOnlyString enumerateSubstringsInRange:NSMakeRange(0, randomDigitsOnlyString.length)
                                                options:NSStringEnumerationByComposedCharacterSequences
                                             usingBlock:^(NSString *substring, NSRange substringRange, NSRange enclosingRange, BOOL *stop) {
@@ -614,7 +614,7 @@
 }
 
 - (void)testOptionalNoneSome {
-    Optional* some = [Optional with:@[]];
+    Optional* some = [Optional with:[NSArray array]];
     Optional* none = [Optional with:nil];
     XCTAssertEqual(some.type, OptionalTypeSome);
     XCTAssertNotNil(some.value);
@@ -712,7 +712,7 @@
 
 - (void)testResultFailureSuccess {
     NSInteger errorCode = 12345;
-    Result* success = [Result successWith:@[]];
+    Result* success = [Result successWith:[NSArray array]];
     Result* failure = [Result failureWith:[NSError errorWithDomain:@"" code:errorCode userInfo:nil]];
     XCTAssertEqual(success.type, ResultTypeSuccess);
     XCTAssertNotNil(success.value);

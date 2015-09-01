@@ -5,7 +5,7 @@
 + (NSArray*)arrayWithCapacity:(NSUInteger)capacity buildBlock:(id(^)(NSUInteger currentIndex, BOOL* prematureEnd))buildBlock {
     if (capacity == 0 ||
         buildBlock == nil) {
-        return @[];
+        return [NSArray array];
     }
     
     NSMutableArray* m_array = [NSMutableArray array];
@@ -38,7 +38,7 @@
 }
 
 - (NSArray*)map:(id(^)(id object))mapBlock {
-    NSMutableArray* m_reduced = [self reduceWithStartingElement:[@[] mutableCopy] reduceBlock:^id(id accumulator, id object) {
+    NSMutableArray* m_reduced = [self reduceWithStartingElement:[NSMutableArray array] reduceBlock:^id(id accumulator, id object) {
         NSMutableArray* currentAccumulator = (NSMutableArray*)accumulator;
         id currentObject = mapBlock(object);
         if (currentObject) {
@@ -50,7 +50,7 @@
 }
 
 - (NSArray*)filter:(BOOL(^)(id object))filterBlock {
-    NSMutableArray* m_reduced = [self reduceWithStartingElement:[@[] mutableCopy] reduceBlock:^id(id accumulator, id object) {
+    NSMutableArray* m_reduced = [self reduceWithStartingElement:[NSMutableArray array] reduceBlock:^id(id accumulator, id object) {
         NSMutableArray* currentAccumulator = (NSMutableArray*)accumulator;
         if (filterBlock(object)) {
             [currentAccumulator addObject:object];
@@ -64,7 +64,7 @@
     if (mapBlock == nil) {
         return nil;
     }
-    NSMutableDictionary* m_reduced = [self reduceWithStartingElement:[@{} mutableCopy] reduceBlock:^id(id accumulator, id object) {
+    NSMutableDictionary* m_reduced = [self reduceWithStartingElement:[NSMutableDictionary dictionary] reduceBlock:^id(id accumulator, id object) {
         NSMutableDictionary* currentAccumulator = (NSMutableDictionary*)accumulator;
         NSDictionary* currentDictionary = mapBlock(object);
         if (currentDictionary.count > 0) {
@@ -137,7 +137,7 @@
     if (mapBlock == nil) {
         return self;
     }
-    NSMutableDictionary* m_reduced = [self reduceWithStartingElement:[@{} mutableCopy] reduceBlock:^NSMutableDictionary*(NSMutableDictionary* m_accumulator, id key, id object) {
+    NSMutableDictionary* m_reduced = [self reduceWithStartingElement:[NSMutableDictionary dictionary] reduceBlock:^NSMutableDictionary*(NSMutableDictionary* m_accumulator, id key, id object) {
         NSDictionary* currentDictionary = mapBlock(key, object);
         if (currentDictionary != nil) {
             [m_accumulator addEntriesFromDictionary:currentDictionary];
@@ -154,7 +154,7 @@
     if (filterBlock == nil) {
         return self;
     }
-    NSMutableDictionary* m_reduced = [self reduceWithStartingElement:[@{} mutableCopy] reduceBlock:^NSMutableDictionary*(NSMutableDictionary* m_accumulator, id key, id object) {
+    NSMutableDictionary* m_reduced = [self reduceWithStartingElement:[NSMutableDictionary dictionary] reduceBlock:^NSMutableDictionary*(NSMutableDictionary* m_accumulator, id key, id object) {
         if (filterBlock(key,object) == YES) {
             [m_accumulator setObject:object forKey:key];
         }
@@ -170,7 +170,7 @@
     if (mapBlock == nil) {
         return nil;
     }
-    NSMutableArray* m_reduced = [self reduceWithStartingElement:[@[] mutableCopy] reduceBlock:^NSMutableArray*(NSMutableArray* m_accumulator, id key, id object) {
+    NSMutableArray* m_reduced = [self reduceWithStartingElement:[NSMutableArray array] reduceBlock:^NSMutableArray*(NSMutableArray* m_accumulator, id key, id object) {
         id currentObject = mapBlock(key, object);
         if (currentObject != nil) {
             [m_accumulator addObject:currentObject];

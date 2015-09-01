@@ -54,7 +54,7 @@ static const NSInteger kRandomStringStandardStringLength = 8;
 
 + (NSArray* __nonnull)JSONValidatedArray:(NSArray* __nonnull)array {
     if (array.count == 0) {
-        return @[];
+        return [NSArray array];
     }
     if ([NSJSONSerialization isValidJSONObject:array]) {
         return array;
@@ -72,7 +72,7 @@ static const NSInteger kRandomStringStandardStringLength = 8;
 
 + (NSDictionary* __nonnull)JSONValidatedDictionary:(NSDictionary* __nonnull)dictionary {
     if (dictionary.count == 0) {
-        return @{};
+        return [NSDictionary dictionary];
     }
     if ([NSJSONSerialization isValidJSONObject:dictionary]) {
         return dictionary;
