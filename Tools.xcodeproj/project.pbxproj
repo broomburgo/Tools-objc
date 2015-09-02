@@ -12,7 +12,7 @@
 		386EBEBE1B95A2A600C678FE /* Result.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 38A2B6F41B78E7FF0004AF4A /* Result.h */; };
 		386EBEBF1B95A2A600C678FE /* Optional.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 38A2B6F71B78EAF60004AF4A /* Optional.h */; };
 		386EBEC01B95A2A600C678FE /* Categories.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 38F4CEA91B79FD2A00A8F464 /* Categories.h */; };
-		386EBEC11B95A2A600C678FE /* Switch.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 38F55EE41B85DAA0004A444E /* Switch.h */; };
+		386EBEC11B95A2A600C678FE /* Match.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 38F55EE41B85DAA0004A444E /* Match.h */; };
 		386EBEC81B95A71300C678FE /* Future_Internal.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 38EBACCA1B6F69A000F95442 /* Future_Internal.h */; };
 		386EBEC91B95A71300C678FE /* Result_Internal.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 38FB87721B7CD3F900F4C5B3 /* Result_Internal.h */; };
 		38A2B6F61B78E7FF0004AF4A /* Result.m in Sources */ = {isa = PBXBuildFile; fileRef = 38A2B6F51B78E7FF0004AF4A /* Result.m */; };
@@ -24,7 +24,7 @@
 		38EBACC91B6F697700F95442 /* Future.m in Sources */ = {isa = PBXBuildFile; fileRef = 38EBACC81B6F697700F95442 /* Future.m */; };
 		38EF90281B6220A70081B564 /* Queue.m in Sources */ = {isa = PBXBuildFile; fileRef = 38EF90271B6220A70081B564 /* Queue.m */; };
 		38F4CEAB1B79FD2A00A8F464 /* Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = 38F4CEAA1B79FD2A00A8F464 /* Categories.m */; };
-		38F55EE61B85DAA0004A444E /* Switch.m in Sources */ = {isa = PBXBuildFile; fileRef = 38F55EE51B85DAA0004A444E /* Switch.m */; };
+		38F55EE61B85DAA0004A444E /* Match.m in Sources */ = {isa = PBXBuildFile; fileRef = 38F55EE51B85DAA0004A444E /* Match.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,7 +51,7 @@
 				386EBEBE1B95A2A600C678FE /* Result.h in CopyFiles */,
 				386EBEBF1B95A2A600C678FE /* Optional.h in CopyFiles */,
 				386EBEC01B95A2A600C678FE /* Categories.h in CopyFiles */,
-				386EBEC11B95A2A600C678FE /* Switch.h in CopyFiles */,
+				386EBEC11B95A2A600C678FE /* Match.h in CopyFiles */,
 				38EA103C1B5E1DAD004EE76E /* Tools.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -76,8 +76,8 @@
 		38EF90271B6220A70081B564 /* Queue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Queue.m; sourceTree = "<group>"; };
 		38F4CEA91B79FD2A00A8F464 /* Categories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Categories.h; sourceTree = "<group>"; };
 		38F4CEAA1B79FD2A00A8F464 /* Categories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Categories.m; sourceTree = "<group>"; };
-		38F55EE41B85DAA0004A444E /* Switch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Switch.h; sourceTree = "<group>"; };
-		38F55EE51B85DAA0004A444E /* Switch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Switch.m; sourceTree = "<group>"; };
+		38F55EE41B85DAA0004A444E /* Match.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Match.h; sourceTree = "<group>"; };
+		38F55EE51B85DAA0004A444E /* Match.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Match.m; sourceTree = "<group>"; };
 		38FB87721B7CD3F900F4C5B3 /* Result_Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Result_Internal.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -135,8 +135,8 @@
 				38F4CEA91B79FD2A00A8F464 /* Categories.h */,
 				38F4CEAA1B79FD2A00A8F464 /* Categories.m */,
 				38FB87721B7CD3F900F4C5B3 /* Result_Internal.h */,
-				38F55EE41B85DAA0004A444E /* Switch.h */,
-				38F55EE51B85DAA0004A444E /* Switch.m */,
+				38F55EE41B85DAA0004A444E /* Match.h */,
+				38F55EE51B85DAA0004A444E /* Match.m */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -248,7 +248,7 @@
 			files = (
 				38EA10671B5E25FF004EE76E /* Tools.m in Sources */,
 				38A2B6F91B78EAF60004AF4A /* Optional.m in Sources */,
-				38F55EE61B85DAA0004A444E /* Switch.m in Sources */,
+				38F55EE61B85DAA0004A444E /* Match.m in Sources */,
 				38EF90281B6220A70081B564 /* Queue.m in Sources */,
 				38A2B6F61B78E7FF0004AF4A /* Result.m in Sources */,
 				38F4CEAB1B79FD2A00A8F464 /* Categories.m in Sources */,

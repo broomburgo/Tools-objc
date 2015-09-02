@@ -5,7 +5,7 @@
 #import "Optional.h"
 #import "Result.h"
 #import "Future.h"
-#import "Switch.h"
+#import "Match.h"
 
 typedef NS_ENUM(NSInteger, RandomStringType) {
     RandomStringTypeRegular = 0,

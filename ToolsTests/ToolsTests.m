@@ -810,11 +810,11 @@
     XCTAssertEqualObjects(successToSuccessDoubledArray.value, doubledArray);
 }
 
-- (void)testSwitch {
+- (void)testMatch {
     NSNumber* numberToMatch = @2;
     
     NSString* matchedString1  =
-    [[[[[Switch :numberToMatch]
+    [[[[[Match :numberToMatch]
         
         Case(NSNumber* value, [value isEqualToNumber:@1]) {
             return @"number is 1";
@@ -828,13 +828,13 @@
           return @"number is 3";
       }]
      
-     returnedValue];
+     matchedValue];
     
     XCTAssertNotNil(matchedString1);
     XCTAssertEqualObjects(matchedString1, @"number is 2");
     
     NSString* matchedString2  =
-    [[[[[Switch :numberToMatch]
+    [[[[[Match :numberToMatch]
         
         Case(NSNumber* value, [value isEqualToNumber:@1]) {
             return @"number is 1";
@@ -848,13 +848,13 @@
           return @"number is 3";
       }]
      
-     returnedValue];
+     matchedValue];
     
     XCTAssertNotNil(matchedString2);
     XCTAssertEqualObjects(matchedString2, @"number is 3");
     
     NSString* matchedString3  =
-    [[[[[Switch :numberToMatch]
+    [[[[[Match :numberToMatch]
         
         Case(NSNumber* value, [value isEqualToNumber:@1]) {
             return @"number is 1";
@@ -868,12 +868,12 @@
           return @"number is 3";
       }]
      
-     returnedValue];
+     matchedValue];
     
     XCTAssertNil(matchedString3);
     
     NSString* matchedString4  =
-    [[[[[[Switch :numberToMatch]
+    [[[[[[Match :numberToMatch]
          
          Case(NSNumber* value, [value isEqualToNumber:@1]) {
              return @"number is 1";
@@ -891,7 +891,7 @@
           return @"number not found";
       }]
      
-     returnedValue];
+     matchedValue];
     
     XCTAssertNotNil(matchedString4);
     XCTAssertEqualObjects(matchedString4, @"number not found");
