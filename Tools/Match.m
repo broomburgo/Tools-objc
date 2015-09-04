@@ -1,5 +1,4 @@
 #import "Match.h"
-#import "Categories.h"
 
 @interface Match ()
 
@@ -11,38 +10,32 @@
 @implementation Match
 
 + (Match* __nonnull):(id __nonnull)value {
-    return [Match with:value isMatched:NO];
+    return [Match value:value isMatched:NO];
 }
 
-- (id)matchedValue {
-    return self.isMatched ? self.value : nil;
++ (Match*)value:(id)value isMatched:(BOOL)isMatched {
+    Match* match = [Match new];
+    match.value = value;
+    match.isMatched = isMatched;
+    return match;
 }
 
-+ (Match*)with:(id)value isMatched:(BOOL)isMatched {
-    return
-    [[Match new]
-     setup:^(Match* object){
-         object.value = value;
-         object.isMatched = isMatched;
-         return object;
-     }];
-}
-
-- (Match* __nonnull)inCase:(BOOL(^ __nonnull)(id __nonnull))inCase :(id __nullable(^ __nonnull)(id __nonnull))returnBlock {
+- (Match* __nonnull)with:(BOOL(^ __nonnull)(id __nonnull))withBlock give:(id __nullable(^ __nonnull)(id __nonnull))giveBlock {
     if (self.isMatched) {
         return self;
     }
-    if (inCase(self.value)) {
-        return [Match with:returnBlock(self.value) isMatched:YES];
+    if (withBlock(self.value)) {
+        return [Match value:giveBlock(self.value) isMatched:YES];
     }
     return self;
 }
 
-- (Match* __nonnull)otherwise:(id __nullable(^ __nonnull)(id __nonnull))returnBlock {
+- (id __nonnull)otherwise:(id __nullable(^ __nonnull)())otherwiseBlock {
     if (self.isMatched) {
-        return self;
+        return self.value;
     }
-    return [Match with:returnBlock(self.value) isMatched:YES];
+    self.isMatched = YES;
+    return otherwiseBlock();
 }
 
 @end

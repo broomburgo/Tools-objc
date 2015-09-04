@@ -816,19 +816,30 @@
     NSString* matchedString1  =
     [[[[[Match :numberToMatch]
         
-        Case(NSNumber* value, [value isEqualToNumber:@1]) {
+        with:^BOOL(NSNumber* value){
+            return [value isEqualToNumber:@1];
+        }
+        give:^NSString*(NSNumber* value) {
             return @"number is 1";
         }]
        
-       Case(NSNumber* value, [value isEqualToNumber:@2]) {
+       with:^BOOL(NSNumber* value){
+           return [value isEqualToNumber:@2];
+       }
+       give:^NSString*(NSNumber* value) {
            return @"number is 2";
        }]
       
-      Case(NSNumber* value, [value isEqualToNumber:@3]) {
+      with:^BOOL(NSNumber* value){
+          return [value isEqualToNumber:@3];
+      }
+      give:^NSString*(NSNumber* value) {
           return @"number is 3";
       }]
      
-     matchedValue];
+     otherwise:^id{
+         return nil;
+     }];
     
     XCTAssertNotNil(matchedString1);
     XCTAssertEqualObjects(matchedString1, @"number is 2");
@@ -836,19 +847,30 @@
     NSString* matchedString2  =
     [[[[[Match :numberToMatch]
         
-        Case(NSNumber* value, [value isEqualToNumber:@1]) {
+        with:^BOOL(NSNumber* value){
+            return [value isEqualToNumber:@1];
+        }
+        give:^NSString*(NSNumber* value) {
             return @"number is 1";
         }]
        
-       Case(NSNumber* value, [value isEqualToNumber:@3]) {
+       with:^BOOL(NSNumber* value){
+           return [value isEqualToNumber:@3];
+       }
+       give:^NSString*(NSNumber* value) {
            return @"number is 2";
        }]
       
-      Case(NSNumber* value, [value isEqualToNumber:@2]) {
+      with:^BOOL(NSNumber* value){
+          return [value isEqualToNumber:@2];
+      }
+      give:^NSString*(NSNumber* value) {
           return @"number is 3";
       }]
      
-     matchedValue];
+     otherwise:^id{
+         return nil;
+     }];
     
     XCTAssertNotNil(matchedString2);
     XCTAssertEqualObjects(matchedString2, @"number is 3");
@@ -856,43 +878,61 @@
     NSString* matchedString3  =
     [[[[[Match :numberToMatch]
         
-        Case(NSNumber* value, [value isEqualToNumber:@1]) {
+        with:^BOOL(NSNumber* value){
+            return [value isEqualToNumber:@1];
+        }
+        give:^NSString*(NSNumber* value) {
             return @"number is 1";
         }]
        
-       Case(NSNumber* value, [value isEqualToNumber:@3]) {
+       with:^BOOL(NSNumber* value){
+           return [value isEqualToNumber:@3];
+       }
+       give:^NSString*(NSNumber* value) {
            return @"number is 2";
        }]
       
-      Case(NSNumber* value, [value isEqualToNumber:@4]) {
+      with:^BOOL(NSNumber* value){
+          return [value isEqualToNumber:@4];
+      }
+      give:^NSString*(NSNumber* value) {
           return @"number is 3";
       }]
      
-     matchedValue];
+     otherwise:^id{
+         return nil;
+     }];
     
     XCTAssertNil(matchedString3);
     
     NSString* matchedString4  =
-    [[[[[[Match :numberToMatch]
-         
-         Case(NSNumber* value, [value isEqualToNumber:@1]) {
-             return @"number is 1";
-         }]
+    [[[[[Match :numberToMatch]
         
-        Case(NSNumber* value, [value isEqualToNumber:@3]) {
-            return @"number is 2";
+        with:^BOOL(NSNumber* value){
+            return [value isEqualToNumber:@1];
+        }
+        give:^NSString*(NSNumber* value) {
+            return @"number is 1";
         }]
        
-       Case(NSNumber* value, [value isEqualToNumber:@4]) {
-           return @"number is 3";
+       with:^BOOL(NSNumber* value){
+           return [value isEqualToNumber:@3];
+       }
+       give:^NSString*(NSNumber* value) {
+           return @"number is 2";
        }]
       
-      Otherwise(id _) {
-          return @"number not found";
+      with:^BOOL(NSNumber* value){
+          return [value isEqualToNumber:@4];
+      }
+      give:^NSString*(NSNumber* value) {
+          return @"number is 3";
       }]
      
-     matchedValue];
-    
+     otherwise:^NSString*{
+         return @"number not found";
+     }];
+         
     XCTAssertNotNil(matchedString4);
     XCTAssertEqualObjects(matchedString4, @"number not found");
 }
