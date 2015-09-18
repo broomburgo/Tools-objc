@@ -3,31 +3,31 @@
 
 @interface Optional ()
 
-@property (nonatomic) id __nullable value;
+@property (nonatomic) id __nullable get;
 
 @end
 
 @implementation Optional
 
 - (OptionalType)type {
-    if (self.value == nil) {
+    if (self.get == nil) {
         return OptionalTypeNone;
     }
     return OptionalTypeSome;
 }
 
-- (id __nonnull)valueDefaultedTo:(id __nonnull(^ __nonnull)(void))lazyDefaultValue {
-    if (self.value != nil) {
-        return self.value;
+- (id __nonnull)getOrElse:(id __nonnull(^ __nonnull)(void))lazyElse {
+    if (self.get != nil) {
+        return self.get;
     }
     else {
-        return lazyDefaultValue();
+        return lazyElse();
     }
 }
 
 + (Optional* __nonnull)with:(id __nullable)value {
     Optional* optional = [Optional new];
-    optional.value = value;
+    optional.get = value;
     return optional;
 }
 
@@ -62,7 +62,7 @@
             break;
         }
         case OptionalTypeSome: {
-            return [Optional with:self.value when:filterBlock];
+            return [Optional with:self.get when:filterBlock];
             break;
         }
     }
@@ -75,7 +75,7 @@
             break;
         }
         case OptionalTypeSome: {
-            return [Optional with:mapBlock(self.value)];
+            return [Optional with:mapBlock(self.get)];
             break;
         }
     }
@@ -88,7 +88,7 @@
             break;
         }
         case OptionalTypeSome: {
-            return flatMapBlock(self.value);
+            return flatMapBlock(self.get);
             break;
         }
     }
@@ -101,7 +101,7 @@
             break;
             
         case OptionalTypeSome:
-            return [Result successWith:self.value];
+            return [Result successWith:self.get];
             break;
     }
 }
@@ -112,7 +112,7 @@
             break;
             
         case OptionalTypeSome:
-            applyBlock(self.value);
+            applyBlock(self.get);
             break;
     }
 }

@@ -10,7 +10,7 @@
 + (Result* __nonnull)failureWith:(id __nonnull)error {
     Result* result = [Result new];
     result.error = error;
-    result.value = nil;
+    result.get = nil;
     return result;
 }
 
@@ -18,7 +18,7 @@
 + (Result* __nonnull)successWith:(id __nonnull)value {
     Result* result = [Result new];
     result.error = nil;
-    result.value = value;
+    result.get = value;
     return result;
 }
 
@@ -29,7 +29,7 @@
             break;
         }
         case ResultTypeSuccess: {
-            return [Result successWith:mapBlock(self.value)];
+            return [Result successWith:mapBlock(self.get)];
             break;
         }
     }
@@ -42,7 +42,7 @@
             break;
         }
         case ResultTypeSuccess: {
-            return flatMapBlock(self.value);
+            return flatMapBlock(self.get);
             break;
         }
     }
@@ -51,7 +51,7 @@
 - (id __nonnull)ifSuccess:(id __nonnull(^ __nonnull)(id __nonnull))successBlock ifFailure:(id __nonnull(^ __nonnull)(id __nonnull))failureBlock {
     switch (self.type) {
         case ResultTypeSuccess: {
-            return successBlock(self.value);
+            return successBlock(self.get);
             break;
         }
         case ResultTypeFailure: {
@@ -61,7 +61,7 @@
     }
 }
 
-- (id __nonnull)valueDefaultedTo:(id __nonnull(^ __nonnull)(void))lazyDefaultValue {
+- (id __nonnull)getOrElse:(id __nonnull(^ __nonnull)(void))lazyDefaultValue {
     return [self
             ifSuccess:^id (id value) {
                 return value;

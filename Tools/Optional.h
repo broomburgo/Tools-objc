@@ -12,9 +12,9 @@ typedef NS_ENUM(NSInteger, OptionalType) {
 @interface Optional : NSObject
 
 @property (nonatomic, readonly) OptionalType type;
-@property (nonatomic, readonly) id __nullable value;
+@property (nonatomic, readonly) id __nullable get;
 
-- (id __nonnull)valueDefaultedTo:(id __nonnull(^ __nonnull)(void))lazyDefaultValue;
+- (id __nonnull)getOrElse:(id __nonnull(^ __nonnull)(void))lazyElse;
 
 + (Optional* __nonnull)with:(id __nullable)value;
 + (Optional* __nonnull)with:(id __nullable)value as:(Class __nonnull)requiredClass;

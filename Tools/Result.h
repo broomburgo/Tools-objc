@@ -17,6 +17,6 @@ typedef NS_ENUM(NSInteger, ResultType) {
 
 - (id __nonnull)ifSuccess:(id __nonnull(^ __nonnull)(id __nonnull))successBlock
                 ifFailure:(id __nonnull(^ __nonnull)(id __nonnull))failureBlock;
-- (id __nonnull)valueDefaultedTo:(id __nonnull(^ __nonnull)(void))lazyDefaultValue;
+- (id __nonnull)getOrElse:(id __nonnull(^ __nonnull)(void))lazyElse;
 
 @end

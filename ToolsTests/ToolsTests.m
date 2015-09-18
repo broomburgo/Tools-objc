@@ -492,32 +492,32 @@
 
 - (void)testFuture {
     Future* future1 = [Future new];
-    XCTAssertNil(future1.value);
+    XCTAssertNil(future1.get);
     XCTAssertNil(future1.error);
     XCTAssertEqual(future1.state, FutureStateIncomplete);
     XCTestExpectation* success1 = [self expectationWithDescription:@"success1"];
     NSString* expectedValue1 = @"expectedValue1";
-    [future1 onSuccess:^(NSString* __nonnull value) {
+    [future1 onSuccess:^(NSString* __nonnull get) {
         [success1 fulfill];
-        XCTAssertEqualObjects(value, expectedValue1);
+        XCTAssertEqualObjects(get, expectedValue1);
     }];
     [future1 onFailure:^(NSError * __nonnull error) {
         XCTAssert(NO);
     }];
     [future1 succeedWith:expectedValue1];
     XCTAssertEqual(future1.state, FutureStateSucceeded);
-    XCTAssertNotNil(future1.value);
+    XCTAssertNotNil(future1.get);
     XCTAssertNil(future1.error);
-    XCTAssertEqualObjects(future1.value, expectedValue1);
+    XCTAssertEqualObjects(future1.get, expectedValue1);
     
     Future* future2 = [Future new];
     XCTAssertEqual(future2.state, FutureStateIncomplete);
-    XCTAssertNil(future2.value);
+    XCTAssertNil(future2.get);
     XCTAssertNil(future2.error);
     XCTestExpectation* failure1 = [self expectationWithDescription:@"failure1"];
     NSString* expectedValue2 = @"expectedValue2";
     NSError* expectedError2 = [NSError errorWithDomain:expectedValue2 code:0 userInfo:nil];
-    [future2 onSuccess:^(NSString* __nonnull value) {
+    [future2 onSuccess:^(NSString* __nonnull get) {
         XCTAssert(NO);
     }];
     [future2 onFailure:^(NSError * __nonnull error) {
@@ -526,41 +526,41 @@
     }];
     [future2 failWith:expectedError2];
     XCTAssertEqual(future2.state, FutureStateFailed);
-    XCTAssertNil(future2.value);
+    XCTAssertNil(future2.get);
     XCTAssertNotNil(future2.error);
     XCTAssertEqualObjects(((NSError*)future2.error).domain, expectedError2.domain);
     
     Future* future3 = [Future new];
-    XCTAssertNil(future3.value);
+    XCTAssertNil(future3.get);
     XCTAssertNil(future3.error);
     XCTAssertEqual(future3.state, FutureStateIncomplete);
     XCTestExpectation* success3_1 = [self expectationWithDescription:@"success3_1"];
     XCTestExpectation* success3_2 = [self expectationWithDescription:@"success3_2"];
     XCTestExpectation* success3_3 = [self expectationWithDescription:@"success3_3"];
     NSString* expectedValue3 = @"expectedValue3";
-    [future3 onSuccess:^(NSString* __nonnull value) {
+    [future3 onSuccess:^(NSString* __nonnull get) {
         [success3_1 fulfill];
-        XCTAssertEqualObjects(value, expectedValue3);
+        XCTAssertEqualObjects(get, expectedValue3);
     }];
-    [future3 onSuccess:^(NSString* __nonnull value) {
+    [future3 onSuccess:^(NSString* __nonnull get) {
         [success3_2 fulfill];
-        XCTAssertEqualObjects(value, expectedValue3);
+        XCTAssertEqualObjects(get, expectedValue3);
     }];
     [future3 onFailure:^(NSError * __nonnull error) {
         XCTAssert(NO);
     }];
     [future3 succeedWith:expectedValue3];
     XCTAssertEqual(future3.state, FutureStateSucceeded);
-    XCTAssertNotNil(future3.value);
+    XCTAssertNotNil(future3.get);
     XCTAssertNil(future3.error);
-    XCTAssertEqualObjects(future3.value, expectedValue3);
-    [future3 onSuccess:^(NSString* __nonnull value) {
+    XCTAssertEqualObjects(future3.get, expectedValue3);
+    [future3 onSuccess:^(NSString* __nonnull get) {
         [success3_3 fulfill];
-        XCTAssertEqualObjects(value, expectedValue3);
+        XCTAssertEqualObjects(get, expectedValue3);
     }];
     
     Future* future4 = [Future new];
-    XCTAssertNil(future4.value);
+    XCTAssertNil(future4.get);
     XCTAssertNil(future4.error);
     XCTAssertEqual(future4.state, FutureStateIncomplete);
     XCTestExpectation* success4_1 = [self expectationWithDescription:@"success4_1"];
@@ -568,44 +568,44 @@
     XCTestExpectation* failure4_3 = [self expectationWithDescription:@"success4_2"];
     NSString* expectedValue4 = @"expectedValue4";
     NSError* expectedError4 = [NSError errorWithDomain:expectedValue4 code:0 userInfo:nil];
-    [future4 onSuccess:^(NSString* __nonnull value) {
+    [future4 onSuccess:^(NSString* __nonnull get) {
         [success4_1 fulfill];
-        XCTAssertEqualObjects(value, expectedValue4);
+        XCTAssertEqualObjects(get, expectedValue4);
     }];
     [future4 onFailure:^(NSError * __nonnull error) {
         XCTAssert(NO);
     }];
     
     Future* future5 = [[[future4
-                         flatMap:^Future * __nonnull(id __nonnull value) {
+                         flatMap:^Future * __nonnull(id __nonnull get) {
                              [success4_2 fulfill];
-                             XCTAssertEqualObjects(value, expectedValue4);
+                             XCTAssertEqualObjects(get, expectedValue4);
                              Future* newFuture = [Future new];
-                             [newFuture succeedWith:value];
+                             [newFuture succeedWith:get];
                              return newFuture;
                          }]
-                        flatMap:^Future * __nonnull(id __nonnull value) {
+                        flatMap:^Future * __nonnull(id __nonnull get) {
                             [failure4_3 fulfill];
-                            XCTAssertEqualObjects(value, expectedValue4);
+                            XCTAssertEqualObjects(get, expectedValue4);
                             Future* newFuture = [Future new];
                             [newFuture failWith:expectedError4];
                             return newFuture;
                         }]
-                       flatMap:^Future * __nonnull(id __nonnull value) {
+                       flatMap:^Future * __nonnull(id __nonnull get) {
                            XCTAssert(NO);
                            return [Future new];
                        }];
     [future4 succeedWith:expectedValue4];
     XCTAssertEqual(future4.state, FutureStateSucceeded);
-    XCTAssertNotNil(future4.value);
+    XCTAssertNotNil(future4.get);
     XCTAssertNil(future4.error);
-    XCTAssertEqualObjects(future4.value, expectedValue4);
+    XCTAssertEqualObjects(future4.get, expectedValue4);
     
     XCTestExpectation* wait = [self expectationWithDescription:@"wait"];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [wait fulfill];
         XCTAssertEqual(future5.state, FutureStateFailed);
-        XCTAssertNil(future5.value);
+        XCTAssertNil(future5.get);
         XCTAssertNotNil(future5.error);
         XCTAssertEqualObjects(((NSError*)future5.error).domain, expectedError4.domain);
     });
@@ -617,19 +617,19 @@
     Optional* some = [Optional with:[NSArray array]];
     Optional* none = [Optional with:nil];
     XCTAssertEqual(some.type, OptionalTypeSome);
-    XCTAssertNotNil(some.value);
-    XCTAssert([some.value isKindOfClass:[NSArray class]]);
+    XCTAssertNotNil(some.get);
+    XCTAssert([some.get isKindOfClass:[NSArray class]]);
     XCTAssertEqual(none.type, OptionalTypeNone);
-    XCTAssertNil(none.value);
+    XCTAssertNil(none.get);
     
     Optional* someAs = [Optional with:@2 as:[NSNumber class]];
     Optional* noneAs = [Optional with:@"2" as:[NSArray class]];
     XCTAssertEqual(someAs.type, OptionalTypeSome);
-    XCTAssertNotNil(someAs.value);
-    XCTAssert([someAs.value isKindOfClass:[NSNumber class]]);
-    XCTAssertEqual([someAs.value integerValue], 2);
+    XCTAssertNotNil(someAs.get);
+    XCTAssert([someAs.get isKindOfClass:[NSNumber class]]);
+    XCTAssertEqual([someAs.get integerValue], 2);
     XCTAssertEqual(noneAs.type, OptionalTypeNone);
-    XCTAssertNil(noneAs.value);
+    XCTAssertNil(noneAs.get);
     
     Optional* someWhen = [Optional with:@3 when:^BOOL(NSNumber* __nonnull number) {
         return number.integerValue == 3;
@@ -638,22 +638,22 @@
         return [string isEqualToString:@"3"];
     }];
     XCTAssertEqual(someWhen.type, OptionalTypeSome);
-    XCTAssertNotNil(someWhen.value);
-    XCTAssert([someWhen.value isKindOfClass:[NSNumber class]]);
-    XCTAssertEqual([someWhen.value integerValue], 3);
+    XCTAssertNotNil(someWhen.get);
+    XCTAssert([someWhen.get isKindOfClass:[NSNumber class]]);
+    XCTAssertEqual([someWhen.get integerValue], 3);
     XCTAssertEqual(noneWhen.type, OptionalTypeNone);
-    XCTAssertNil(noneWhen.value);
+    XCTAssertNil(noneWhen.get);
 }
 
 - (void)testOptionalMap {
     Optional* someNumber = [Optional with:@10];
     Optional* noneNumber = [Optional with:nil];
     XCTAssertEqual(someNumber.type, OptionalTypeSome);
-    XCTAssertNotNil(someNumber.value);
-    XCTAssert([someNumber.value isKindOfClass:[NSNumber class]]);
-    XCTAssertEqual([someNumber.value integerValue], 10);
+    XCTAssertNotNil(someNumber.get);
+    XCTAssert([someNumber.get isKindOfClass:[NSNumber class]]);
+    XCTAssertEqual([someNumber.get integerValue], 10);
     XCTAssertEqual(noneNumber.type, OptionalTypeNone);
-    XCTAssertNil(noneNumber.value);
+    XCTAssertNil(noneNumber.get);
     
     NSNumber*(^mapBlock)(NSNumber*) = ^NSNumber*(NSNumber* number) {
         return @([number integerValue]*0.5);
@@ -661,13 +661,13 @@
     
     Optional* someHalfNumber = [someNumber map:mapBlock];
     XCTAssertEqual(someHalfNumber.type, OptionalTypeSome);
-    XCTAssertNotNil(someHalfNumber.value);
-    XCTAssert([someHalfNumber.value isKindOfClass:[NSNumber class]]);
-    XCTAssertEqual([someHalfNumber.value integerValue], 5);
+    XCTAssertNotNil(someHalfNumber.get);
+    XCTAssert([someHalfNumber.get isKindOfClass:[NSNumber class]]);
+    XCTAssertEqual([someHalfNumber.get integerValue], 5);
     
     Optional* noneHalfNumber = [noneNumber map:mapBlock];
     XCTAssertEqual(noneHalfNumber.type, OptionalTypeNone);
-    XCTAssertNil(noneHalfNumber.value);
+    XCTAssertNil(noneHalfNumber.get);
 }
 
 - (void)testOptionalFlatMap {
@@ -676,12 +676,12 @@
     Optional* someArray = [Optional with:array];
     Optional* noneArray = [Optional with:nil];
     XCTAssertEqual(someArray.type, OptionalTypeSome);
-    XCTAssertNotNil(someArray.value);
-    XCTAssert([someArray.value isKindOfClass:[NSArray class]]);
-    XCTAssertEqual([someArray.value count], 3);
-    XCTAssertEqualObjects(someArray.value[1], @2);
+    XCTAssertNotNil(someArray.get);
+    XCTAssert([someArray.get isKindOfClass:[NSArray class]]);
+    XCTAssertEqual([someArray.get count], 3);
+    XCTAssertEqualObjects(someArray.get[1], @2);
     XCTAssertEqual(noneArray.type, OptionalTypeNone);
-    XCTAssertNil(noneArray.value);
+    XCTAssertNil(noneArray.get);
     
     Optional*(^flatMapBlockToSome)(NSArray*) = ^Optional*(NSArray* array) {
         return [Optional with:doubledArray];
@@ -701,13 +701,13 @@
     XCTAssertEqual(noneToSomeDoubledArray.type, OptionalTypeNone);
     XCTAssertEqual(noneToNoneDoubledArray.type, OptionalTypeNone);
     
-    XCTAssertNotNil(someToSomeDoubledArray.value);
-    XCTAssert([someToSomeDoubledArray.value isKindOfClass:[NSArray class]]);
-    XCTAssertNil(someToNoneDoubledArray.value);
-    XCTAssertNil(noneToSomeDoubledArray.value);
-    XCTAssertNil(noneToNoneDoubledArray.value);
+    XCTAssertNotNil(someToSomeDoubledArray.get);
+    XCTAssert([someToSomeDoubledArray.get isKindOfClass:[NSArray class]]);
+    XCTAssertNil(someToNoneDoubledArray.get);
+    XCTAssertNil(noneToSomeDoubledArray.get);
+    XCTAssertNil(noneToNoneDoubledArray.get);
     
-    XCTAssertEqualObjects(someToSomeDoubledArray.value, doubledArray);
+    XCTAssertEqualObjects(someToSomeDoubledArray.get, doubledArray);
 }
 
 - (void)testResultFailureSuccess {
@@ -715,12 +715,12 @@
     Result* success = [Result successWith:[NSArray array]];
     Result* failure = [Result failureWith:[NSError errorWithDomain:@"" code:errorCode userInfo:nil]];
     XCTAssertEqual(success.type, ResultTypeSuccess);
-    XCTAssertNotNil(success.value);
+    XCTAssertNotNil(success.get);
     XCTAssertNil(success.error);
-    XCTAssert([success.value isKindOfClass:[NSArray class]]);
+    XCTAssert([success.get isKindOfClass:[NSArray class]]);
     XCTAssertEqual(failure.type, ResultTypeFailure);
     XCTAssertNotNil(failure.error);
-    XCTAssertNil(failure.value);
+    XCTAssertNil(failure.get);
     XCTAssert([failure.error isKindOfClass:[NSError class]]);
     XCTAssert(((NSError*)failure.error).code == errorCode);
 }
@@ -730,13 +730,13 @@
     Result* successNumber = [Result successWith:@10];
     Result* failureNumber = [Result failureWith:[NSError errorWithDomain:@"" code:errorCode userInfo:nil]];
     XCTAssertEqual(successNumber.type, ResultTypeSuccess);
-    XCTAssertNotNil(successNumber.value);
+    XCTAssertNotNil(successNumber.get);
     XCTAssertNil(successNumber.error);
-    XCTAssert([successNumber.value isKindOfClass:[NSNumber class]]);
-    XCTAssertEqual([successNumber.value integerValue], 10);
+    XCTAssert([successNumber.get isKindOfClass:[NSNumber class]]);
+    XCTAssertEqual([successNumber.get integerValue], 10);
     XCTAssertEqual(failureNumber.type, ResultTypeFailure);
     XCTAssertNotNil(failureNumber.error);
-    XCTAssertNil(failureNumber.value);
+    XCTAssertNil(failureNumber.get);
     XCTAssert([failureNumber.error isKindOfClass:[NSError class]]);
     
     NSNumber*(^mapBlock)(NSNumber*) = ^NSNumber*(NSNumber* number) {
@@ -746,13 +746,13 @@
     Result* resultHalfNumber = [successNumber map:mapBlock];
     XCTAssertEqual(resultHalfNumber.type, ResultTypeSuccess);
     XCTAssertNil(resultHalfNumber.error);
-    XCTAssertNotNil(resultHalfNumber.value);
-    XCTAssert([resultHalfNumber.value isKindOfClass:[NSNumber class]]);
-    XCTAssertEqual([resultHalfNumber.value integerValue], 5);
+    XCTAssertNotNil(resultHalfNumber.get);
+    XCTAssert([resultHalfNumber.get isKindOfClass:[NSNumber class]]);
+    XCTAssertEqual([resultHalfNumber.get integerValue], 5);
     
     Result* failureHalfNumber = [failureNumber map:mapBlock];
     XCTAssertEqual(failureHalfNumber.type, ResultTypeFailure);
-    XCTAssertNil(failureHalfNumber.value);
+    XCTAssertNil(failureHalfNumber.get);
     XCTAssertNotNil(failureHalfNumber.error);
     XCTAssert([failureHalfNumber.error isKindOfClass:[NSError class]]);
     XCTAssert(((NSError*)failureHalfNumber.error).code == errorCode);
@@ -765,15 +765,15 @@
     Result* successArray = [Result successWith:array];
     Result* failureArray = [Result failureWith:[NSError errorWithDomain:@"" code:errorCode userInfo:nil]];
     XCTAssertEqual(successArray.type, ResultTypeSuccess);
-    XCTAssertNotNil(successArray.value);
+    XCTAssertNotNil(successArray.get);
     XCTAssertNil(successArray.error);
-    XCTAssert([successArray.value isKindOfClass:[NSArray class]]);
-    XCTAssertEqual([successArray.value count], 3);
-    XCTAssertEqualObjects(successArray.value[1], @2);
+    XCTAssert([successArray.get isKindOfClass:[NSArray class]]);
+    XCTAssertEqual([successArray.get count], 3);
+    XCTAssertEqualObjects(successArray.get[1], @2);
     XCTAssertEqual(failureArray.type, ResultTypeFailure);
-    XCTAssertNil(failureArray.value);
+    XCTAssertNil(failureArray.get);
     XCTAssertNotNil(failureArray.error);
-    XCTAssertNil(failureArray.value);
+    XCTAssertNil(failureArray.get);
     XCTAssert(((NSError*)failureArray.error).code == errorCode);
     
     Result*(^flatMapBlockToSuccess)(NSArray*) = ^Result*(NSArray* array) {
@@ -794,20 +794,20 @@
     XCTAssertEqual(failureToSuccessDoubledArray.type, ResultTypeFailure);
     XCTAssertEqual(failureToFailureDoubledArray.type, ResultTypeFailure);
     
-    XCTAssertNotNil(successToSuccessDoubledArray.value);
+    XCTAssertNotNil(successToSuccessDoubledArray.get);
     XCTAssertNil(successToSuccessDoubledArray.error);
-    XCTAssert([successToSuccessDoubledArray.value isKindOfClass:[NSArray class]]);
-    XCTAssertNil(successToFailureDoubledArray.value);
+    XCTAssert([successToSuccessDoubledArray.get isKindOfClass:[NSArray class]]);
+    XCTAssertNil(successToFailureDoubledArray.get);
     XCTAssertNotNil(successToFailureDoubledArray.error);
     XCTAssert(((NSError*)successToFailureDoubledArray.error).code == errorCode);
-    XCTAssertNil(failureToSuccessDoubledArray.value);
+    XCTAssertNil(failureToSuccessDoubledArray.get);
     XCTAssertNotNil(failureToSuccessDoubledArray.error);
     XCTAssert(((NSError*)failureToSuccessDoubledArray.error).code == errorCode);
-    XCTAssertNil(failureToFailureDoubledArray.value);
+    XCTAssertNil(failureToFailureDoubledArray.get);
     XCTAssertNotNil(failureToFailureDoubledArray.error);
     XCTAssert(((NSError*)failureToFailureDoubledArray.error).code == errorCode);
     
-    XCTAssertEqualObjects(successToSuccessDoubledArray.value, doubledArray);
+    XCTAssertEqualObjects(successToSuccessDoubledArray.get, doubledArray);
 }
 
 - (void)testMatch {
@@ -816,24 +816,24 @@
     NSString* matchedString1  =
     [[[[[Match :numberToMatch]
         
-        with:^BOOL(NSNumber* value){
-            return [value isEqualToNumber:@1];
+        with:^BOOL(NSNumber* get){
+            return [get isEqualToNumber:@1];
         }
-        give:^NSString*(NSNumber* value) {
+        give:^NSString*(NSNumber* get) {
             return @"number is 1";
         }]
        
-       with:^BOOL(NSNumber* value){
-           return [value isEqualToNumber:@2];
+       with:^BOOL(NSNumber* get){
+           return [get isEqualToNumber:@2];
        }
-       give:^NSString*(NSNumber* value) {
+       give:^NSString*(NSNumber* get) {
            return @"number is 2";
        }]
       
-      with:^BOOL(NSNumber* value){
-          return [value isEqualToNumber:@3];
+      with:^BOOL(NSNumber* get){
+          return [get isEqualToNumber:@3];
       }
-      give:^NSString*(NSNumber* value) {
+      give:^NSString*(NSNumber* get) {
           return @"number is 3";
       }]
      
@@ -847,24 +847,24 @@
     NSString* matchedString2  =
     [[[[[Match :numberToMatch]
         
-        with:^BOOL(NSNumber* value){
-            return [value isEqualToNumber:@1];
+        with:^BOOL(NSNumber* get){
+            return [get isEqualToNumber:@1];
         }
-        give:^NSString*(NSNumber* value) {
+        give:^NSString*(NSNumber* get) {
             return @"number is 1";
         }]
        
-       with:^BOOL(NSNumber* value){
-           return [value isEqualToNumber:@3];
+       with:^BOOL(NSNumber* get){
+           return [get isEqualToNumber:@3];
        }
-       give:^NSString*(NSNumber* value) {
+       give:^NSString*(NSNumber* get) {
            return @"number is 2";
        }]
       
-      with:^BOOL(NSNumber* value){
-          return [value isEqualToNumber:@2];
+      with:^BOOL(NSNumber* get){
+          return [get isEqualToNumber:@2];
       }
-      give:^NSString*(NSNumber* value) {
+      give:^NSString*(NSNumber* get) {
           return @"number is 3";
       }]
      
@@ -878,24 +878,24 @@
     NSString* matchedString3  =
     [[[[[Match :numberToMatch]
         
-        with:^BOOL(NSNumber* value){
-            return [value isEqualToNumber:@1];
+        with:^BOOL(NSNumber* get){
+            return [get isEqualToNumber:@1];
         }
-        give:^NSString*(NSNumber* value) {
+        give:^NSString*(NSNumber* get) {
             return @"number is 1";
         }]
        
-       with:^BOOL(NSNumber* value){
-           return [value isEqualToNumber:@3];
+       with:^BOOL(NSNumber* get){
+           return [get isEqualToNumber:@3];
        }
-       give:^NSString*(NSNumber* value) {
+       give:^NSString*(NSNumber* get) {
            return @"number is 2";
        }]
       
-      with:^BOOL(NSNumber* value){
-          return [value isEqualToNumber:@4];
+      with:^BOOL(NSNumber* get){
+          return [get isEqualToNumber:@4];
       }
-      give:^NSString*(NSNumber* value) {
+      give:^NSString*(NSNumber* get) {
           return @"number is 3";
       }]
      
@@ -908,24 +908,24 @@
     NSString* matchedString4  =
     [[[[[Match :numberToMatch]
         
-        with:^BOOL(NSNumber* value){
-            return [value isEqualToNumber:@1];
+        with:^BOOL(NSNumber* get){
+            return [get isEqualToNumber:@1];
         }
-        give:^NSString*(NSNumber* value) {
+        give:^NSString*(NSNumber* get) {
             return @"number is 1";
         }]
        
-       with:^BOOL(NSNumber* value){
-           return [value isEqualToNumber:@3];
+       with:^BOOL(NSNumber* get){
+           return [get isEqualToNumber:@3];
        }
-       give:^NSString*(NSNumber* value) {
+       give:^NSString*(NSNumber* get) {
            return @"number is 2";
        }]
       
-      with:^BOOL(NSNumber* value){
-          return [value isEqualToNumber:@4];
+      with:^BOOL(NSNumber* get){
+          return [get isEqualToNumber:@4];
       }
-      give:^NSString*(NSNumber* value) {
+      give:^NSString*(NSNumber* get) {
           return @"number is 3";
       }]
      
