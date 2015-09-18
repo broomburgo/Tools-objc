@@ -4,7 +4,7 @@
 
 @interface Future ()
 
-@property (copy, nonatomic) id __nullable value;
+@property (copy, nonatomic) id __nullable get;
 @property (copy, nonatomic) id __nullable error;
 @property (strong, nonatomic) NSMutableArray* m_completeBlocks;
 
@@ -22,10 +22,10 @@
 }
 
 - (FutureState)state {
-    if (self.value == nil && self.error == nil) {
+    if (self.get == nil && self.error == nil) {
         return FutureStateIncomplete;
     }
-    else if (self.value != nil) {
+    else if (self.get != nil) {
         return FutureStateSucceeded;
     }
     else  {
@@ -56,7 +56,7 @@
             break;
         }
         case FutureStateSucceeded: {
-            completeBlock(YES,self.value,nil);
+            completeBlock(YES,self.get,nil);
             break;
         }
         case FutureStateFailed: {
@@ -125,7 +125,7 @@
     }
     NSArray* completeBlocks = [NSArray arrayWithArray:self.m_completeBlocks];
     [self.m_completeBlocks removeAllObjects];
-    self.value = value;
+    self.get = value;
     self.error = error;
     for (CompleteBlock block in completeBlocks) {
         [[Queue main] async:^{
