@@ -3,29 +3,38 @@
 #import "Categories.h"
 #import "Queue.h"
 #import "Optional.h"
-#import "Result.h"
+#import "Either.h"
 #import "Future.h"
 #import "Match.h"
 
-typedef NS_ENUM(NSInteger, RandomStringType) {
+#define Guard(condition,returnClosure) if ((condition) == NO) returnClosure
+#define GuardVoid(condition) if ((condition) == NO) { return; }
+
+NS_ASSUME_NONNULL_BEGIN
+
+typedef NS_ENUM(NSInteger, RandomStringType)
+{
     RandomStringTypeRegular = 0,
     RandomStringTypeDigitsOnly
 };
 
 @interface Tools : NSObject
 
-///MARK: randomization utilities
+//MARK: - randomization utilities
 
-+ (NSString* __nonnull)randomStringWithType:(RandomStringType)randomStringType length:(NSUInteger)length;
-+ (NSString* __nonnull)randomStringWithLength:(NSUInteger)length;
-+ (NSString* __nonnull)randomString;
-+ (NSString* __nonnull)randomStringDigitsOnlyWithLength:(NSUInteger)length;
-+ (NSString* __nonnull)randomStringDigitsOnly;
++ (NSString*)randomStringWithType:(RandomStringType)randomStringType
+                           length:(NSUInteger)length;
++ (NSString*)randomStringWithLength:(NSUInteger)length;
++ (NSString*)randomString;
++ (NSString*)randomStringDigitsOnlyWithLength:(NSUInteger)length;
++ (NSString*)randomStringDigitsOnly;
 + (float)randomFloatBetweenZeroAndOne;
 
-///MARK: JSON validation
+//MARK: - JSON validation
 
-+ (NSArray* __nonnull)JSONValidatedArray:(NSArray* __nonnull)array;
-+ (NSDictionary* __nonnull)JSONValidatedDictionary:(NSDictionary* __nonnull)dictionary;
++ (NSArray*)JSONValidatedArray:(NSArray*)array;
++ (NSDictionary*)JSONValidatedDictionary:(NSDictionary*)dictionary;
 
 @end
+
+NS_ASSUME_NONNULL_END

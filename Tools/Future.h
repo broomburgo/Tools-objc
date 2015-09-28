@@ -1,6 +1,9 @@
 #import <Foundation/Foundation.h>
 
-typedef NS_ENUM(NSInteger, FutureState) {
+NS_ASSUME_NONNULL_BEGIN
+
+typedef NS_ENUM(NSInteger, FutureState)
+{
     FutureStateIncomplete = 0,
     FutureStateSucceeded,
     FutureStateFailed
@@ -8,27 +11,29 @@ typedef NS_ENUM(NSInteger, FutureState) {
 
 @class Future;
 
-typedef void(^CompleteBlock)(BOOL success, id __nullable value, id __nullable error);
-typedef void(^SuccessBlock)(id __nonnull value);
-typedef void(^FailureBlock)(id __nonnull error);
-typedef id __nonnull (^MapBlock)(id __nonnull value);
-typedef Future* __nonnull (^FlatMapBlock)(id __nonnull value);
+typedef void(^CompleteBlock)(BOOL success, id value, id error);
+typedef void(^SuccessBlock)(id value);
+typedef void(^FailureBlock)(id error);
+typedef id _Nonnull(^MapBlock)(id value);
+typedef Future* _Nonnull(^FlatMapBlock)(id value);
 
 @interface Future : NSObject
 
-@property (copy, nonatomic, readonly) id __nullable get;
-@property (copy, nonatomic, readonly) id __nullable error;
+@property (copy, nonatomic, readonly, nullable) id get;
+@property (copy, nonatomic, readonly, nullable) id error;
 @property (nonatomic, readonly) FutureState state;
 @property (nonatomic, readonly) BOOL isComplete;
 
-+ (Future* __nonnull)succeededWith:(id __nonnull)value;
-+ (Future* __nonnull)failedWith:(id __nonnull)error;
++ (Future*)succeededWith:(id)value;
++ (Future*)failedWith:(id)error;
 
-- (Future* __nonnull)onComplete:(void(^ __nonnull)(BOOL success, id __nullable value, id __nullable error))successBlock;
-- (Future* __nonnull)onSuccess:(void(^ __nonnull)(id __nonnull value))successBlock;
-- (Future* __nonnull)onFailure:(void(^ __nonnull)(id __nonnull error))failureBlock;
+- (Future*)onComplete:(void(^)(BOOL success, id _Nullable value, id _Nullable error))successBlock;
+- (Future*)onSuccess:(void(^)(id value))successBlock;
+- (Future*)onFailure:(void(^)(id error))failureBlock;
 
-- (Future* __nonnull)map:(id __nonnull (^ __nonnull)(id __nonnull value))mapBlock;
-- (Future* __nonnull)flatMap:(Future* __nonnull (^ __nonnull)(id __nonnull value))flatMapBlock;
+- (Future*)map:(id (^)(id value))mapBlock;
+- (Future*)flatMap:(Future* (^)(id value))flatMapBlock;
 
 @end
+
+NS_ASSUME_NONNULL_END

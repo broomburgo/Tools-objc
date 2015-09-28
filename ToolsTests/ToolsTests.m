@@ -2,7 +2,7 @@
 #import <XCTest/XCTest.h>
 
 #import "Tools.h"
-#import "Result_Internal.h"
+#import "Either_Internal.h"
 #import "Future_Internal.h"
 
 @interface CategoriesSomething : NSObject
@@ -206,7 +206,7 @@
         else {
             return nil;
         }
-    } sortedUsingComparator:^NSComparisonResult(id object1, id object2) {
+    } sortedWith:^NSComparisonResult(id object1, id object2) {
         return [object1 compare:object2];
     }];
     NSArray* array1Wannabe = @[@1,@2,@3,@4];
@@ -712,102 +712,102 @@
 
 - (void)testResultFailureSuccess {
     NSInteger errorCode = 12345;
-    Result* success = [Result successWith:[NSArray array]];
-    Result* failure = [Result failureWith:[NSError errorWithDomain:@"" code:errorCode userInfo:nil]];
-    XCTAssertEqual(success.type, ResultTypeSuccess);
-    XCTAssertNotNil(success.get);
-    XCTAssertNil(success.error);
-    XCTAssert([success.get isKindOfClass:[NSArray class]]);
-    XCTAssertEqual(failure.type, ResultTypeFailure);
-    XCTAssertNotNil(failure.error);
-    XCTAssertNil(failure.get);
-    XCTAssert([failure.error isKindOfClass:[NSError class]]);
-    XCTAssert(((NSError*)failure.error).code == errorCode);
+    Either* success = [Either rightWith:[NSArray array]];
+    Either* failure = [Either leftWith:[NSError errorWithDomain:@"" code:errorCode userInfo:nil]];
+    XCTAssertEqual(success.type, EitherTypeRight);
+    XCTAssertNotNil(success.right);
+    XCTAssertNil(success.left);
+    XCTAssert([success.right isKindOfClass:[NSArray class]]);
+    XCTAssertEqual(failure.type, EitherTypeLeft);
+    XCTAssertNotNil(failure.left);
+    XCTAssertNil(failure.right);
+    XCTAssert([failure.left isKindOfClass:[NSError class]]);
+    XCTAssert(((NSError*)failure.left).code == errorCode);
 }
 
 - (void)testResultMap {
     NSInteger errorCode = 12345;
-    Result* successNumber = [Result successWith:@10];
-    Result* failureNumber = [Result failureWith:[NSError errorWithDomain:@"" code:errorCode userInfo:nil]];
-    XCTAssertEqual(successNumber.type, ResultTypeSuccess);
-    XCTAssertNotNil(successNumber.get);
-    XCTAssertNil(successNumber.error);
-    XCTAssert([successNumber.get isKindOfClass:[NSNumber class]]);
-    XCTAssertEqual([successNumber.get integerValue], 10);
-    XCTAssertEqual(failureNumber.type, ResultTypeFailure);
-    XCTAssertNotNil(failureNumber.error);
-    XCTAssertNil(failureNumber.get);
-    XCTAssert([failureNumber.error isKindOfClass:[NSError class]]);
+    Either* successNumber = [Either rightWith:@10];
+    Either* failureNumber = [Either leftWith:[NSError errorWithDomain:@"" code:errorCode userInfo:nil]];
+    XCTAssertEqual(successNumber.type, EitherTypeRight);
+    XCTAssertNotNil(successNumber.right);
+    XCTAssertNil(successNumber.left);
+    XCTAssert([successNumber.right isKindOfClass:[NSNumber class]]);
+    XCTAssertEqual([successNumber.right integerValue], 10);
+    XCTAssertEqual(failureNumber.type, EitherTypeLeft);
+    XCTAssertNotNil(failureNumber.left);
+    XCTAssertNil(failureNumber.right);
+    XCTAssert([failureNumber.left isKindOfClass:[NSError class]]);
     
     NSNumber*(^mapBlock)(NSNumber*) = ^NSNumber*(NSNumber* number) {
         return @([number integerValue]*0.5);
     };
     
-    Result* resultHalfNumber = [successNumber map:mapBlock];
-    XCTAssertEqual(resultHalfNumber.type, ResultTypeSuccess);
-    XCTAssertNil(resultHalfNumber.error);
-    XCTAssertNotNil(resultHalfNumber.get);
-    XCTAssert([resultHalfNumber.get isKindOfClass:[NSNumber class]]);
-    XCTAssertEqual([resultHalfNumber.get integerValue], 5);
+    Either* resultHalfNumber = [successNumber map:mapBlock];
+    XCTAssertEqual(resultHalfNumber.type, EitherTypeRight);
+    XCTAssertNil(resultHalfNumber.left);
+    XCTAssertNotNil(resultHalfNumber.right);
+    XCTAssert([resultHalfNumber.right isKindOfClass:[NSNumber class]]);
+    XCTAssertEqual([resultHalfNumber.right integerValue], 5);
     
-    Result* failureHalfNumber = [failureNumber map:mapBlock];
-    XCTAssertEqual(failureHalfNumber.type, ResultTypeFailure);
-    XCTAssertNil(failureHalfNumber.get);
-    XCTAssertNotNil(failureHalfNumber.error);
-    XCTAssert([failureHalfNumber.error isKindOfClass:[NSError class]]);
-    XCTAssert(((NSError*)failureHalfNumber.error).code == errorCode);
+    Either* failureHalfNumber = [failureNumber map:mapBlock];
+    XCTAssertEqual(failureHalfNumber.type, EitherTypeLeft);
+    XCTAssertNil(failureHalfNumber.right);
+    XCTAssertNotNil(failureHalfNumber.left);
+    XCTAssert([failureHalfNumber.left isKindOfClass:[NSError class]]);
+    XCTAssert(((NSError*)failureHalfNumber.left).code == errorCode);
 }
 
 - (void)testResultFlatMap {
     NSInteger errorCode = 12345;
     NSArray* array = @[@1,@2,@3];
     NSArray* doubledArray = @[@2,@4,@6];
-    Result* successArray = [Result successWith:array];
-    Result* failureArray = [Result failureWith:[NSError errorWithDomain:@"" code:errorCode userInfo:nil]];
-    XCTAssertEqual(successArray.type, ResultTypeSuccess);
-    XCTAssertNotNil(successArray.get);
-    XCTAssertNil(successArray.error);
-    XCTAssert([successArray.get isKindOfClass:[NSArray class]]);
-    XCTAssertEqual([successArray.get count], 3);
-    XCTAssertEqualObjects(successArray.get[1], @2);
-    XCTAssertEqual(failureArray.type, ResultTypeFailure);
-    XCTAssertNil(failureArray.get);
-    XCTAssertNotNil(failureArray.error);
-    XCTAssertNil(failureArray.get);
-    XCTAssert(((NSError*)failureArray.error).code == errorCode);
+    Either* successArray = [Either rightWith:array];
+    Either* failureArray = [Either leftWith:[NSError errorWithDomain:@"" code:errorCode userInfo:nil]];
+    XCTAssertEqual(successArray.type, EitherTypeRight);
+    XCTAssertNotNil(successArray.right);
+    XCTAssertNil(successArray.left);
+    XCTAssert([successArray.right isKindOfClass:[NSArray class]]);
+    XCTAssertEqual([successArray.right count], 3);
+    XCTAssertEqualObjects(successArray.right[1], @2);
+    XCTAssertEqual(failureArray.type, EitherTypeLeft);
+    XCTAssertNil(failureArray.right);
+    XCTAssertNotNil(failureArray.left);
+    XCTAssertNil(failureArray.right);
+    XCTAssert(((NSError*)failureArray.left).code == errorCode);
     
-    Result*(^flatMapBlockToSuccess)(NSArray*) = ^Result*(NSArray* array) {
-        return [Result successWith:doubledArray];
+    Either*(^flatMapBlockToSuccess)(NSArray*) = ^Either*(NSArray* array) {
+        return [Either rightWith:doubledArray];
     };
     
-    Result*(^flatMapBlockToFailure)(NSArray*) = ^Result*(NSArray* array) {
-        return [Result failureWith:[NSError errorWithDomain:@"" code:errorCode userInfo:nil]];
+    Either*(^flatMapBlockToFailure)(NSArray*) = ^Either*(NSArray* array) {
+        return [Either leftWith:[NSError errorWithDomain:@"" code:errorCode userInfo:nil]];
     };
     
-    Result* successToSuccessDoubledArray = [successArray flatMap:flatMapBlockToSuccess];
-    Result* successToFailureDoubledArray = [successArray flatMap:flatMapBlockToFailure];
-    Result* failureToSuccessDoubledArray = [failureArray flatMap:flatMapBlockToSuccess];
-    Result* failureToFailureDoubledArray = [failureArray flatMap:flatMapBlockToFailure];
+    Either* successToSuccessDoubledArray = [successArray flatMap:flatMapBlockToSuccess];
+    Either* successToFailureDoubledArray = [successArray flatMap:flatMapBlockToFailure];
+    Either* failureToSuccessDoubledArray = [failureArray flatMap:flatMapBlockToSuccess];
+    Either* failureToFailureDoubledArray = [failureArray flatMap:flatMapBlockToFailure];
     
-    XCTAssertEqual(successToSuccessDoubledArray.type, ResultTypeSuccess);
-    XCTAssertEqual(successToFailureDoubledArray.type, ResultTypeFailure);
-    XCTAssertEqual(failureToSuccessDoubledArray.type, ResultTypeFailure);
-    XCTAssertEqual(failureToFailureDoubledArray.type, ResultTypeFailure);
+    XCTAssertEqual(successToSuccessDoubledArray.type, EitherTypeRight);
+    XCTAssertEqual(successToFailureDoubledArray.type, EitherTypeLeft);
+    XCTAssertEqual(failureToSuccessDoubledArray.type, EitherTypeLeft);
+    XCTAssertEqual(failureToFailureDoubledArray.type, EitherTypeLeft);
     
-    XCTAssertNotNil(successToSuccessDoubledArray.get);
-    XCTAssertNil(successToSuccessDoubledArray.error);
-    XCTAssert([successToSuccessDoubledArray.get isKindOfClass:[NSArray class]]);
-    XCTAssertNil(successToFailureDoubledArray.get);
-    XCTAssertNotNil(successToFailureDoubledArray.error);
-    XCTAssert(((NSError*)successToFailureDoubledArray.error).code == errorCode);
-    XCTAssertNil(failureToSuccessDoubledArray.get);
-    XCTAssertNotNil(failureToSuccessDoubledArray.error);
-    XCTAssert(((NSError*)failureToSuccessDoubledArray.error).code == errorCode);
-    XCTAssertNil(failureToFailureDoubledArray.get);
-    XCTAssertNotNil(failureToFailureDoubledArray.error);
-    XCTAssert(((NSError*)failureToFailureDoubledArray.error).code == errorCode);
+    XCTAssertNotNil(successToSuccessDoubledArray.right);
+    XCTAssertNil(successToSuccessDoubledArray.left);
+    XCTAssert([successToSuccessDoubledArray.right isKindOfClass:[NSArray class]]);
+    XCTAssertNil(successToFailureDoubledArray.right);
+    XCTAssertNotNil(successToFailureDoubledArray.left);
+    XCTAssert(((NSError*)successToFailureDoubledArray.left).code == errorCode);
+    XCTAssertNil(failureToSuccessDoubledArray.right);
+    XCTAssertNotNil(failureToSuccessDoubledArray.left);
+    XCTAssert(((NSError*)failureToSuccessDoubledArray.left).code == errorCode);
+    XCTAssertNil(failureToFailureDoubledArray.right);
+    XCTAssertNotNil(failureToFailureDoubledArray.left);
+    XCTAssert(((NSError*)failureToFailureDoubledArray.left).code == errorCode);
     
-    XCTAssertEqualObjects(successToSuccessDoubledArray.get, doubledArray);
+    XCTAssertEqualObjects(successToSuccessDoubledArray.right, doubledArray);
 }
 
 - (void)testMatch {

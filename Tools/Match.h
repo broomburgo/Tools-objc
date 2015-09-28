@@ -1,10 +1,15 @@
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface Match : NSObject
 
-+ (Match* __nonnull):(id __nonnull)value;
++ (Match*):(id)value;
 
-- (Match* __nonnull)with:(BOOL(^ __nonnull)(id __nonnull))withBlock give:(id __nullable(^ __nonnull)(id __nonnull))giveBlock;
-- (id __nonnull)otherwise:(id __nullable(^ __nonnull)())otherwiseBlock;
+- (Match*)with:(BOOL(^)(id))withBlock
+          give:(id _Nullable(^)(id))giveBlock;
+- (id)otherwise:(id _Nullable(^)())otherwiseBlock;
 
 @end
+
+NS_ASSUME_NONNULL_END

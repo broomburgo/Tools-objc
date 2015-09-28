@@ -1,5 +1,7 @@
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 typedef void(^Task)();
 
 @interface Queue : NSObject
@@ -13,3 +15,5 @@ typedef void(^Task)();
 - (void)after:(double)seconds task:(Task)task;
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -1,8 +1,12 @@
 #import "Future.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface Future ()
 
-- (void)succeedWith:(id __nonnull)value;
-- (void)failWith:(id __nonnull)error;
+- (void)succeedWith:(id)value;
+- (void)failWith:(id)error;
 
 @end
+
+NS_ASSUME_NONNULL_END

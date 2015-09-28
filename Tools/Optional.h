@@ -1,39 +1,47 @@
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 #pragma mark - Basic Definitions
 
-typedef NS_ENUM(NSInteger, OptionalType) {
+typedef NS_ENUM(NSInteger, OptionalType)
+{
     OptionalTypeNone,
     OptionalTypeSome
 };
 
-@class Result;
+@class Either;
 
 @interface Optional : NSObject
 
 @property (nonatomic, readonly) OptionalType type;
-@property (nonatomic, readonly) id __nullable get;
+@property (nonatomic, readonly, nullable) id get;
 
-- (id __nonnull)getOrElse:(id __nonnull(^ __nonnull)(void))lazyElse;
+- (id)getOrElse:(id(^)(void))lazyElse;
 
-+ (Optional* __nonnull)with:(id __nullable)value;
-+ (Optional* __nonnull)with:(id __nullable)value as:(Class __nonnull)requiredClass;
-+ (Optional* __nonnull)with:(id __nullable)value when:(BOOL(^ __nonnull)(id __nonnull value))ifBlock;
++ (Optional*)with:(id _Nullable)value;
++ (Optional*)with:(id _Nullable)value
+               as:(Class)requiredClass;
++ (Optional*)with:(id _Nullable)value
+             when:(BOOL(^)(id value))ifBlock;
 
-- (Optional* __nonnull)filter:(BOOL(^ __nonnull)(id __nonnull))filterBlock;
-- (Optional* __nonnull)map:(id __nonnull(^ __nonnull)(id __nonnull))mapBlock;
-- (Optional* __nonnull)flatMap:(Optional* __nonnull (^ __nonnull)(id __nonnull))flatMapBlock;
+- (Optional*)filter:(BOOL(^)(id))filterBlock;
+- (Optional*)map:(id(^)(id))mapBlock;
+- (Optional*)flatMap:(Optional*(^)(id))flatMapBlock;
 
-- (Result* __nonnull)resultWithError:(id __nonnull)error;
-- (void)applyIfPossible:(void(^ __nonnull)(id __nonnull))applyBlock;
+- (Either*)eitherWithError:(id)error;
+- (void)applyIfPossible:(void(^)(id))applyBlock;
 
 @end
 
-typedef id __nonnull(^MapOptionalBlock)(id __nonnull);
-typedef Optional* __nonnull(^FlatMapOptionalBlock)(id __nonnull);
+typedef id _Nonnull(^MapOptionalBlock)(id);
+typedef Optional* _Nonnull(^FlatMapOptionalBlock)(id);
 
 @interface NSDictionary (Optional)
 
-- (Optional* __nonnull)optionalForKey:(__nonnull id)key as:(Class __nonnull)requiredClass;
+- (Optional*)optionalForKey:(id)key
+                         as:(Class)requiredClass;
 
 @end
+
+NS_ASSUME_NONNULL_END
