@@ -168,6 +168,26 @@
     XCTAssert([number2 isEqualToNumber:@1]);
 }
 
+- (void)testArrayforEach
+{
+  NSArray* array = @[@1,@2,@3,@4];
+  NSMutableArray* m_doubledArray = [NSMutableArray array];
+  [array forEach:^(NSNumber* object) {
+    [m_doubledArray addObject:@(object.integerValue*2)];
+  }];
+  NSArray* doubledArray = [NSArray arrayWithArray:m_doubledArray];
+  NSArray* doubledArrayWannabe = @[@2,@4,@6,@8];
+  XCTAssertEqualObjects(doubledArray, doubledArrayWannabe);
+  
+  NSArray* emptyArray = @[];
+  NSMutableArray* m_emptyArray = [NSMutableArray array];
+  [emptyArray forEach:^(id object) {
+    [m_emptyArray addObject:object];
+  }];
+  XCTAssertEqual(emptyArray.count, 0);
+  XCTAssertEqual(m_emptyArray.count, 0);
+}
+
 - (void)testNSDictionaryMapReduce {
     NSDictionary* dictionary1 = @{@"1":@11,
                                   @"2":@12};

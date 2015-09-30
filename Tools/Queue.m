@@ -1,4 +1,5 @@
 #import "Queue.h"
+#import "Tools.h"
 
 @interface Queue ()
 
@@ -29,29 +30,27 @@
                         after:(double)seconds
                          task:(Task)task
 {
-  if (self.dispatchQueue)
+  GuardVoid(self.dispatchQueue != nil)
+  if (async)
   {
-    if (async)
+    if (seconds > 0)
     {
-      if (seconds > 0)
-      {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(seconds * NSEC_PER_SEC)), self.dispatchQueue, ^{
-          task();
-        });
-      }
-      else
-      {
-        dispatch_async(self.dispatchQueue, ^{
-          task();
-        });
-      }
-    }
-    else
-    {
-      dispatch_sync(self.dispatchQueue, ^{
+      dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(seconds * NSEC_PER_SEC)), self.dispatchQueue, ^{
         task();
       });
     }
+    else
+    {
+      dispatch_async(self.dispatchQueue, ^{
+        task();
+      });
+    }
+  }
+  else
+  {
+    dispatch_sync(self.dispatchQueue, ^{
+      task();
+    });
   }
 }
 

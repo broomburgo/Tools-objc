@@ -9,6 +9,9 @@
 
 #define Guard(condition,returnClosure) if ((condition) == NO) returnClosure
 #define GuardVoid(condition) if ((condition) == NO) { return; }
+#define GuardNil(condition) if ((condition) == NO) { return nil; }
+#define GuardSelf(condition) if ((condition) == NO) { return self; }
+#define GuardBreak(condition) if ((condition) == NO) { break; }
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -20,8 +23,6 @@ typedef NS_ENUM(NSInteger, RandomStringType)
 
 @interface Tools : NSObject
 
-//MARK: - randomization utilities
-
 + (NSString*)randomStringWithType:(RandomStringType)randomStringType
                            length:(NSUInteger)length;
 + (NSString*)randomStringWithLength:(NSUInteger)length;
@@ -29,8 +30,6 @@ typedef NS_ENUM(NSInteger, RandomStringType)
 + (NSString*)randomStringDigitsOnlyWithLength:(NSUInteger)length;
 + (NSString*)randomStringDigitsOnly;
 + (float)randomFloatBetweenZeroAndOne;
-
-//MARK: - JSON validation
 
 + (NSArray*)JSONValidatedArray:(NSArray*)array;
 + (NSDictionary*)JSONValidatedDictionary:(NSDictionary*)dictionary;

@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSArray*)filter:(BOOL(^)(id object))filterBlock;
 - (NSDictionary*)mapToDictionary:(NSDictionary*(^)(id object))mapBlock;
 
+- (void)forEach:(void(^)(id object))forEachBlock;
+
 - (instancetype)optional:(id _Nullable)optional;
 - (instancetype)optionalArray:(NSArray* _Nullable)optionalArray;
 

@@ -2,8 +2,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-#pragma mark - Basic Definitions
-
 typedef NS_ENUM(NSInteger, OptionalType)
 {
     OptionalTypeNone,

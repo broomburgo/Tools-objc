@@ -2,8 +2,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-//MARK: - Basic Definitions
-
 typedef NS_ENUM(NSInteger, EitherType)
 {
   EitherTypeLeft,

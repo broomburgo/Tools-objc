@@ -6,32 +6,28 @@ static const NSInteger kRandomStringStandardStringLength = 8;
 
 @implementation Tools
 
-//MARK: - randomization utilities
+#pragma mark - randomization utilities
 
 + (NSString*)randomStringWithType:(RandomStringType)randomStringType
                            length:(NSUInteger)length
 {
-  NSString* randomString = @"";
-  if (length > 0)
+  Guard(length > 0, { return @""; })
+  NSString* fullString = kRandomStringFullString;
+  if (randomStringType == RandomStringTypeDigitsOnly)
   {
-    NSString* fullString = kRandomStringFullString;
-    if (randomStringType == RandomStringTypeDigitsOnly)
-    {
-      fullString = kRandomStringDigitsOnlyString;
-    }
-    NSMutableString* m_randomString = [NSMutableString stringWithString:@""];
-    NSUInteger fullStringLength = fullString.length;
-    NSUInteger index = 0;
-    while (index < length)
-    {
-      [m_randomString
-       appendString:[fullString
-                     substringWithRange:NSMakeRange(arc4random()%fullStringLength, 1)]];
-      index++;
-    }
-    randomString = [m_randomString copy];
+    fullString = kRandomStringDigitsOnlyString;
   }
-  return randomString;
+  NSMutableString* m_randomString = [NSMutableString stringWithString:@""];
+  NSUInteger fullStringLength = fullString.length;
+  NSUInteger index = 0;
+  while (index < length)
+  {
+    [m_randomString
+     appendString:[fullString
+                   substringWithRange:NSMakeRange(arc4random()%fullStringLength, 1)]];
+    index++;
+  }
+  return [m_randomString copy];
 }
 
 + (NSString*)randomStringWithLength:(NSUInteger)length
@@ -70,59 +66,41 @@ static const NSInteger kRandomStringStandardStringLength = 8;
   return randomFloat;
 }
 
-/// JSON validation
+#pragma mark - JSON validation
 
 + (NSArray*)JSONValidatedArray:(NSArray*)array
 {
-  if (array.count == 0)
-  {
-    return [NSArray array];
-  }
-  if ([NSJSONSerialization isValidJSONObject:array])
-  {
-    return array;
-  }
-  else
-  {
-    return [array
-            map:^id(id object) {
-              id validObject = object;
-              if ([NSJSONSerialization isValidJSONObject:@[validObject]] == NO)
-              {
-                validObject = [validObject description];
-              }
-              return validObject;
-            }];
-  }
+  Guard(array.count != 0, { return array; })
+  Guard([NSJSONSerialization isValidJSONObject:array] == NO, { return array; })
+  return [array
+          map:^id(id object) {
+            id validObject = object;
+            if ([NSJSONSerialization isValidJSONObject:@[validObject]] == NO)
+            {
+              validObject = [validObject description];
+            }
+            return validObject;
+          }];
 }
 
 + (NSDictionary*)JSONValidatedDictionary:(NSDictionary*)dictionary
 {
-  if (dictionary.count == 0)
-  {
-    return [NSDictionary dictionary];
-  }
-  if ([NSJSONSerialization isValidJSONObject:dictionary])
-  {
-    return dictionary;
-  }
-  else
-  {
-    return [dictionary
-            map:^NSDictionary *(id key, id object) {
-              id validKey = key;
-              id validObject = object;
-              if ([NSJSONSerialization isValidJSONObject:@[validKey]] == NO)
-              {
-                validKey = [validKey description];
-              }
-              if ([NSJSONSerialization isValidJSONObject:@[validObject]] == NO)
-              {
-                validObject = [validObject description];
-              }
-              return @{validKey: validObject};
-            }];
-  }
+  Guard(dictionary.count != 0, { return dictionary; })
+  Guard([NSJSONSerialization isValidJSONObject:dictionary] == NO, { return dictionary; })
+  return [dictionary
+          map:^NSDictionary *(id key, id object) {
+            id validKey = key;
+            id validObject = object;
+            if ([NSJSONSerialization isValidJSONObject:@[validKey]] == NO)
+            {
+              validKey = [validKey description];
+            }
+            if ([NSJSONSerialization isValidJSONObject:@[validObject]] == NO)
+            {
+              validObject = [validObject description];
+            }
+            return @{validKey: validObject};
+          }];
 }
 
 @end

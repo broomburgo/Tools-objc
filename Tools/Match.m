@@ -1,4 +1,5 @@
 #import "Match.h"
+#import "Tools.h"
 
 @interface Match ()
 
@@ -28,24 +29,16 @@
 - (Match*)with:(BOOL(^)(id))withBlock
           give:(id _Nullable(^)(id))giveBlock
 {
-  if (self.isMatched)
-  {
-    return self;
-  }
-  if (withBlock(self.value))
-  {
-    return [Match
-            value:giveBlock(self.value)
-            isMatched:YES];
-  }
-  return self;
+  GuardSelf(self.isMatched == NO)
+  GuardSelf(withBlock(self.value))
+  return [Match
+          value:giveBlock(self.value)
+          isMatched:YES];
 }
 
-- (id)otherwise:(id _Nullable(^)())otherwiseBlock {
-  if (self.isMatched)
-  {
-    return self.value;
-  }
+- (id)otherwise:(id _Nullable(^)())otherwiseBlock
+{
+  Guard(self.isMatched == NO, { return self.value; })
   self.isMatched = YES;
   return otherwiseBlock();
 }

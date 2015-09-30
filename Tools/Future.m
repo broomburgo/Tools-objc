@@ -16,10 +16,7 @@
 - (instancetype)init
 {
   self = [super init];
-  if (self == nil)
-  {
-    return nil;
-  }
+  GuardNil(self != nil)
   _m_completeBlocks = [NSMutableArray array];
   return self;
 }
@@ -86,10 +83,8 @@
 {
   return [self
           onComplete:^(BOOL success, id value, id error){
-            if (success)
-            {
-              successBlock(value);
-            }
+            GuardVoid(success)
+            successBlock(value);
           }];
 }
 
@@ -97,10 +92,8 @@
 {
   return [self
           onComplete:^(BOOL success, id value, id error){
-            if (success == NO)
-            {
-              failureBlock(error);
-            }
+            GuardVoid(success == NO)
+            failureBlock(error);
           }];
 }
 
@@ -163,13 +156,12 @@
   [self.m_completeBlocks removeAllObjects];
   self.get = value;
   self.error = error;
-  for (CompleteBlock block in completeBlocks)
-  {
+  [completeBlocks forEach:^(CompleteBlock block) {
     [[Queue main]
      async:^{
        block(success, value, error);
      }];
-  }
+  }];
 }
 
 @end

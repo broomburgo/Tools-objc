@@ -29,12 +29,10 @@
                     reduceBlock:(id (^)(id, id))reduceBlock
 {
   Guard(self.count >= 1 && reduceBlock != nil, { return startingElement; })
-  
-  __block id reduced = startingElement;
-  [self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop)
-   {
-     reduced = reduceBlock(reduced, obj);
-   }];
+  id reduced = startingElement;
+  for (id obj in self) {
+    reduced = reduceBlock(reduced, obj);
+  }
   return reduced;
 }
 
@@ -71,8 +69,7 @@
 
 - (NSDictionary*)mapToDictionary:(NSDictionary*(^)(id object))mapBlock
 {
-  Guard(mapBlock != nil, { return  nil; })
-  
+  GuardNil(mapBlock != nil)
   NSMutableDictionary* m_reduced = [self
                                     reduceWithStartingElement:[NSMutableDictionary dictionary]
                                     reduceBlock:^id(id accumulator, id object) {
@@ -89,7 +86,7 @@
 
 - (instancetype)optional:(id)optional
 {
-  Guard(optional != nil, { return  self; })
+  GuardSelf(optional != nil)
   
   if ([self isKindOfClass:[NSMutableArray class]])
   {
@@ -105,7 +102,7 @@
 
 - (instancetype)optionalArray:(NSArray*)optionalArray
 {
-  Guard(optionalArray.count != 0, { return  self; })
+  GuardSelf(optionalArray.count != 0)
   
   if ([self isKindOfClass:[NSMutableArray class]])
   {
@@ -119,13 +116,21 @@
   }
 }
 
+- (void)forEach:(void(^)(id object))forEachBlock
+{
+  GuardVoid(forEachBlock != nil)
+  for (id object in self) {
+    forEachBlock(object);
+  }
+}
+
 @end
 
 @implementation NSDictionary (Tools)
 
 - (NSDictionary*)append:(NSDictionary *)otherDictionary
 {
-  Guard(otherDictionary.count != 0, { return  self; })
+  GuardSelf(otherDictionary.count != 0)
   
   NSMutableDictionary* m_self = [NSMutableDictionary dictionaryWithDictionary:self];
   [m_self addEntriesFromDictionary:otherDictionary];
@@ -136,7 +141,6 @@
                     reduceBlock:(id(^)(id accumulator, id key, id object))reduceBlock
 {
   Guard(self.count >= 1 && reduceBlock != nil, { return startingElement; })
-  
   __block id reduced = startingElement;
   [self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop)
    {
@@ -147,8 +151,7 @@
 
 - (NSDictionary*)map:(NSDictionary*(^)(id key, id object))mapBlock
 {
-  Guard(self.count >= 1 && mapBlock != nil, { return self; })
-  
+  GuardSelf(self.count >= 1 && mapBlock != nil)
   NSMutableDictionary* m_reduced = [self
                                     reduceWithStartingElement:[NSMutableDictionary dictionary]
                                     reduceBlock:^NSMutableDictionary*(NSMutableDictionary* m_accumulator, id key, id object) {
@@ -164,8 +167,7 @@
 
 - (NSDictionary*)filter:(BOOL(^)(id key, id object))filterBlock
 {
-  Guard(self.count >= 1 && filterBlock != nil, { return self; })
-  
+  GuardSelf(self.count >= 1 && filterBlock != nil)
   NSMutableDictionary* m_reduced = [self
                                     reduceWithStartingElement:[NSMutableDictionary dictionary]
                                     reduceBlock:^NSMutableDictionary*(NSMutableDictionary* m_accumulator, id key, id object) {
@@ -180,8 +182,7 @@
 
 - (NSArray*)mapToArray:(id(^)(id key, id object))mapBlock sortedWith:(NSComparisonResult(^)(id object1, id object2))comparator
 {
-  Guard(self.count >= 1 && mapBlock != nil, { return nil; })
-  
+  GuardNil(self.count >= 1 && mapBlock != nil)
   NSMutableArray* m_reduced = [self
                                reduceWithStartingElement:[NSMutableArray array]
                                reduceBlock:^NSMutableArray*(NSMutableArray* m_accumulator, id key, id object) {
@@ -201,7 +202,7 @@
 
 - (NSDictionary*)mergeWith:(NSDictionary *)otherDictionary
 {
-  Guard(otherDictionary >= 0, { return self; })
+  GuardSelf(otherDictionary >= 0)
   
   return [[self
            map:^NSDictionary *(id key, id object) {
@@ -241,8 +242,7 @@
 
 - (instancetype)key:(id<NSCopying>)key optional:(id)optional
 {
-  Guard(optional != nil && key != nil, { return self; })
-  
+  GuardSelf(optional != nil && key != nil)
   if ([self isKindOfClass:[NSMutableDictionary class]])
   {
     NSMutableDictionary* m_self = (NSMutableDictionary*)self;
@@ -259,8 +259,7 @@
 
 - (instancetype)optionalDict:(NSDictionary*)optionalDict
 {
-  Guard(optionalDict.count != 0, { return self; })
-  
+  GuardSelf(optionalDict.count != 0)
   if ([self isKindOfClass:[NSMutableDictionary class]])
   {
     NSMutableDictionary* m_self = (NSMutableDictionary*)self;
@@ -278,16 +277,18 @@
 - (id)objectForKey:(id)key
                 as:(Class)requiredClass
 {
-  Guard(key != nil, { return nil; })
+  GuardNil(key != nil)
   
   id object = [self objectForKey:key];
   
   Guard(requiredClass != nil, { return object; })
   
-  if ([object isKindOfClass:requiredClass]) {
+  if ([object isKindOfClass:requiredClass])
+  {
     return object;
   }
-  else {
+  else
+  {
     return nil;
   }
 }
@@ -327,13 +328,13 @@
 
 - (instancetype)maybe
 {
-  Guard([self isKindOfClass:[NSNull class]] == NO, { return nil; })
+  GuardNil([self isKindOfClass:[NSNull class]] == NO)
   return self;
 }
 
 - (instancetype)setup:(id(^)(id value))setupBlock
 {
-  Guard(setupBlock != nil, { return self; })
+  GuardSelf(setupBlock != nil)
   return setupBlock(self);
 }
 

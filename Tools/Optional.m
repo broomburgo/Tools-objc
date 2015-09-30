@@ -15,7 +15,9 @@
   {
     return OptionalTypeNone;
   }
-  return OptionalTypeSome;
+  else {
+    return OptionalTypeSome;
+  }
 }
 
 - (id)getOrElse:(id(^)(void))lazyElse
