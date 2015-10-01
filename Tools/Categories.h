@@ -2,18 +2,37 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@interface VariadicBlock : NSObject
+
+- (VariadicBlock*)with0Arg:(void(^)())argBlock;
+- (VariadicBlock*)with1Arg:(void(^)(id))argBlock;
+- (VariadicBlock*)with2Arg:(void(^)(id,id))argBlock;
+- (VariadicBlock*)with3Arg:(void(^)(id,id,id))argBlock;
+- (VariadicBlock*)with4Arg:(void(^)(id,id,id,id))argBlock;
+- (VariadicBlock*)with5Arg:(void(^)(id,id,id,id,id))argBlock;
+- (VariadicBlock*)with6Arg:(void(^)(id,id,id,id,id,id))argBlock;
+- (VariadicBlock*)with7Arg:(void(^)(id,id,id,id,id,id,id))argBlock;
+- (VariadicBlock*)with8Arg:(void(^)(id,id,id,id,id,id,id,id))argBlock;
+- (VariadicBlock*)with9Arg:(void(^)(id,id,id,id,id,id,id,id,id))argBlock;
+- (VariadicBlock*)with10Arg:(void(^)(id,id,id,id,id,id,id,id,id,id))argBlock;
+
+@end
+
 @interface NSArray (Tools)
 
 + (NSArray*)arrayWithCapacity:(NSUInteger)capacity
                    buildBlock:(id(^)(NSUInteger currentIndex, BOOL* prematureEnd))buildBlock;
 
-- (id)reduceWithStartingElement:(id)startingElement
-                    reduceBlock:(id(^ _Nullable)(id accumulator, id object))reduceBlock;
+- (id _Nullable)reduceWithStartingElement:(id _Nullable)startingElement
+                              reduceBlock:(id(^ _Nullable)(id accumulator, id object))reduceBlock;
 - (NSArray*)map:(id(^)(id object))mapBlock;
 - (NSArray*)filter:(BOOL(^)(id object))filterBlock;
+- (id _Nullable)find:(BOOL(^)(id object))findBlock;
 - (NSDictionary*)mapToDictionary:(NSDictionary*(^)(id object))mapBlock;
 
 - (void)forEach:(void(^)(id object))forEachBlock;
+- (void)recursive:(NSArray* _Nullable(^)(id object))recursiveBlock
+          forEach:(VariadicBlock*)forEachBlock;
 
 - (instancetype)optional:(id _Nullable)optional;
 - (instancetype)optionalArray:(NSArray* _Nullable)optionalArray;
@@ -24,8 +43,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSDictionary*)append:(NSDictionary*)otherDictionary;
 
-- (id)reduceWithStartingElement:(id)startingElement
-                    reduceBlock:(id(^ _Nullable)(id accumulator, id key, id object))reduceBlock;
+- (id _Nullable)reduceWithStartingElement:(id _Nullable)startingElement
+                              reduceBlock:(id(^ _Nullable)(id accumulator, id key, id object))reduceBlock;
 
 - (NSDictionary*)map:(NSDictionary*(^)(id key, id object))mapBlock;
 - (NSDictionary*)filter:(BOOL(^)(id key, id object))filterBlock;

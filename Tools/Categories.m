@@ -1,6 +1,110 @@
 #import "Categories.h"
 #import "Tools.h"
 
+@interface VariadicBlock ()
+
+@property (copy, nonatomic) void(^argBlock0)();
+@property (copy, nonatomic) void(^argBlock1)(id);
+@property (copy, nonatomic) void(^argBlock2)(id,id);
+@property (copy, nonatomic) void(^argBlock3)(id,id,id);
+@property (copy, nonatomic) void(^argBlock4)(id,id,id,id);
+@property (copy, nonatomic) void(^argBlock5)(id,id,id,id,id);
+@property (copy, nonatomic) void(^argBlock6)(id,id,id,id,id,id);
+@property (copy, nonatomic) void(^argBlock7)(id,id,id,id,id,id,id);
+@property (copy, nonatomic) void(^argBlock8)(id,id,id,id,id,id,id,id);
+@property (copy, nonatomic) void(^argBlock9)(id,id,id,id,id,id,id,id,id);
+@property (copy, nonatomic) void(^argBlock10)(id,id,id,id,id,id,id,id,id,id);
+
+@end
+
+@implementation VariadicBlock
+
+- (id)init
+{
+  self = [super init];
+  GuardNil(self != nil)
+  return [[[[[[[[[[[self
+                    with0Arg:^{ }]
+                   with1Arg:^(id obj1) { }]
+                  with2Arg:^(id obj1, id obj2) { }]
+                 with3Arg:^(id obj1, id obj2, id obj3) { }]
+                with4Arg:^(id obj1, id obj2, id obj3, id obj4) { }]
+               with5Arg:^(id obj1, id obj2, id obj3, id obj4, id obj5) { }]
+              with6Arg:^(id obj1, id obj2, id obj3, id obj4, id obj5, id obj6) { }]
+             with7Arg:^(id obj1, id obj2, id obj3, id obj4, id obj5, id obj6, id obj7) { }]
+            with8Arg:^(id obj1, id obj2, id obj3, id obj4, id obj5, id obj6, id obj7, id obj8) { }]
+           with9Arg:^(id obj1, id obj2, id obj3, id obj4, id obj5, id obj6, id obj7, id obj8, id obj9) { }]
+          with10Arg:^(id obj1, id obj2, id obj3, id obj4, id obj5, id obj6, id obj7, id obj8, id obj9, id obj10) { }];
+}
+
+- (VariadicBlock*)with0Arg:(void(^)())argBlock
+{
+  self.argBlock0 = argBlock;
+  return self;
+}
+
+- (VariadicBlock*)with1Arg:(void(^)(id))argBlock
+{
+  self.argBlock1 = argBlock;
+  return self;
+}
+
+- (VariadicBlock*)with2Arg:(void(^)(id,id))argBlock
+{
+  self.argBlock2 = argBlock;
+  return self;
+}
+
+- (VariadicBlock*)with3Arg:(void(^)(id,id,id))argBlock
+{
+  self.argBlock3 = argBlock;
+  return self;
+}
+
+- (VariadicBlock*)with4Arg:(void(^)(id,id,id,id))argBlock
+{
+  self.argBlock4 = argBlock;
+  return self;
+}
+
+- (VariadicBlock*)with5Arg:(void(^)(id,id,id,id,id))argBlock
+{
+  self.argBlock5 = argBlock;
+  return self;
+}
+
+- (VariadicBlock*)with6Arg:(void(^)(id,id,id,id,id,id))argBlock
+{
+  self.argBlock6 = argBlock;
+  return self;
+}
+
+- (VariadicBlock*)with7Arg:(void(^)(id,id,id,id,id,id,id))argBlock
+{
+  self.argBlock7 = argBlock;
+  return self;
+}
+
+- (VariadicBlock*)with8Arg:(void(^)(id,id,id,id,id,id,id,id))argBlock
+{
+  self.argBlock8 = argBlock;
+  return self;
+}
+
+- (VariadicBlock*)with9Arg:(void(^)(id,id,id,id,id,id,id,id,id))argBlock
+{
+  self.argBlock9 = argBlock;
+  return self;
+}
+
+- (VariadicBlock*)with10Arg:(void(^)(id,id,id,id,id,id,id,id,id,id))argBlock
+{
+  self.argBlock10 = argBlock;
+  return self;
+}
+
+@end
+
 @implementation NSArray (Tools)
 
 + (NSArray*)arrayWithCapacity:(NSUInteger)capacity
@@ -67,6 +171,18 @@
   return [NSArray arrayWithArray:m_reduced];
 }
 
+- (id _Nullable)find:(BOOL(^)(id object))findBlock
+{
+  for (id object in self)
+  {
+    if (findBlock(object))
+    {
+      return object;
+    }
+  }
+  return nil;
+}
+
 - (NSDictionary*)mapToDictionary:(NSDictionary*(^)(id object))mapBlock
 {
   GuardNil(mapBlock != nil)
@@ -118,9 +234,90 @@
 
 - (void)forEach:(void(^)(id object))forEachBlock
 {
-  GuardVoid(forEachBlock != nil)
   for (id object in self) {
     forEachBlock(object);
+  }
+}
+
+- (void)recursive:(NSArray* _Nullable(^)(id object))recursiveBlock
+          forEach:(VariadicBlock*)forEachBlock
+{
+  for (id object in self)
+  {
+    NSArray* subarray = recursiveBlock(object);
+    if (subarray != nil)
+    {
+      [subarray
+       inherited:@[object]
+       recursive:recursiveBlock
+       forEach:forEachBlock];
+    }
+    else
+    {
+      forEachBlock.argBlock1(object);
+    }
+  }
+}
+
+- (void)inherited:(NSArray* _Nonnull)inherited
+        recursive:(NSArray* _Nullable(^)(id object))recursiveBlock
+          forEach:(VariadicBlock*)forEachBlock
+{
+  for (id object in self)
+  {
+    NSArray* subarray = recursiveBlock(object);
+    if (subarray != nil)
+    {
+      [subarray
+       inherited:[inherited arrayByAddingObject:object]
+       recursive:recursiveBlock
+       forEach:forEachBlock];
+    }
+    else
+    {
+      switch (inherited.count) {
+        case 1: {
+          forEachBlock.argBlock2(inherited[0], object);
+          break;
+        }
+        case 2: {
+          forEachBlock.argBlock3(inherited[0], inherited[1], object);
+          break;
+        }
+        case 3: {
+          forEachBlock.argBlock4(inherited[0], inherited[1], inherited[2], object);
+          break;
+        }
+        case 4: {
+          forEachBlock.argBlock5(inherited[0], inherited[1], inherited[2], inherited[3], object);
+          break;
+        }
+        case 5: {
+          forEachBlock.argBlock6(inherited[0], inherited[1], inherited[2], inherited[3], inherited[4], object);
+          break;
+        }
+        case 6: {
+          forEachBlock.argBlock7(inherited[0], inherited[1], inherited[2], inherited[3], inherited[4], inherited[5], object);
+          break;
+        }
+        case 7: {
+          forEachBlock.argBlock8(inherited[0], inherited[1], inherited[2], inherited[3], inherited[4], inherited[5], inherited[6], object);
+          break;
+        }
+        case 8: {
+          forEachBlock.argBlock9(inherited[0], inherited[1], inherited[2], inherited[3], inherited[4], inherited[5], inherited[6], inherited[7], object);
+          break;
+        }
+        case 9: {
+          forEachBlock.argBlock10(inherited[0], inherited[1], inherited[2], inherited[3], inherited[4], inherited[5], inherited[6], inherited[7], inherited[8], object);
+          break;
+        }
+        default: {
+          forEachBlock.argBlock1(object);
+          break;
+        }
+      }
+    }
   }
 }
 

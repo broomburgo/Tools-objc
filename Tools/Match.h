@@ -8,6 +8,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (Match*)with:(BOOL(^)(id))withBlock
           give:(id _Nullable(^)(id))giveBlock;
+- (Match*)type:(Class)type
+          give:(id _Nullable(^)(id))giveBlock;
+
 - (id)otherwise:(id _Nullable(^)())otherwiseBlock;
 
 @end

@@ -36,6 +36,16 @@
           isMatched:YES];
 }
 
+- (Match*)type:(Class)type
+          give:(id _Nullable(^)(id))giveBlock
+{
+  return [self
+          with:^BOOL(id value) {
+            return [value isKindOfClass:type];
+          }
+          give:giveBlock];
+}
+
 - (id)otherwise:(id _Nullable(^)())otherwiseBlock
 {
   Guard(self.isMatched == NO, { return self.value; })
