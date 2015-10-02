@@ -23,6 +23,8 @@ typedef NS_ENUM(NSInteger, RandomStringType)
 
 @interface Tools : NSObject
 
+#pragma mark - randomization utilities
+
 + (NSString*)randomStringWithType:(RandomStringType)randomStringType
                            length:(NSUInteger)length;
 + (NSString*)randomStringWithLength:(NSUInteger)length;
@@ -31,8 +33,21 @@ typedef NS_ENUM(NSInteger, RandomStringType)
 + (NSString*)randomStringDigitsOnly;
 + (float)randomFloatBetweenZeroAndOne;
 
+#pragma mark - JSON validation
+
 + (NSArray*)JSONValidatedArray:(NSArray*)array;
 + (NSDictionary*)JSONValidatedDictionary:(NSDictionary*)dictionary;
+
+#pragma mark - composition blocks
+
++ (Optional*(^)(NSDictionary*))optionalForKey:(NSString*)key as:(Class)asClass;
++ (NSNumber*(^)(id))toIsEqualTo:(id)toObject;
++ (NSNumber*(^)(NSNumber*))conditionWith:(NSNumber*)otherCondition;
++ (NSString*(^)(NSString*))stringRemoveWhitespace;
++ (BOOL(^)(NSString*))stringIsNotEmpty;
++ (Optional*(^)(NSString*))stringToURL;
++ (NSNumber*(^)(id))toIsContainedIn:(NSArray*)array;
++ (NSString*(^)(id))stringWithFormat:(NSString*)format;
 
 @end
 

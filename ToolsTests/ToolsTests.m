@@ -903,6 +903,72 @@
   XCTAssertEqualObjects(someToSomeDoubledArray.get, doubledArray);
 }
 
+- (void)testOptionalZip
+{
+  Optional* opt1 = [Optional with:@1];
+  Optional* opt2 = [Optional with:@2];
+  Optional* zipped1 = [opt1 zipWith:opt2];
+  
+  XCTestExpectation* expectation1 = [self expectationWithDescription:@"expectation1"];
+  
+  NSNumber* sum1 = [[zipped1
+                    map:^NSNumber*(Zipped* zip) {
+                      NSNumber* number1 = zip.object1;
+                      NSNumber* number2 = zip.object2;
+                      
+                      XCTAssertNotNil(number1);
+                      XCTAssertNotNil(number2);
+                      XCTAssertTrue([number1 isKindOfClass:[NSNumber class]]);
+                      XCTAssertTrue([number2 isKindOfClass:[NSNumber class]]);
+                      XCTAssertTrue([number1 integerValue] == 1);
+                      XCTAssertTrue([number2 integerValue] == 2);
+                      
+                      [expectation1 fulfill];
+                      return @([number1 integerValue] + [number2 integerValue]);
+                    }]
+                    get];
+  
+  XCTAssertNotNil(sum1);
+  XCTAssertTrue([sum1 isKindOfClass:[NSNumber class]]);
+  XCTAssertTrue([sum1 integerValue] == 3);
+  
+  [self waitForExpectationsWithTimeout:0.5 handler:nil];
+}
+
+- (void)testOptionalList
+{
+  OptionalList* list1 = [[[[[[OptionalList new]
+                             with:[Optional with:nil]]
+                            with:[Optional with:nil]]
+                           with:[Optional with:@10]]
+                          with:[Optional with:nil]]
+                         with:[Optional with:@5]];
+  
+  Optional* firstOptional1 = [list1 getFirstOptionalSome];
+  XCTAssertNotNil(firstOptional1);
+  XCTAssertTrue([firstOptional1 isKindOfClass:[Optional class]]);
+  NSNumber* firstGet1 = [firstOptional1 get];
+  XCTAssertNotNil(firstGet1);
+  XCTAssertTrue([firstGet1 isKindOfClass:[NSNumber class]]);
+  XCTAssertTrue([firstGet1 integerValue] == 10);
+  
+  NSNumber* get1 = [list1 getFirst];
+  XCTAssertNotNil(get1);
+  XCTAssertTrue([get1 isKindOfClass:[NSNumber class]]);
+  XCTAssertTrue([get1 integerValue] == 10);
+  
+  OptionalList* list2 = [[[[OptionalList new]
+                           with:[Optional with:nil]]
+                          with:[Optional with:nil]]
+                         with:[Optional with:nil]];
+  
+  Optional* firstOptional2 = [list2 getFirstOptionalSome];
+  XCTAssertNil(firstOptional2);
+  
+  NSNumber* get2 = [list2 getFirst];
+  XCTAssertNil(get2);
+}
+
 - (void)testResultFailureSuccess {
   NSInteger errorCode = 12345;
   Either* success = [Either rightWith:[NSArray array]];

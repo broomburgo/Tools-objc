@@ -1,5 +1,25 @@
 #import "Optional.h"
-#import "Either.h"
+#import "Tools.h"
+
+@interface Zipped ()
+
+@property (strong, nonatomic) id object1;
+@property (strong, nonatomic) id object2;
+
+@end
+
+@implementation Zipped
+
++ (Zipped*)withObject1:(id)object1
+               object2:(id)object2
+{
+  Zipped* zip = [Zipped new];
+  zip.object1 = object1;
+  zip.object2 = object2;
+  return zip;
+}
+
+@end
 
 @interface Optional ()
 
@@ -122,6 +142,29 @@
   }
 }
 
+- (Optional*)zipWith:(Optional *)otherOptional
+{
+  switch (self.type) {
+    case OptionalTypeNone: {
+      return [Optional with:nil];
+      break;
+    }
+    case OptionalTypeSome: {
+      switch (otherOptional.type) {
+        case OptionalTypeNone: {
+          return [Optional with:nil];
+          break;
+        }
+        case OptionalTypeSome: {
+          return [Optional with:[Zipped withObject1:[self get]
+                                            object2:[otherOptional get]]];
+        }
+      }
+      break;
+    }
+  }
+}
+
 - (Either*)eitherWithError:(id)error
 {
   switch (self.type)
@@ -145,6 +188,50 @@
       applyBlock(self.get);
       break;
   }
+}
+
+@end
+
+@interface OptionalList ()
+
+@property (nonatomic, nonnull) NSMutableArray* m_list;
+@property (nonatomic, readonly, nonnull) NSArray* list;
+
+@end
+
+@implementation OptionalList
+
+- (id)init
+{
+  self = [super init];
+  GuardNil(self != nil)
+  
+  _m_list = [NSMutableArray array];
+  return self;
+}
+
+- (OptionalList*)with:(Optional*)optional
+{
+  [self.m_list addObject:optional];
+  return self;
+}
+
+- (NSArray*)list
+{
+  return [[NSArray alloc] initWithArray:self.m_list];
+}
+
+- (id)getFirst
+{
+  return [[self getFirstOptionalSome] get];
+}
+
+- (Optional*)getFirstOptionalSome
+{
+  return [self.list
+          find:^BOOL(Optional* optional) {
+            return optional.type == OptionalTypeSome;
+          }];
 }
 
 @end

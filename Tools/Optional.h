@@ -8,6 +8,16 @@ typedef NS_ENUM(NSInteger, OptionalType)
     OptionalTypeSome
 };
 
+@interface Zipped : NSObject
+
+@property (nonatomic, readonly) id object1;
+@property (nonatomic, readonly) id object2;
+
++ (Zipped*)withObject1:(id)object1
+               object2:(id)object2;
+
+@end
+
 @class Either;
 
 @interface Optional : NSObject
@@ -27,8 +37,18 @@ typedef NS_ENUM(NSInteger, OptionalType)
 - (Optional*)map:(id(^)(id))mapBlock;
 - (Optional*)flatMap:(Optional*(^)(id))flatMapBlock;
 
+- (Optional*)zipWith:(Optional*)otherOptional; /// Optional<Zipped>
+
 - (Either*)eitherWithError:(id)error;
 - (void)applyIfPossible:(void(^)(id))applyBlock;
+
+@end
+
+@interface OptionalList : NSObject
+
+- (OptionalList*)with:(Optional*)optional;
+- (id _Nullable)getFirst;
+- (Optional* _Nullable)getFirstOptionalSome;
 
 @end
 
