@@ -20,6 +20,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSArray (Tools)
 
+@property (nonatomic, readonly, nullable) id head;
+@property (nonatomic, readonly, nullable) NSArray* tail;
+
 + (NSArray*)arrayWithCapacity:(NSUInteger)capacity
                    buildBlock:(id(^)(NSUInteger currentIndex, BOOL* prematureEnd))buildBlock;
 

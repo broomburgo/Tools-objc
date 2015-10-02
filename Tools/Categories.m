@@ -107,6 +107,24 @@
 
 @implementation NSArray (Tools)
 
+- (id)head
+{
+  return self.firstObject;
+}
+
+- (NSArray*)tail
+{
+  return [[[Optional
+            with:self
+            when:^BOOL(id _) {
+              return self.count > 1;
+            }]
+           map:^NSArray*(NSArray* selfArray) {
+             return [selfArray subarrayWithRange:NSMakeRange(1, self.count -1)];
+           }]
+          get];
+}
+
 + (NSArray*)arrayWithCapacity:(NSUInteger)capacity
                    buildBlock:(id(^)(NSUInteger currentIndex, BOOL* prematureEnd))buildBlock
 {

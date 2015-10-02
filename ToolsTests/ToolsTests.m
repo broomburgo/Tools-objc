@@ -91,6 +91,65 @@
   XCTAssert([maybeMock.maybe.name isEqualToString:@"awesome something"]);
 }
 
+- (void)testArrayHeadTail
+{
+  NSArray* array1 = nil;
+  id head1 = array1.head;
+  NSArray* tail1 = array1.tail;
+  
+  XCTAssertNil(head1);
+  XCTAssertNil(tail1);
+  
+  NSArray* array2 = @[];
+  id head2 = array2.head;
+  NSArray* tail2 = array2.tail;
+  
+  XCTAssertNil(head2);
+  XCTAssertNil(tail2);
+  
+  NSArray* array3 = @[@2];
+  id head3 = array3.head;
+  NSArray* tail3 = array3.tail;
+  XCTAssertNotNil(head3);
+  XCTAssertTrue([head3 isKindOfClass:[NSNumber class]]);
+  XCTAssertTrue([head3 integerValue] == 2);
+  XCTAssertNil(tail3);
+  
+  NSArray* array4 = @[@1,@2];
+  id head4 = array4.head;
+  NSArray* tail4 = array4.tail;
+  XCTAssertNotNil(head4);
+  XCTAssertTrue([head4 isKindOfClass:[NSNumber class]]);
+  XCTAssertTrue([head4 integerValue] == 1);
+  XCTAssertNotNil(tail4);
+  XCTAssertTrue([tail4 isKindOfClass:[NSArray class]]);
+  XCTAssertTrue(tail4.count == 1);
+  XCTAssertNotNil(tail4.head);
+  XCTAssertTrue([tail4.head isKindOfClass:[NSNumber class]]);
+  XCTAssertTrue([tail4.head integerValue] == 2);
+  XCTAssertNil(tail4.tail);
+  
+  NSArray* array5 = @[@2,@1,@3];
+  id head5 = array5.head;
+  NSArray* tail5 = array5.tail;
+  XCTAssertNotNil(head5);
+  XCTAssertTrue([head5 isKindOfClass:[NSNumber class]]);
+  XCTAssertTrue([head5 integerValue] == 2);
+  XCTAssertNotNil(tail5);
+  XCTAssertTrue([tail5 isKindOfClass:[NSArray class]]);
+  XCTAssertTrue(tail5.count == 2);
+  XCTAssertNotNil(tail5.head);
+  XCTAssertTrue([tail5.head isKindOfClass:[NSNumber class]]);
+  XCTAssertTrue([tail5.head integerValue] == 1);
+  XCTAssertNotNil(tail5.tail);
+  XCTAssertTrue([tail5.tail isKindOfClass:[NSArray class]]);
+  XCTAssertTrue(tail5.tail.count == 1);
+  XCTAssertNotNil(tail5.tail.head);
+  XCTAssertTrue([tail5.tail.head isKindOfClass:[NSNumber class]]);
+  XCTAssertTrue([tail5.tail.head integerValue] == 3);
+  XCTAssertNil(tail5.tail.tail);  
+}
+
 - (void)testNSArrayMapReduce {
   NSArray* array1 = @[@1,@2,@3];
   NSArray* array2 = [array1 map:^id(id object) {
