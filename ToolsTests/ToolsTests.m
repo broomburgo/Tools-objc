@@ -1208,4 +1208,82 @@
   XCTAssertEqualObjects(matchedString5, @"number");
 }
 
+- (void)testBlocks1
+{
+  NSString* key1 = @"key1";
+  NSString* key2 = @"key2";
+  NSNumber* value1 = @1;
+  NSString* value2 = @"1";
+  Optional*(^block1)(NSDictionary*) = [Block
+                                       optionalForKey:key1
+                                       as:[NSNumber class]];
+  
+  NSDictionary* dict1 = @{key1 : value1};
+  NSDictionary* dict2 = @{key2 : value1};
+  NSDictionary* dict3 = @{key1 : value2};
+  NSDictionary* dict4 = @{key2 : value2};
+  
+  Optional* optional1 = block1(dict1);
+  XCTAssertNotNil(optional1);
+  XCTAssertTrue([optional1 isKindOfClass:[Optional class]]);
+  XCTAssertTrue(optional1.type == OptionalTypeSome);
+  XCTAssertNotNil(optional1.get);
+  XCTAssertTrue([optional1.get isKindOfClass:[NSNumber class]]);
+  XCTAssertEqualObjects(optional1.get, value1);
+  
+  Optional* optional2 = block1(dict2);
+  XCTAssertNotNil(optional2);
+  XCTAssertTrue([optional2 isKindOfClass:[Optional class]]);
+  XCTAssertTrue(optional2.type == OptionalTypeNone);
+  XCTAssertNil(optional2.get);
+  
+  Optional* optional3 = block1(dict3);
+  XCTAssertNotNil(optional3);
+  XCTAssertTrue([optional3 isKindOfClass:[Optional class]]);
+  XCTAssertTrue(optional3.type == OptionalTypeNone);
+  XCTAssertNil(optional3.get);
+  
+  Optional* optional4 = block1(dict4);
+  XCTAssertNotNil(optional4);
+  XCTAssertTrue([optional4 isKindOfClass:[Optional class]]);
+  XCTAssertTrue(optional4.type == OptionalTypeNone);
+  XCTAssertNil(optional4.get);
+
+}
+
 @end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
