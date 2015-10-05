@@ -236,24 +236,3 @@
 
 @end
 
-@implementation NSDictionary (Optional)
-
-- (Optional*)optionalForKey:(id)key as:(Class)requiredClass
-{
-  if (key == nil)
-  {
-    return [Optional with:nil];
-  }
-  id value = [self objectForKey:key];
-  if (value == nil)
-  {
-    return [Optional with:nil];
-  }
-  if ([value isKindOfClass:requiredClass] == NO)
-  {
-    return [Optional with:nil];
-  }
-  return [Optional with:value];
-}
-
-@end

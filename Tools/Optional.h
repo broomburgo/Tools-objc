@@ -55,11 +55,4 @@ typedef NS_ENUM(NSInteger, OptionalType)
 typedef id _Nonnull(^MapOptionalBlock)(id);
 typedef Optional* _Nonnull(^FlatMapOptionalBlock)(id);
 
-@interface NSDictionary (Optional)
-
-- (Optional*)optionalForKey:(id)key
-                         as:(Class)requiredClass;
-
-@end
-
 NS_ASSUME_NONNULL_END

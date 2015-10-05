@@ -10,7 +10,9 @@
                                            as:(Class)asClass
 {
   return ^Optional*(NSDictionary* dict) {
-    return [dict optionalForKey:key as:asClass];
+    return [Optional
+            with:[dict objectForKey:key]
+            as:asClass];
   };
 }
 
@@ -21,14 +23,14 @@
   };
 }
 
-+ (NSNumber*(^)(NSNumber*))conditionWith:(NSNumber*)otherCondition
++ (NSNumber*(^)(NSNumber*))toConditionWith:(NSNumber*)otherCondition
 {
   return ^NSNumber*(NSNumber*condition) {
     return @(condition.boolValue && otherCondition.boolValue);
   };
 }
 
-+ (NSString*(^)(NSString*))stringRemoveWhitespace
++ (NSString*(^)(NSString*))toStringRemovingWhitespace
 {
   return ^NSString*(NSString*string) {
     return [string stringByReplacingOccurrencesOfString:@" " withString:@""];
@@ -56,7 +58,7 @@
   };
 }
 
-+ (NSString*(^)(id))stringWithFormat:(NSString*)format
++ (NSString*(^)(id))toStringWithFormat:(NSString*)format
 {
   return ^NSString*(id object) {
     return [[NSString alloc] initWithFormat:format, object];

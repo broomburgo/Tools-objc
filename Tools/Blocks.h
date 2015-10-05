@@ -11,12 +11,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (Optional*(^)(NSDictionary*))optionalForKey:(NSString*)key as:(Class)asClass;
 + (NSNumber*(^)(id))toIsEqualTo:(id)toObject;
-+ (NSNumber*(^)(NSNumber*))conditionWith:(NSNumber*)otherCondition;
-+ (NSString*(^)(NSString*))stringRemoveWhitespace;
++ (NSNumber*(^)(NSNumber*))toConditionWith:(NSNumber*)otherCondition;
++ (NSString*(^)(NSString*))toStringRemovingWhitespace;
 + (BOOL(^)(NSString*))stringIsNotEmpty;
 + (Optional*(^)(NSString*))stringToURL;
 + (NSNumber*(^)(id))toIsContainedIn:(NSArray*)array;
-+ (NSString*(^)(id))stringWithFormat:(NSString*)format;
++ (NSString*(^)(id))toStringWithFormat:(NSString*)format;
 
 @end
 
