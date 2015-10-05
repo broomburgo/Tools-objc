@@ -4,7 +4,7 @@
 
 @implementation Block
 
-#pragma mark - composition blocks
+#pragma mark - flatMap
 
 + (Optional*(^)(NSDictionary*))optionalForKey:(NSString*)key
                                            as:(Class)asClass
@@ -15,6 +15,15 @@
             as:asClass];
   };
 }
+
++ (Optional*(^)(NSString*))stringToURL
+{
+  return ^Optional*(NSString*urlString) {
+    return [Optional with:[NSURL URLWithString:urlString]];
+  };
+}
+
+#pragma mark - map
 
 + (NSNumber*(^)(id))toIsEqualTo:(id)toObject
 {
@@ -37,17 +46,10 @@
   };
 }
 
-+ (BOOL(^)(NSString*))stringIsNotEmpty
++ (NSNumber*(^)(NSString*))toStringIsNotEmpty
 {
-  return ^BOOL(NSString*str) {
-    return str.length > 0;
-  };
-}
-
-+ (Optional*(^)(NSString*))stringToURL
-{
-  return ^Optional*(NSString*urlString) {
-    return [Optional with:[NSURL URLWithString:urlString]];
+  return ^NSNumber*(NSString*str) {
+    return @(str.length > 0);
   };
 }
 
@@ -64,5 +66,22 @@
     return [[NSString alloc] initWithFormat:format, object];
   };
 }
+
+#pragma mark - filter
+
++ (BOOL(^)(NSString*))stringIsNotEmpty
+{
+  return ^BOOL(NSString*str) {
+    return str.length > 0;
+  };
+}
+
++ (BOOL(^)(id))isKindOfClass:(Class)asClass
+{
+  return ^BOOL(id object) {
+    return [object isKindOfClass:asClass];
+  };
+}
+
 
 @end

@@ -85,4 +85,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+@interface NSNumber (Tools)
+
+- (id _Nullable)ifTrue:(id _Nullable(^)())ifTrueBlock
+     ifFalse:(id _Nullable(^)())ifFalseBlock;
+
+@end
+
 NS_ASSUME_NONNULL_END

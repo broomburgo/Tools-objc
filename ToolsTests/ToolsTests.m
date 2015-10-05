@@ -638,6 +638,52 @@
   XCTAssert(indexArray.count == 5);
 }
 
+- (void)testNSNumberIfTrueIfFalse
+{
+  NSNumber* _true = @(YES);
+  NSNumber* _false = @(NO);
+  
+  NSNumber* one = [_true
+                   ifTrue:^NSNumber*{
+                     return @1;
+                   }
+                   ifFalse:^NSNumber*{
+                     return @2;
+                   }];
+  XCTAssertNotNil(one);
+  XCTAssertTrue([one isKindOfClass:[NSNumber class]]);
+  XCTAssertEqualObjects(one, @1);
+  
+  NSNumber* two = [_false
+                   ifTrue:^NSNumber*{
+                     return @1;
+                   }
+                   ifFalse:^NSNumber*{
+                     return @2;
+                   }];
+  XCTAssertNotNil(two);
+  XCTAssertTrue([two isKindOfClass:[NSNumber class]]);
+  XCTAssertEqualObjects(two, @2);
+  
+  NSNumber* nilNumber1 = [_true
+                          ifTrue:^NSNumber*{
+                            return nil;
+                          }
+                          ifFalse:^NSNumber*{
+                            return @2;
+                          }];
+  XCTAssertNil(nilNumber1);
+  
+  NSNumber* nilNumber2 = [_false
+                          ifTrue:^NSNumber*{
+                            return @1;
+                          }
+                          ifFalse:^NSNumber*{
+                            return nil;
+                          }];
+  XCTAssertNil(nilNumber2);
+}
+
 - (void)testRandomization {
   NSString* randomString1 = [Tools randomString];
   XCTAssertNotNil(randomString1);

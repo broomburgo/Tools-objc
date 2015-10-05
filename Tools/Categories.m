@@ -554,3 +554,19 @@
 }
 
 @end
+
+@implementation NSNumber (Tools)
+
+- (id _Nullable)ifTrue:(id _Nullable(^)())ifTrueBlock
+               ifFalse:(id _Nullable(^)())ifFalseBlock
+{
+  if ([self boolValue] == YES)
+  {
+    return ifTrueBlock();
+  }
+  else {
+    return ifFalseBlock();
+  }
+}
+
+@end
