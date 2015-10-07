@@ -1,6 +1,7 @@
 
 #import "Blocks.h"
 #import "Optional.h"
+#import "Categories.h"
 
 @implementation Block
 
@@ -67,6 +68,13 @@
   };
 }
 
++ (NSArray*(^)(NSArray*))toMappedArray:(id(^)(id))mapBlock
+{
+  return ^NSArray*(NSArray* array) {
+    return [array map:mapBlock];
+  };
+}
+
 #pragma mark - filter
 
 + (BOOL(^)(NSString*))stringIsNotEmpty
@@ -80,6 +88,13 @@
 {
   return ^BOOL(id object) {
     return [object isKindOfClass:asClass];
+  };
+}
+
++ (BOOL(^)(id))isEqualTo:(id)otherObject
+{
+  return ^BOOL(id object) {
+    return [object isEqual:otherObject];
   };
 }
 

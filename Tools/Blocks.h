@@ -18,10 +18,12 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSNumber*(^)(NSString*))toStringIsNotEmpty;
 + (NSNumber*(^)(id))toIsContainedIn:(NSArray*)array;
 + (NSString*(^)(id))toStringWithFormat:(NSString*)format;
++ (NSArray*(^)(NSArray*))toMappedArray:(id(^)(id))mapBlock;
 
 #pragma mark - filter
 + (BOOL(^)(NSString*))stringIsNotEmpty;
 + (BOOL(^)(id))isKindOfClass:(Class)asClass;
++ (BOOL(^)(id))isEqualTo:(id)otherObject;
 
 @end
 
