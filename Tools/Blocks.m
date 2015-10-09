@@ -26,6 +26,11 @@
 
 #pragma mark - map
 
++ (id(^)(id))identity
+{
+  return ^id(id value){ return value; };
+}
+
 + (NSNumber*(^)(id))toIsEqualTo:(id)toObject
 {
   return ^NSNumber*(id object) {

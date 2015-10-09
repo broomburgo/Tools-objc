@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (Optional*(^)(NSString*))stringToURL;
 
 #pragma mark - map
++ (id(^)(id))identity;
 + (NSNumber*(^)(id))toIsEqualTo:(id)toObject;
 + (NSNumber*(^)(NSNumber*))toConditionWith:(NSNumber*)otherCondition;
 + (NSString*(^)(NSString*))toStringRemovingWhitespace;
