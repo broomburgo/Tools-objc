@@ -29,6 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (id _Nullable)reduceWithStartingElement:(id _Nullable)startingElement
                               reduceBlock:(id(^ _Nullable)(id accumulator, id object))reduceBlock;
 - (NSArray*)map:(id(^)(id object))mapBlock;
+- (NSArray*)mapNullable:(id _Nullable(^)(id object))mapBlock;
 - (NSArray*)filter:(BOOL(^)(id object))filterBlock;
 - (id _Nullable)find:(BOOL(^)(id object))findBlock;
 - (NSDictionary*)mapToDictionary:(NSDictionary*(^)(id object))mapBlock;
@@ -39,6 +40,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)optional:(id _Nullable)optional;
 - (instancetype)optionalArray:(NSArray* _Nullable)optionalArray;
+
+- (NSArray*)select:(NSUInteger)numberOfElements;
+- (NSArray*)selectBut:(NSUInteger)numberOfElementsToExclude;
 
 @end
 

@@ -361,6 +361,59 @@
   XCTAssertNil(number1);
 }
 
+- (void)testNSArraySelect
+{
+  NSArray* array_a = @[@5,@2,@3,@1,@4];
+  NSInteger select2 = 2;
+  NSArray* array_a_2 = [array_a select:select2];
+  XCTAssertNotNil(array_a_2);
+  XCTAssertTrue([array_a_2 isKindOfClass:[NSArray class]]);
+  XCTAssertEqual(array_a_2.count, select2);
+  XCTAssertEqualObjects([array_a_2 objectAtIndex:0], @5);
+  XCTAssertEqualObjects([array_a_2 objectAtIndex:1], @2);
+
+  NSArray* array_b = @[@3];
+  NSArray* array_b_2 = [array_b select:select2];
+  XCTAssertNotNil(array_b_2);
+  XCTAssertTrue([array_b_2 isKindOfClass:[NSArray class]]);
+  XCTAssertEqual(array_b_2.count, 1);
+  XCTAssertEqualObjects([array_b_2 objectAtIndex:0], @3);
+
+  NSArray* array_c = @[];
+  NSArray* array_c_2 = [array_c select:select2];
+  XCTAssertNotNil(array_c_2);
+  XCTAssertTrue([array_c_2 isKindOfClass:[NSArray class]]);
+  XCTAssertEqual(array_c_2.count, 0);
+  
+  NSArray* array_d = @[@2,@1];
+  NSArray* array_d_2 = [array_d select:0];
+  XCTAssertNotNil(array_d_2);
+  XCTAssertTrue([array_d_2 isKindOfClass:[NSArray class]]);
+  XCTAssertEqual(array_d_2.count, 0);
+  
+  NSArray* array_a_3 = [array_a selectBut:select2];
+  XCTAssertNotNil(array_a_3);
+  XCTAssertTrue([array_a_3 isKindOfClass:[NSArray class]]);
+  XCTAssertEqual(array_a_3.count, array_a.count - select2);
+  XCTAssertEqualObjects([array_a_3 objectAtIndex:0], @3);
+  XCTAssertEqualObjects([array_a_3 objectAtIndex:1], @1);
+  
+  NSArray* array_b_3 = [array_b selectBut:select2];
+  XCTAssertNotNil(array_b_3);
+  XCTAssertTrue([array_b_3 isKindOfClass:[NSArray class]]);
+  XCTAssertEqual(array_b_3.count, 0);
+  
+  NSArray* array_c_3 = [array_c selectBut:select2];
+  XCTAssertNotNil(array_c_3);
+  XCTAssertTrue([array_c_3 isKindOfClass:[NSArray class]]);
+  XCTAssertEqual(array_c_3.count, 0);
+  
+  NSArray* array_d_3 = [array_d selectBut:0];
+  XCTAssertNotNil(array_d_3);
+  XCTAssertTrue([array_d_3 isKindOfClass:[NSArray class]]);
+  XCTAssertEqualObjects(array_d_3, array_d);
+}
+
 - (void)testNSDictionaryMapReduce {
   NSDictionary* dictionary1 = @{@"1":@11,
                                 @"2":@12};

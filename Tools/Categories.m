@@ -174,6 +174,22 @@
   return [NSArray arrayWithArray:m_reduced];
 }
 
+- (NSArray*)mapNullable:(id _Nullable(^)(id object))mapBlock
+{
+  NSMutableArray* m_reduced = [self
+                               reduceWithStartingElement:[NSMutableArray array]
+                               reduceBlock:^id(id accumulator, id object) {
+                                 NSMutableArray* currentAccumulator = (NSMutableArray*)accumulator;
+                                 id currentObject = mapBlock(object);
+                                 if (currentObject)
+                                 {
+                                   [currentAccumulator addObject:currentObject];
+                                 }
+                                 return currentAccumulator;
+                               }];
+  return [NSArray arrayWithArray:m_reduced];
+}
+
 - (NSArray*)filter:(BOOL(^)(id object))filterBlock
 {
   NSMutableArray* m_reduced = [self
@@ -337,6 +353,27 @@
       }
     }
   }
+}
+
+- (NSArray*)select:(NSUInteger)numberOfElements
+{
+  NSInteger actualNumberOfElements = MIN(numberOfElements, self.count);
+  NSMutableArray* m_array = [NSMutableArray array];
+  for (NSInteger i = 0 ; i < actualNumberOfElements; i++) {
+    [m_array addObject:[self objectAtIndex:i]];
+  }
+  return [NSArray arrayWithArray:m_array];
+}
+
+- (NSArray*)selectBut:(NSUInteger)numberOfElementsToExclude
+{
+  Guard(numberOfElementsToExclude != 0, { return self; })
+  Guard(numberOfElementsToExclude < self.count, { return @[]; })
+  NSMutableArray* m_array = [NSMutableArray array];
+  for (NSInteger i = numberOfElementsToExclude ; i < self.count; i++) {
+    [m_array addObject:[self objectAtIndex:i]];
+  }
+  return [NSArray arrayWithArray:m_array];
 }
 
 @end
