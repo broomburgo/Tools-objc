@@ -77,6 +77,11 @@
   }
 }
 
+- (id _Nullable)get
+{
+  return self.right;
+}
+
 - (id)getOrElse:(id(^)(void))lazyDefaultValue
 {
   return [self

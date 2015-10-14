@@ -85,14 +85,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly) id maybe;
 - (instancetype)maybe;
 
-- (instancetype)setup:(id(^)(id value))setupBlock;
+- (instancetype)setup:(void(^)(id value))setupBlock;
 
 @end
 
 @interface NSNumber (Tools)
 
 - (id _Nullable)ifTrue:(id _Nullable(^)())ifTrueBlock
-     ifFalse:(id _Nullable(^)())ifFalseBlock;
+               ifFalse:(id _Nullable(^)())ifFalseBlock;
 
 @end
 

@@ -18,6 +18,8 @@ typedef NS_ENUM(NSInteger, EitherType)
 
 - (id)ifLeft:(id(^)(id))leftBlock
      ifRight:(id(^)(id))rightBlock;
+
+- (id _Nullable)get;
 - (id)getOrElse:(id(^)(void))lazyElse;
 
 @end

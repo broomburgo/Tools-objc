@@ -584,10 +584,10 @@
   return self;
 }
 
-- (instancetype)setup:(id(^)(id value))setupBlock
+- (instancetype)setup:(void(^)(id value))setupBlock
 {
-  GuardSelf(setupBlock != nil)
-  return setupBlock(self);
+  setupBlock(self);
+  return self;
 }
 
 @end
