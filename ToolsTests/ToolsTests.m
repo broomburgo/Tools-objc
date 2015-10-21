@@ -1350,6 +1350,141 @@
 
 }
 
+- (void)testSignal
+{
+  Signal* signal1 = [Signal withQueue:[Queue main]];
+  
+  XCTestExpectation* expectation1 = [self expectationWithDescription:@"expectation1"];
+  XCTestExpectation* expectation2 = [self expectationWithDescription:@"expectation2"];
+  XCTestExpectation* expectation3 = [self expectationWithDescription:@"expectation3"];
+
+  NSString* string1 = @"string1";
+  
+  [signal1
+   observe:^SignalSegue(id value) {
+     XCTAssertNotNil(value);
+     XCTAssertTrue([value isKindOfClass:[NSString class]]);
+     XCTAssertEqualObjects(value, string1);
+     [expectation1 fulfill];
+     return SignalSegueStop;
+   }];
+  
+  [signal1
+   observe:^SignalSegue(id value) {
+     XCTAssertNotNil(value);
+     XCTAssertTrue([value isKindOfClass:[NSString class]]);
+     XCTAssertEqualObjects(value, string1);
+     [expectation2 fulfill];
+     return SignalSegueStop;
+   }];
+  
+  [signal1
+   observe:^SignalSegue(id value) {
+     XCTAssertNotNil(value);
+     XCTAssertTrue([value isKindOfClass:[NSString class]]);
+     XCTAssertEqualObjects(value, string1);
+     [expectation3 fulfill];
+     return SignalSegueStop;
+   }];
+  
+  [signal1 send:string1];
+
+  [self waitForExpectationsWithTimeout:1 handler:nil];
+}
+
+- (void)testSignalSegue
+{
+  Signal* signal1 = [Signal withQueue:[Queue main]];
+  
+  XCTestExpectation* expectation1 = [self expectationWithDescription:@"expectation1"];
+  XCTestExpectation* expectation2 = [self expectationWithDescription:@"expectation2"];
+  XCTestExpectation* expectation3 = [self expectationWithDescription:@"expectation3"];
+  
+  NSString* string1 = @"string1";
+  NSString* string2 = @"string2";
+  NSString* string3 = @"string3";
+  NSString* string4 = @"string4";
+
+  __block NSInteger observationCount = 0;
+  
+  [signal1
+   observe:^SignalSegue(NSString* string) {
+     observationCount += 1;
+     
+     switch (observationCount)
+     {
+       case 1:
+       {
+         [expectation1 fulfill];
+         XCTAssertEqualObjects(string, string1);
+         return SignalSegueContinue;
+         break;
+       }
+       case 2:
+       {
+         [expectation2 fulfill];
+         XCTAssertEqualObjects(string, string2);
+         return SignalSegueContinue;
+         break;
+       }
+       case 3:
+       {
+         [expectation3 fulfill];
+         XCTAssertEqualObjects(string, string3);
+         return SignalSegueStop;
+         break;
+       }
+       case 4:
+       {
+         XCTAssertTrue(false);
+         return SignalSegueStop;
+         break;
+       }
+         
+       default:
+       {
+         XCTAssertTrue(false);
+         break;
+       }
+     }
+     
+     
+   }];
+  
+  XCTestExpectation* expectationWait = [self expectationWithDescription:@"expectationWait"];
+  [[Queue main]
+   after:2.5
+   task:^{
+     [expectationWait fulfill];
+   }];
+  
+  [[Queue main]
+  after:0.5
+   task:^{
+     [signal1 send:string1];
+   }];
+  
+  [[Queue main]
+   after:1
+   task:^{
+     [signal1 send:string2];
+   }];
+  
+  [[Queue main]
+   after:1.5
+   task:^{
+     [signal1 send:string3];
+   }];
+  
+  [[Queue main]
+   after:2
+   task:^{
+     [signal1 send:string4];
+   }];
+  
+  [self waitForExpectationsWithTimeout:3 handler:nil];
+}
+
 @end
 
 

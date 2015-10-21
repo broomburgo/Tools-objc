@@ -7,6 +7,7 @@
 #import "Future.h"
 #import "Match.h"
 #import "Blocks.h"
+#import "SignalObservation.h"
 
 #define Guard(condition,returnClosure) if ((condition) == NO) returnClosure
 #define GuardVoid(condition) if ((condition) == NO) { return; }
