@@ -26,6 +26,10 @@ NS_ASSUME_NONNULL_BEGIN
 + (BOOL(^)(id))isKindOfClass:(Class)asClass;
 + (BOOL(^)(id))isEqualTo:(id)otherObject;
 
+#pragma mark - other
+
++ (void(^)(id))ignored;
+
 @end
 
 NS_ASSUME_NONNULL_END

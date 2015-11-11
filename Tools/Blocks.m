@@ -103,5 +103,11 @@
   };
 }
 
+#pragma mark - other
+
++ (void(^)(id))ignored
+{
+  return ^(id _){};
+}
 
 @end
