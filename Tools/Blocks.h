@@ -25,6 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (BOOL(^)(NSString*))stringIsNotEmpty;
 + (BOOL(^)(id))isKindOfClass:(Class)asClass;
 + (BOOL(^)(id))isEqualTo:(id)otherObject;
++ (BOOL(^)(id))isContainedIn:(NSArray*)possibleObjects;
 
 #pragma mark - other
 

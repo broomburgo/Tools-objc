@@ -103,6 +103,14 @@
   };
 }
 
++ (BOOL(^)(id))isContainedIn:(NSArray*)possibleObjects
+{
+  return ^BOOL(id object) {
+    return [possibleObjects containsObject:object];
+  };
+}
+
+
 #pragma mark - other
 
 + (void(^)(id))ignored
