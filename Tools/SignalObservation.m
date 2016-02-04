@@ -29,15 +29,13 @@
 - (Signal*)send:(id)value
 {
   NSUInteger currentCount = self.m_observeBlocks.count;
-  while (currentCount > 0)
-  {
+  while (currentCount > 0) {
     SignalSegue(^observeBlock)(id) = [self.m_observeBlocks objectAtIndex:0];
     [self.m_observeBlocks removeObjectAtIndex:0];
     [self.sendQueue async:^{
       SignalSegue segue = observeBlock(value);
       [self.segueQueue async:^{
-        switch (segue)
-        {
+        switch (segue) {
           case SignalSegueContinue:
             [self observe:observeBlock];
             break;
