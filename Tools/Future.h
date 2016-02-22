@@ -19,8 +19,8 @@ typedef Future* _Nonnull(^FlatMapBlock)(id value);
 
 @interface Future : NSObject
 
-@property (copy, nonatomic, readonly, nullable) id get;
-@property (copy, nonatomic, readonly, nullable) id error;
+@property (nonatomic, readonly, nullable) id get;
+@property (nonatomic, readonly, nullable) id error;
 @property (nonatomic, readonly) FutureState state;
 @property (nonatomic, readonly) BOOL isComplete;
 

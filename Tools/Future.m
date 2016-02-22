@@ -5,8 +5,8 @@
 
 @interface Future ()
 
-@property (copy, nonatomic, nullable) id get;
-@property (copy, nonatomic, nullable) id error;
+@property (nonatomic, nullable) id get;
+@property (nonatomic, nullable) id error;
 @property (strong, nonatomic) NSMutableArray* m_completeBlocks;
 
 @end
