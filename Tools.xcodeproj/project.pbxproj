@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3802065D1BD0D40800BA1ED9 /* SignalObservation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3802065C1BD0D40800BA1ED9 /* SignalObservation.m */; settings = {ASSET_TAGS = (); }; };
-		381371FB1BC258AB007C443C /* Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 381371FA1BC258AB007C443C /* Blocks.m */; settings = {ASSET_TAGS = (); }; };
+		3802065D1BD0D40800BA1ED9 /* SignalObservation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3802065C1BD0D40800BA1ED9 /* SignalObservation.m */; };
+		381371FB1BC258AB007C443C /* Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 381371FA1BC258AB007C443C /* Blocks.m */; };
 		381371FC1BC25CF7007C443C /* Blocks.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 381371F91BC258AB007C443C /* Blocks.h */; };
 		383D28C21BD778CB003A810B /* SignalObservation.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3802065B1BD0D40800BA1ED9 /* SignalObservation.h */; };
 		386EBEBC1B95A2A600C678FE /* Queue.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 38EF90261B6220A70081B564 /* Queue.h */; };
@@ -373,6 +373,7 @@
 		38EA104D1B5E1DAD004EE76E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DEFINES_MODULE = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -382,6 +383,7 @@
 		38EA104E1B5E1DAD004EE76E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DEFINES_MODULE = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
