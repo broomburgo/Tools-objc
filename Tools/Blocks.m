@@ -24,6 +24,12 @@
   };
 }
 
++ (Optional*(^)(id))toValueForKeyInDict:(NSDictionary*)dictionary {
+  return ^Optional*(id key) {
+    return [Optional with:[dictionary objectForKey:key]];
+  };
+}
+
 #pragma mark - map
 
 + (id(^)(id))identity

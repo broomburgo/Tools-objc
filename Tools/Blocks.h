@@ -10,6 +10,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - flatMap
 + (Optional*(^)(NSDictionary*))optionalForKey:(NSString*)key as:(Class)asClass;
 + (Optional*(^)(NSString*))stringToURL;
++ (Optional*(^)(id))toValueForKeyInDict:(NSDictionary*)dictionary;
 
 #pragma mark - map
 + (id(^)(id))identity;
