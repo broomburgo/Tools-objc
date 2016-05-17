@@ -223,14 +223,17 @@
 
 - (id)getFirst
 {
-  return [[self getFirstOptionalSome] get];
+  return [[self getFirstOptionalSomeOrNone] get];
 }
 
-- (Optional*)getFirstOptionalSome
+- (Optional*)getFirstOptionalSomeOrNone
 {
-  return [self.list
-          find:^BOOL(Optional* optional) {
-            return optional.type == OptionalTypeSome;
+  return [[Optional with:[self.list
+                          find:^BOOL(Optional* optional) {
+                            return optional.type == OptionalTypeSome;
+                          }]]
+          getOrElse:^Optional*{
+            return [Optional with:nil];
           }];
 }
 

@@ -1043,7 +1043,7 @@
                           with:[Optional with:nil]]
                          with:[Optional with:@5]];
   
-  Optional* firstOptional1 = [list1 getFirstOptionalSome];
+  Optional* firstOptional1 = [list1 getFirstOptionalSomeOrNone];
   XCTAssertNotNil(firstOptional1);
   XCTAssertTrue([firstOptional1 isKindOfClass:[Optional class]]);
   NSNumber* firstGet1 = [firstOptional1 get];
@@ -1061,7 +1061,7 @@
                           with:[Optional with:nil]]
                          with:[Optional with:nil]];
   
-  Optional* firstOptional2 = [list2 getFirstOptionalSome];
+  Optional* firstOptional2 = [list2 getFirstOptionalSomeOrNone];
   XCTAssertNil(firstOptional2);
   
   NSNumber* get2 = [list2 getFirst];

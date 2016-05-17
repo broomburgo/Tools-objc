@@ -19,6 +19,7 @@ typedef NS_ENUM(NSInteger, OptionalType)
 @end
 
 @class Either;
+@class OptionalList;
 
 @interface Optional : NSObject
 
@@ -48,7 +49,7 @@ typedef NS_ENUM(NSInteger, OptionalType)
 
 - (OptionalList*)with:(Optional*)optional;
 - (id _Nullable)getFirst;
-- (Optional* _Nullable)getFirstOptionalSome;
+- (Optional*)getFirstOptionalSomeOrNone;
 
 @end
 
