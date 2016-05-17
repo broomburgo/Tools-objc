@@ -8,8 +8,7 @@
 #pragma mark - flatMap
 
 + (Optional*(^)(NSDictionary*))optionalForKey:(NSString*)key
-                                           as:(Class)asClass
-{
+                                           as:(Class)asClass {
   return ^Optional*(NSDictionary* dict) {
     return [Optional
             with:[dict objectForKey:key]
@@ -17,8 +16,7 @@
   };
 }
 
-+ (Optional*(^)(NSString*))stringToURL
-{
++ (Optional*(^)(NSString*))stringToURL {
   return ^Optional*(NSString*urlString) {
     return [Optional with:[NSURL URLWithString:urlString]];
   };
@@ -32,55 +30,47 @@
 
 #pragma mark - map
 
-+ (id(^)(id))identity
-{
++ (id(^)(id))identity {
   return ^id(id value){ return value; };
 }
 
-+ (NSNumber*(^)(id))toIsEqualTo:(id)toObject
-{
++ (NSNumber*(^)(id))toIsEqualTo:(id)toObject {
   return ^NSNumber*(id object) {
     return @([object isEqual:toObject]);
   };
 }
 
-+ (NSNumber*(^)(NSNumber*))toConditionWith:(NSNumber*)otherCondition
-{
++ (NSNumber*(^)(NSNumber*))toConditionWith:(NSNumber*)otherCondition {
   return ^NSNumber*(NSNumber*condition) {
     return @(condition.boolValue && otherCondition.boolValue);
   };
 }
 
-+ (NSString*(^)(NSString*))toStringRemovingWhitespace
-{
++ (NSString*(^)(NSString*))toStringRemovingWhitespace {
   return ^NSString*(NSString*string) {
     return [string stringByReplacingOccurrencesOfString:@" " withString:@""];
   };
 }
 
-+ (NSNumber*(^)(NSString*))toStringIsNotEmpty
-{
++ (NSNumber*(^)(NSString*))toStringIsNotEmpty {
   return ^NSNumber*(NSString*str) {
     return @(str.length > 0);
   };
 }
 
-+ (NSNumber*(^)(id))toIsContainedIn:(NSArray*)array
-{
++ (NSNumber*(^)(id))toIsContainedIn:(NSArray*)array {
   return ^NSNumber*(id object) {
     return @([array containsObject:object]);
   };
 }
 
-+ (NSString*(^)(id))toStringWithFormat:(NSString*)format
-{
++ (NSString*(^)(id))toStringWithFormat:(NSString*)format {
   return ^NSString*(id object) {
     return [[NSString alloc] initWithFormat:format, object];
   };
 }
 
-+ (NSArray*(^)(NSArray*))toMappedArray:(id(^)(id))mapBlock
-{
++ (NSArray*(^)(NSArray*))toMappedArray:(id(^)(id))mapBlock {
   return ^NSArray*(NSArray* array) {
     return [array map:mapBlock];
   };
@@ -88,39 +78,38 @@
 
 #pragma mark - filter
 
-+ (BOOL(^)(NSString*))stringIsNotEmpty
-{
++ (BOOL(^)(NSString*))stringIsNotEmpty {
   return ^BOOL(NSString*str) {
     return str.length > 0;
   };
 }
 
-+ (BOOL(^)(id))isKindOfClass:(Class)asClass
-{
++ (BOOL(^)(id))isKindOfClass:(Class)asClass {
   return ^BOOL(id object) {
     return [object isKindOfClass:asClass];
   };
 }
 
-+ (BOOL(^)(id))isEqualTo:(id)otherObject
-{
++ (BOOL(^)(id))isEqualTo:(id)otherObject {
   return ^BOOL(id object) {
     return [object isEqual:otherObject];
   };
 }
 
-+ (BOOL(^)(id))isContainedIn:(NSArray*)possibleObjects
-{
++ (BOOL(^)(id))isContainedIn:(NSArray*)possibleObjects {
   return ^BOOL(id object) {
     return [possibleObjects containsObject:object];
   };
 }
 
 
-#pragma mark - other
+#pragma mark - fixed
 
-+ (void(^)(id))ignored
-{
++ (id(^)())toValue:(id)value {
+  return ^id{ return value; };
+}
+
++ (void(^)(id))ignored {
   return ^(id _){};
 }
 

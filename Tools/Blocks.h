@@ -28,8 +28,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (BOOL(^)(id))isEqualTo:(id)otherObject;
 + (BOOL(^)(id))isContainedIn:(NSArray*)possibleObjects;
 
-#pragma mark - other
-
+#pragma mark - fixed
++ (id(^)())toValue:(id)value;
 + (void(^)(id))ignored;
 
 @end
