@@ -26,28 +26,26 @@
   return self;
 }
 
-- (Signal*)send:(id)value
-{
-  NSUInteger currentCount = self.m_observeBlocks.count;
-  while (currentCount > 0) {
-    SignalSegue(^observeBlock)(id) = [self.m_observeBlocks objectAtIndex:0];
-    [self.m_observeBlocks removeObjectAtIndex:0];
-    [self.sendQueue async:^{
-      SignalSegue segue = observeBlock(value);
-      [self.segueQueue async:^{
-        switch (segue) {
-          case SignalSegueContinue:
-            [self observe:observeBlock];
-            break;
-          case SignalSegueStop:
-            /// STOP
-            break;
-        }
-      }];
-    }];
-    currentCount -= 1;
-  }
-  return self;
+- (Signal*)send:(id)value {
+	for (SignalSegue(^observeBlock)(id) in [self.m_observeBlocks copy]) {
+		[self.sendQueue async:^{
+			SignalSegue segue = observeBlock(value);
+			[self.segueQueue async:^{
+				switch (segue) {
+					case SignalSegueContinue:
+						break;
+					case SignalSegueStop:
+						[self.m_observeBlocks removeObject:observeBlock];
+						break;
+				}
+			}];
+		}];
+	}
+	return self;
+}
+
+- (NSUInteger)observersCount {
+	return self.m_observeBlocks.count;
 }
 
 @end

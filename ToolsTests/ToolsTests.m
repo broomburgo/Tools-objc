@@ -1062,7 +1062,7 @@
                          with:[Optional with:nil]];
   
   Optional* firstOptional2 = [list2 getFirstOptionalSomeOrNone];
-  XCTAssertNil(firstOptional2);
+  XCTAssertNotNil(firstOptional2);
   
   NSNumber* get2 = [list2 getFirst];
   XCTAssertNil(get2);
@@ -1486,38 +1486,3 @@
 }
 
 @end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
