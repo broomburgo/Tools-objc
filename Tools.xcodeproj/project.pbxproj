@@ -20,6 +20,7 @@
 		386EBEC81B95A71300C678FE /* Future_Internal.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 38EBACCA1B6F69A000F95442 /* Future_Internal.h */; };
 		386EBEC91B95A71300C678FE /* Either_Internal.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 38FB87721B7CD3F900F4C5B3 /* Either_Internal.h */; };
 		387DD3CA1D1826C3009C571D /* Pair.m in Sources */ = {isa = PBXBuildFile; fileRef = 387DD3C91D1826C3009C571D /* Pair.m */; };
+		387DD3CB1D182CDD009C571D /* Pair.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 387DD3C81D1826C3009C571D /* Pair.h */; };
 		38A2B6F61B78E7FF0004AF4A /* Either.m in Sources */ = {isa = PBXBuildFile; fileRef = 38A2B6F51B78E7FF0004AF4A /* Either.m */; };
 		38A2B6F91B78EAF60004AF4A /* Optional.m in Sources */ = {isa = PBXBuildFile; fileRef = 38A2B6F81B78EAF60004AF4A /* Optional.m */; };
 		38EA103C1B5E1DAD004EE76E /* Tools.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 38EA103B1B5E1DAD004EE76E /* Tools.h */; };
@@ -49,6 +50,7 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
+				387DD3CB1D182CDD009C571D /* Pair.h in CopyFiles */,
 				383D28C21BD778CB003A810B /* SignalObservation.h in CopyFiles */,
 				381371FC1BC25CF7007C443C /* Blocks.h in CopyFiles */,
 				386EBEC81B95A71300C678FE /* Future_Internal.h in CopyFiles */,

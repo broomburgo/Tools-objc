@@ -8,6 +8,7 @@
 #import "Match.h"
 #import "Blocks.h"
 #import "SignalObservation.h"
+#import "Pair.h"
 
 #define Guard(condition,returnClosure) if ((condition) == NO) returnClosure
 #define GuardVoid(condition) if ((condition) == NO) { return; }
@@ -17,8 +18,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef NS_ENUM(NSInteger, RandomStringType)
-{
+typedef NS_ENUM(NSInteger, RandomStringType) {
     RandomStringTypeRegular = 0,
     RandomStringTypeDigitsOnly
 };
