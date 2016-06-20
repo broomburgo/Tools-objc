@@ -70,6 +70,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSSet (Tools)
 
+- (NSArray*)toArray;
 - (NSSet*)filter:(BOOL(^)(id object))filterBlock;
 
 @end

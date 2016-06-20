@@ -225,8 +225,7 @@
                                     reduceBlock:^id(id accumulator, id object) {
                                       NSMutableDictionary* currentAccumulator = (NSMutableDictionary*)accumulator;
                                       NSDictionary* currentDictionary = mapBlock(object);
-                                      if (currentDictionary.count > 0)
-                                      {
+                                      if (currentDictionary.count > 0) {
                                         [currentAccumulator addEntriesFromDictionary:currentDictionary];
                                       }
                                       return currentAccumulator;
@@ -394,8 +393,7 @@
 {
   Guard(self.count >= 1 && reduceBlock != nil, { return startingElement; })
   __block id reduced = startingElement;
-  [self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop)
-   {
+  [self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
      reduced = reduceBlock(reduced, key, obj);
    }];
   return reduced;
@@ -548,6 +546,14 @@
 @end
 
 @implementation NSSet (Tools)
+
+- (NSArray *)toArray {
+	NSMutableArray* m_array = [NSMutableArray arrayWithCapacity:self.count];
+	for (id object in self) {
+		[m_array addObject:object];
+	}
+	return [NSArray arrayWithArray:m_array];
+}
 
 - (NSSet*)filter:(BOOL(^)(id object))filterBlock
 {
