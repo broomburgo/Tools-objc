@@ -19,6 +19,7 @@
 		386EBEC11B95A2A600C678FE /* Match.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 38F55EE41B85DAA0004A444E /* Match.h */; };
 		386EBEC81B95A71300C678FE /* Future_Internal.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 38EBACCA1B6F69A000F95442 /* Future_Internal.h */; };
 		386EBEC91B95A71300C678FE /* Either_Internal.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 38FB87721B7CD3F900F4C5B3 /* Either_Internal.h */; };
+		387DD3CA1D1826C3009C571D /* Pair.m in Sources */ = {isa = PBXBuildFile; fileRef = 387DD3C91D1826C3009C571D /* Pair.m */; };
 		38A2B6F61B78E7FF0004AF4A /* Either.m in Sources */ = {isa = PBXBuildFile; fileRef = 38A2B6F51B78E7FF0004AF4A /* Either.m */; };
 		38A2B6F91B78EAF60004AF4A /* Optional.m in Sources */ = {isa = PBXBuildFile; fileRef = 38A2B6F81B78EAF60004AF4A /* Optional.m */; };
 		38EA103C1B5E1DAD004EE76E /* Tools.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 38EA103B1B5E1DAD004EE76E /* Tools.h */; };
@@ -69,6 +70,8 @@
 		3802065C1BD0D40800BA1ED9 /* SignalObservation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignalObservation.m; sourceTree = "<group>"; };
 		381371F91BC258AB007C443C /* Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Blocks.h; sourceTree = "<group>"; };
 		381371FA1BC258AB007C443C /* Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Blocks.m; sourceTree = "<group>"; };
+		387DD3C81D1826C3009C571D /* Pair.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pair.h; sourceTree = "<group>"; };
+		387DD3C91D1826C3009C571D /* Pair.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Pair.m; sourceTree = "<group>"; };
 		38A2B6F41B78E7FF0004AF4A /* Either.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Either.h; sourceTree = "<group>"; };
 		38A2B6F51B78E7FF0004AF4A /* Either.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Either.m; sourceTree = "<group>"; };
 		38A2B6F71B78EAF60004AF4A /* Optional.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Optional.h; sourceTree = "<group>"; };
@@ -131,6 +134,8 @@
 		38EA103A1B5E1DAD004EE76E /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				381371F91BC258AB007C443C /* Blocks.h */,
+				381371FA1BC258AB007C443C /* Blocks.m */,
 				38F4CEA91B79FD2A00A8F464 /* Categories.h */,
 				38F4CEAA1B79FD2A00A8F464 /* Categories.m */,
 				38FB87721B7CD3F900F4C5B3 /* Either_Internal.h */,
@@ -143,14 +148,14 @@
 				38F55EE51B85DAA0004A444E /* Match.m */,
 				38A2B6F71B78EAF60004AF4A /* Optional.h */,
 				38A2B6F81B78EAF60004AF4A /* Optional.m */,
+				387DD3C81D1826C3009C571D /* Pair.h */,
+				387DD3C91D1826C3009C571D /* Pair.m */,
 				38EF90261B6220A70081B564 /* Queue.h */,
 				38EF90271B6220A70081B564 /* Queue.m */,
-				38EA103B1B5E1DAD004EE76E /* Tools.h */,
-				38EA10661B5E25FF004EE76E /* Tools.m */,
-				381371F91BC258AB007C443C /* Blocks.h */,
-				381371FA1BC258AB007C443C /* Blocks.m */,
 				3802065B1BD0D40800BA1ED9 /* SignalObservation.h */,
 				3802065C1BD0D40800BA1ED9 /* SignalObservation.m */,
+				38EA103B1B5E1DAD004EE76E /* Tools.h */,
+				38EA10661B5E25FF004EE76E /* Tools.m */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -265,6 +270,7 @@
 				38F55EE61B85DAA0004A444E /* Match.m in Sources */,
 				38EF90281B6220A70081B564 /* Queue.m in Sources */,
 				38A2B6F61B78E7FF0004AF4A /* Either.m in Sources */,
+				387DD3CA1D1826C3009C571D /* Pair.m in Sources */,
 				381371FB1BC258AB007C443C /* Blocks.m in Sources */,
 				3802065D1BD0D40800BA1ED9 /* SignalObservation.m in Sources */,
 				38F4CEAB1B79FD2A00A8F464 /* Categories.m in Sources */,
