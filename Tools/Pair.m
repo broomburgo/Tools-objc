@@ -2,25 +2,26 @@
 
 @interface Pair ()
 
-@property (copy, nonatomic) id<NSCopying, NSCoding> object1;
-@property (copy, nonatomic) id<NSCopying, NSCoding> object2;
+@property (copy, nonatomic) id<NSObject,NSCopying,NSCoding> object1;
+@property (copy, nonatomic) id<NSObject,NSCopying,NSCoding> object2;
 
 @end
 
 @implementation Pair
 
-+ (instancetype)withObject1:(id<NSCopying, NSCoding>)object1
-					object2:(id<NSCopying, NSCoding>)object2 {
++ (instancetype):(id<NSObject,NSCopying,NSCoding>)object1 :(id<NSObject,NSCopying,NSCoding>)object2 {
 	Pair* pair = [[self class] new];
 	pair.object1 = object1;
 	pair.object2 = object2;
 	return pair;
 }
 
+- (BOOL)isEqual:(Pair*)other {
+	return [self.object1 isEqual:other.object1] && [self.object2 isEqual:other.object2];
+}
+
 - (id)copyWithZone:(NSZone *)zone {
-	return [[self class]
-			withObject1:self.object1
-			object2:self.object2];
+	return [[self class] :self.object1 :self.object2];
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {

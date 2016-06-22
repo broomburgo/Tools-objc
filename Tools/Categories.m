@@ -375,6 +375,42 @@
   return [NSArray arrayWithArray:m_array];
 }
 
+- (NSArray<id<NSObject,NSCopying,NSCoding>> *)objects1FromPairs {
+	return [self mapNullable:^id(id currentObject) {
+		GuardNil([currentObject isKindOfClass:[Pair class]])
+		Pair* currentPair = (Pair*)currentObject;
+		return currentPair.object1;
+	}];
+}
+
+- (NSArray<id<NSObject,NSCopying,NSCoding>> *)objects2FromPairs {
+	return [self mapNullable:^id(id currentObject) {
+		GuardNil([currentObject isKindOfClass:[Pair class]])
+		Pair* currentPair = (Pair*)currentObject;
+		return currentPair.object2;
+	}];
+}
+
+- (NSDictionary<id<NSObject,NSCopying,NSCoding>,id<NSObject,NSCopying,NSCoding>> *)toDictionary {
+	return [self mapToDictionary:^NSDictionary*(id currentObject) {
+		Guard([currentObject isKindOfClass:[Pair class]], {
+			return @{};
+		})
+		Pair* currentPair = (Pair*)currentObject;
+		return @{currentPair.object1 : currentPair.object2};
+	}];
+}
+
+- (id<NSObject,NSCopying,NSCoding>)object2InPairWithObject1:(id<NSObject,NSCopying,NSCoding>)object1 {
+	return [[self
+			 find:^BOOL(id currentObject) {
+				 GuardFalse([currentObject isKindOfClass:[Pair class]])
+				 Pair* currentPair = (Pair*)currentObject;
+				 return [object1 isEqual:currentPair.object1];
+			 }]
+			object2];
+}
+
 @end
 
 @implementation NSDictionary (Tools)

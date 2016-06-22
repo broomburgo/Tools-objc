@@ -14,6 +14,7 @@
 #define GuardVoid(condition) if ((condition) == NO) { return; }
 #define GuardNil(condition) if ((condition) == NO) { return nil; }
 #define GuardSelf(condition) if ((condition) == NO) { return self; }
+#define GuardFalse(condition) if ((condition) == NO) { return false; }
 #define GuardBreak(condition) if ((condition) == NO) { break; }
 
 NS_ASSUME_NONNULL_BEGIN

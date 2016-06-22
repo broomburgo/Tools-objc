@@ -44,6 +44,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSArray*)select:(NSUInteger)numberOfElements;
 - (NSArray*)selectBut:(NSUInteger)numberOfElementsToExclude;
 
+- (NSArray<id<NSObject,NSCopying,NSCoding>>*)objects1FromPairs;
+- (NSArray<id<NSObject,NSCopying,NSCoding>>*)objects2FromPairs;
+- (NSDictionary<id<NSObject,NSCopying,NSCoding>,id<NSObject,NSCopying,NSCoding>>*)toDictionary;
+- (id<NSObject,NSCopying,NSCoding> _Nullable)object2InPairWithObject1:(id<NSObject,NSCopying,NSCoding>)object1;
+
 @end
 
 @interface NSDictionary (Tools)
