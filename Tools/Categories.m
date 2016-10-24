@@ -468,7 +468,9 @@
 
 - (NSArray*)mapToArray:(id(^)(id key, id object))mapBlock sortedWith:(NSComparisonResult(^)(id object1, id object2))comparator
 {
-  GuardNil(self.count >= 1 && mapBlock != nil)
+	Guard(self.count >= 1 && mapBlock != nil, {
+		return @[];
+	})
   NSMutableArray* m_reduced = [self
                                reduceWithStartingElement:[NSMutableArray array]
                                reduceBlock:^NSMutableArray*(NSMutableArray* m_accumulator, id key, id object) {

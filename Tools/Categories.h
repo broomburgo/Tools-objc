@@ -68,7 +68,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)key:(id<NSCopying> _Nullable)key optional:(id _Nullable)optional;
 - (instancetype)optionalDict:(NSDictionary* _Nullable)optionalDict;
 
-- (id)objectForKey:(id)key
+- (id _Nullable)objectForKey:(id)key
                 as:(Class)requiredClass;
 
 @end
@@ -88,8 +88,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObject (Tools)
 
-@property (readonly) id maybe;
-- (instancetype)maybe;
+@property (readonly, nullable) id maybe;
+- (instancetype _Nullable)maybe;
 
 - (instancetype)setup:(void(^)(id value))setupBlock;
 
