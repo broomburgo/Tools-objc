@@ -34,6 +34,9 @@ typedef Future* _Nonnull(^FlatMapBlock)(id value);
 - (Future*)map:(id (^)(id value))mapBlock;
 - (Future*)flatMap:(Future* (^)(id value))flatMapBlock;
 
+- (void)succeedWith:(id)value;
+- (void)failWith:(id)error;
+
 @end
 
 NS_ASSUME_NONNULL_END

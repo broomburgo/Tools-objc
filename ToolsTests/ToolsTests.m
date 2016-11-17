@@ -2,8 +2,6 @@
 #import <XCTest/XCTest.h>
 
 #import "Tools.h"
-#import "Either_Internal.h"
-#import "Future_Internal.h"
 
 @interface CategoriesSomething : NSObject
 

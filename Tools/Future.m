@@ -1,5 +1,4 @@
 #import "Future.h"
-#import "Future_Internal.h"
 #import "Queue.h"
 #import "Tools.h"
 
