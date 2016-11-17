@@ -490,7 +490,7 @@
 
 - (NSDictionary*)mergeWith:(NSDictionary *)otherDictionary
 {
-  GuardSelf(otherDictionary >= 0)
+  GuardSelf(otherDictionary.count >= 0)
   
   return [[self
            map:^NSDictionary *(id key, id object) {
